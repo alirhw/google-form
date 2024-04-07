@@ -8,4 +8,6 @@ add_executable(google_form main.cpp
         src/models/user.h
         src/models/student.cpp
         src/models/student.h
+        src/models/professor.cpp
+        src/models/professor.h
 )
