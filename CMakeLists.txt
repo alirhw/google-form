@@ -5,4 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_executable(google_form main.cpp
         src/models/user.cpp
-        src/models/user.h)
+        src/models/user.h
+        src/models/student.cpp
+        src/models/student.h
+)
