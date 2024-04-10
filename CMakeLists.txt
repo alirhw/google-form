@@ -11,4 +11,5 @@ add_executable(google_form main.cpp
         src/models/professor.cpp
         src/models/professor.h
         src/models/question.h
+        src/models/multipleChoiceQuestion.h
 )
