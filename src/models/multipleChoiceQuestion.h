@@ -10,8 +10,11 @@
 
 class MultipleChoiceQuestion : public Question {
 public:
+	MultipleChoiceQuestion::MultipleChoiceQuestion(std::string _options[4], sstd::string _correctAnswer)
     std::string options[4];
     std::string correctAnswer;
+    
+     void saveToFile(const std::string &filename) const;
 };
 
 #endif//GOOGLE_FORM_MULTIPLECHOICEQUESTION_H
