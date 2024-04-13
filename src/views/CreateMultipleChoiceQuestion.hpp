@@ -5,7 +5,7 @@
 #include <iostream>
 
 
-void displayCreateMultipleChoiceQuestion( std::string &options[4], std::string &correctAnswer) {
+void displayCreateMultipleChoiceQuestion(std::string options[4], std::string &correctAnswer) {
     std::cout << "Please enter options1" << std::endl;
       getline(std::cin, options[0]);
       

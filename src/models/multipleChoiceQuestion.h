@@ -10,7 +10,7 @@
 
 class MultipleChoiceQuestion : public Question {
 public:
-	MultipleChoiceQuestion::MultipleChoiceQuestion(std::string _options[4], sstd::string _correctAnswer)
+	MultipleChoiceQuestion(std::string _options[4], std::string _correctAnswer);
     std::string options[4];
     std::string correctAnswer;
     

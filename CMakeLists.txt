@@ -18,4 +18,6 @@ add_executable(google_form main.cpp
         src/views/login.hpp
         src/controllers/user.hpp
         src/views/professorDashboard.hpp
+        src/models/MultipleChoiceQuestion.cpp
+        src/models/exam.cpp
 )
