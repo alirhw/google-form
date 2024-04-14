@@ -61,6 +61,7 @@ public:
 
     static void createStudentGroup(std::string &name) {
         std::cout << "Please enter name:" << std::endl;
-        getline(std::cin, name);
+        std::cin >> name;
+        std::cout << "Creating Student Group:" <<  name << std::endl;
     }
 };

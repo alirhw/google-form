@@ -12,8 +12,8 @@ int main() {
     if (Authenticator::authenticate(username, password)) {
         int choice;
 
-        Display::menu(username);
         while (true) {
+            Display::menu(username);
             cin >> choice;
 
             switch (choice) {
