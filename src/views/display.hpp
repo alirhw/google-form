@@ -58,4 +58,9 @@ public:
         std::cout << "Please enter totalScore" << std::endl;
         std::cin >> totalScore;
     }
+
+    static void createStudentGroup(std::string &name) {
+        std::cout << "Please enter name :" << std::endl;
+        getline(std::cin, name);
+    }
 };
