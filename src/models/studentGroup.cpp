@@ -8,9 +8,8 @@
 #include <utility>
 
 
-StudentGroup::StudentGroup(std::string name, int count) {
+StudentGroup::StudentGroup(std::string name) {
     this->name = std::move(name);
-    this->count = count;
 }
 
 void StudentGroup::appendStudent(const Student &student) {
@@ -28,10 +27,9 @@ void StudentGroup::saveToFile(const std::string &filename) const {
 
     // Write studentGroup data to csv file
     outFile << name << ","; // StudentGroup Name
-    outFile << count << ",";// StudentGroup Count
     outFile << "[";
-    for (int i = 0; i < count; ++i) {
-        outFile << students[i].username << "-";
+    for (const auto & student : students) {
+        outFile << student.username << "-";
     }
     outFile << "]"
             << "\n";

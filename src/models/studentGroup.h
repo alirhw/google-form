@@ -11,9 +11,8 @@
 
 class StudentGroup {
 public:
-    StudentGroup(std::string name, int count);
+    StudentGroup(std::string name);
     std::string name;
-    int count;
     std::vector<Student> students;
     void appendStudent(const Student &student);
     void saveToFile(const std::string &filename) const;
