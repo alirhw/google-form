@@ -5,7 +5,7 @@ class Display {
 public:
     static void login(std::string &username, std::string &password) {
         std::cout << "Welcome to the Google Form!" << std::endl;
-        std::cout << "Please enter your credentials :" << std::endl;
+        std::cout << "Please enter your credentials:" << std::endl;
 
         // Get username
         std::cout << "Enter your username:";
@@ -26,7 +26,7 @@ public:
         std::cout << "6. Add Student To Groups" << std::endl;
         std::cout << "7. Exam To Be Correct" << std::endl;
         std::cout << "0. Exit" << std::endl;
-        std::cout << "Choose an option: ";
+        std::cout << "Choose an option:";
     }
 
     static void createMultipleChoiceQuestion(std::string options[4], std::string &correctAnswer) {
@@ -60,7 +60,7 @@ public:
     }
 
     static void createStudentGroup(std::string &name) {
-        std::cout << "Please enter name :" << std::endl;
+        std::cout << "Please enter name:" << std::endl;
         getline(std::cin, name);
     }
 };

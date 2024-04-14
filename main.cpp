@@ -6,20 +6,19 @@
 using namespace std;
 
 int main() {
-    string username, password;
+    string username, password, studentGroupName;
     Display::login(username, password);
     if (Authenticator::authenticate(username, password)) {
         int choice;
 
+        Display::menu(username);
         while (true) {
-            Display::menu(username);
             cin >> choice;
 
             switch (choice) {
                 case 0:
                     std::cout << "0. Exit" << std::endl;
                     exit(0);
-                    break;
                 case 1:
                     std::cout << "1. Create New Exam" << std::endl;
                     break;
@@ -30,7 +29,7 @@ int main() {
                     std::cout << "3. Create New Question" << std::endl;
                     break;
                 case 4:
-                    std::cout << "4. Create Student Group" << std::endl;
+                    Display::createStudentGroup(studentGroupName);
                     break;
                 case 5:
                     std::cout << "5. View Student Groups" << std::endl;
