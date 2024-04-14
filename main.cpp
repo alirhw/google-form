@@ -1,3 +1,4 @@
+#include "src/controllers/professor.hpp"
 #include "src/controllers/user.hpp"
 #include "src/views/display.hpp"
 #include <iostream>
@@ -30,6 +31,7 @@ int main() {
                     break;
                 case 4:
                     Display::createStudentGroup(studentGroupName);
+                    Manager::createStudentGroup(studentGroupName);
                     break;
                 case 5:
                     std::cout << "5. View Student Groups" << std::endl;
