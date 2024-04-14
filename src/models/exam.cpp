@@ -18,7 +18,7 @@ Exam::Exam(int _examId, std::string _examName, std::string _examDate, std::strin
 }
 
 void Exam::saveToFile(const std::string& filename) const {
-    std::ofstream outFile(filename);
+    std::ofstream outFile(filename, std::ios::app);
 
     // Check if file opened successfully
     if (!outFile.is_open()) {

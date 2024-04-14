@@ -18,7 +18,7 @@ MultipleChoiceQuestion::MultipleChoiceQuestion(std::string options[4], std::stri
 }
 
 void MultipleChoiceQuestion::saveToFile(const std::string &filename) const {
-    std::ofstream outFile(filename);
+    std::ofstream outFile(filename, std::ios::app);
 
     // Check if file opened successfully
     if (!outFile.is_open()) {
