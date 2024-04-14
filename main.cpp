@@ -1,6 +1,5 @@
 #include "src/controllers/user.hpp"
-#include "src/views/login.hpp"
-#include "src/views/professorDashboard.hpp"
+#include "src/views/display.hpp"
 #include <iostream>
 #include <string>
 
@@ -8,12 +7,12 @@ using namespace std;
 
 int main() {
     string username, password;
-    displayLogin(username, password);
+    Display::login(username, password);
     if (Authenticator::authenticate(username, password)) {
         int choice;
 
         while (true) {
-            displayMenu(username);
+            Display::menu(username);
             cin >> choice;
 
             switch (choice) {
