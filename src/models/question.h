@@ -7,8 +7,8 @@
 
 #include <string>
 
-enum type { Descriptive,
-            MultipleChoice };
+enum type { Descriptive=0,
+            MultipleChoice=1 };
 
 class Question {
 public:
