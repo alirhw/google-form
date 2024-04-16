@@ -9,13 +9,18 @@
 #include <utility>
 
 
-MultipleChoiceQuestion::MultipleChoiceQuestion(std::string options[4], std::string _correctAnswer) {
+MultipleChoiceQuestion::MultipleChoiceQuestion(enum type type, std::string prompt, std::string description, int time, double score, std::string options[4], std::string correctAnswer) : Question(type, prompt, description, time, score) {
     options[0] = std::move(options[0]);
     options[1] = std::move(options[1]);
     options[2] = std::move(options[2]);
     options[3] = std::move(options[3]);
-    correctAnswer = std::move(_correctAnswer);
+    this->options[0] = std::move(options[0]);
+    this->options[1] = std::move(options[1]);
+    this->options[2] = std::move(options[2]);
+    this->options[3] = std::move(options[3]);
+    this->correctAnswer = std::move(correctAnswer);
 }
+
 
 void MultipleChoiceQuestion::saveToFile(const std::string &filename) const {
     std::ofstream outFile(filename, std::ios::app);
