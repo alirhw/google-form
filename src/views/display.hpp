@@ -51,9 +51,10 @@ public:
         std::cin >> examId;
         std::cout << "Please enter examName" << std::endl;
         getline(std::cin, examName);
-        std::cout << "Please enter examDate" << std::endl;
+        std::cout << "Please enter examDate " << std::endl;
+        std::cout << "something like 1403/02/16 " << std::endl;
         getline(std::cin, examDate);
-        std::cout << "Please enter examTime" << std::endl;
+        std::cout << "Please enter examTime in minutes" << std::endl;
         getline(std::cin, examTime);
         std::cout << "Please enter totalScore" << std::endl;
         std::cin >> totalScore;
