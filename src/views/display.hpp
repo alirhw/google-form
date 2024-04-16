@@ -63,19 +63,19 @@ public:
     static void createStudentGroup(std::string &name) {
         std::cout << "Please enter name:" << std::endl;
         std::cin >> name;
-        std::cout << "Creating Student Group:" <<  name << std::endl;
+        std::cout << "Creating Student Group:" << name << std::endl;
     }
-    static void CreateQuestion(int &time, std::string &prompt, std::string &description,double &score,type &type) {
-	
-	std::cout << "Please enter type   Descriptive=0   MultipleChoice=1" << std::endl;
-	std::cin>>type;///////????????
-    std::cout << "Please enter prompt" << std::endl;
-    getline(std::cin, prompt);
-    std::cout << "Please enter description" << std::endl;
-    getline(std::cin, description);
-    std::cout << "Please enter  time" << std::endl;
-    std::cin >>time;
-    std::cout << "Please enter  score" << std::endl;
-    std::cin >>score;
-}
+    static void CreateQuestion(int &time, std::string &prompt, std::string &description, double &score, type &type) {
+
+        std::cout << "Please enter type   Descriptive=0   MultipleChoice=1" << std::endl;
+        std::cin >> reinterpret_cast<bool &>(type);
+        std::cout << "Please enter prompt" << std::endl;
+        getline(std::cin, prompt);
+        std::cout << "Please enter description" << std::endl;
+        getline(std::cin, description);
+        std::cout << "Please enter  time" << std::endl;
+        std::cin >> time;
+        std::cout << "Please enter  score" << std::endl;
+        std::cin >> score;
+    }
 };
