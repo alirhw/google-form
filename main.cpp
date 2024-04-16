@@ -9,7 +9,7 @@ using namespace std;
 int main() {
     string username, password, studentGroupName;
     int examId;
-	string examName,examDate, examTime
+	string examName,examDate, examTime;
 	double totalScore;
 
     Display::login(username, password);
