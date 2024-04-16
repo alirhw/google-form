@@ -9,16 +9,16 @@
 #include <utility>
 
 
-Question::Question(type _type , std::string _prompt,std::string _description,int _time,  double _score) {
-	
-	type =_type;
-    prompt= std::move(_prompt);
-    description=std::move(_description);
-    time=_time;
-    score=_score;
+Question::Question(enum type type, std::string prompt, std::string description, int time, double score) {
+
+    type = type;
+    prompt = std::move(prompt);
+    description = std::move(description);
+    time = time;
+    score = score;
 }
 
-void Question::saveToFile(const std::string& filename) const {
+void Question::saveToFile(const std::string &filename) const {
     std::ofstream outFile(filename);
 
     // Check if file opened successfully
@@ -28,13 +28,12 @@ void Question::saveToFile(const std::string& filename) const {
     }
 
     // Write exam data to csv file
-    outFile << type << ","; 
-    outFile << prompt << ","; 
+    outFile << type << ",";
+    outFile << prompt << ",";
     outFile << description << ",";
-    outFile << time << ","; 
-    outFile << score << "," << std::endl; 
+    outFile << time << ",";
+    outFile << score << "," << std::endl;
 
     // Close the file
     outFile.close();
 }
-

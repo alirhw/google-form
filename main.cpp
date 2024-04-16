@@ -9,8 +9,8 @@ using namespace std;
 int main() {
     string username, password, studentGroupName;
     int examId;
-	string examName,examDate, examTime;
-	double totalScore;
+    string examName, examDate, examTime;
+    double totalScore;
 
     Display::login(username, password);
     if (Authenticator::authenticate(username, password)) {
@@ -25,8 +25,8 @@ int main() {
                     std::cout << "0. Exit" << std::endl;
                     exit(0);
                 case 1:
-                    Display::createExam(examId, examName,examDate, examTime, totalScore);
-                    Manager::createExam(examId, examName,examDate, examTime, totalScore);
+                    Display::createExam(examId, examName, examDate, examTime, totalScore);
+                    Manager::createExam(examId, examName, examDate, examTime, totalScore);
                     break;
                 case 2:
                     std::cout << "2. View Exam History" << std::endl;

@@ -21,4 +21,5 @@ add_executable(google_form main.cpp
         src/views/display.hpp
         src/models/studentGroup.cpp
         src/controllers/professor.hpp
+        src/models/question.cpp
 )
