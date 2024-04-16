@@ -15,7 +15,10 @@ add_executable(google_form main.cpp
         src/models/descriptiveQuestion.h
         src/models/exam.h
         src/models/studentGroup.h
-        src/views/login.hpp
         src/controllers/user.hpp
-        src/views/professorDashboard.hpp
+        src/models/MultipleChoiceQuestion.cpp
+        src/models/exam.cpp
+        src/views/display.hpp
+        src/models/studentGroup.cpp
+        src/controllers/professor.hpp
 )

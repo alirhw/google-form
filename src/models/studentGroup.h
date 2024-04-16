@@ -7,12 +7,15 @@
 
 #include "student.h"
 #include <string>
+#include <vector>
 
 class StudentGroup {
 public:
+    StudentGroup(std::string name);
     std::string name;
-    int count;
-    Student *students[100];// Assuming a maximum of 100 students
+    std::vector<Student> students;
+    void appendStudent(const Student &student);
+    void saveToFile(const std::string &filename) const;
 };
 
 #endif//GOOGLE_FORM_STUDENTGROUP_H
