@@ -10,7 +10,7 @@
 
 class MultipleChoiceQuestion : public Question {
 public:
-    MultipleChoiceQuestion(enum type type, std::string prompt, std::string description, int time, double score, std::string options[4], std::string _correctAnswer) : Question(type, prompt, description, time, score);
+    MultipleChoiceQuestion(enum type type, std::string prompt, std::string description, int time, double score, std::string options[4], std::string correctAnswer) : Question(type, prompt, description, time, score);
     std::string options[4];
     std::string correctAnswer;
 
