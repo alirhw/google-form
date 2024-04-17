@@ -46,3 +46,14 @@ void MultipleChoiceQuestion::saveToFile(const std::string &filename) const {
     // Close the file
     outFile.close();
 }
+bool  MultipleChoiceQuestion:: AutoCorrector(std::string Answer ) {
+	
+	if(Answer==correctAnswer){
+		return true;
+	}
+	else
+	{
+		return false;	
+	}
+	
+}
