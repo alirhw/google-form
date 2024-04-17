@@ -23,4 +23,8 @@ public:
 		MultipleChoiceQuestion multipleChoiceQuestion(options[4], correctAnswer);
 		multipleChoiceQuestion.saveToFile("data/multipleChoiceQuestion.csv");
 	}
+	static void createDescriptiveQuestion(std::string answer) {
+		DescriptiveQuestion descriptiveQuestion( answer);
+		descriptiveQuestion.saveToFile("data/descriptiveQuestion.csv");
+	}
 };
