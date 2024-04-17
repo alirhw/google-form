@@ -11,15 +11,15 @@ int main() {
     int examId;
     string examName, examDate, examTime;
     double totalScore;
-    
+
     int time;
-	string prompt,description;
-	double score;
-	type type;
-	
-	string options[4],correctAnswer;
-	string answer;
-    
+    string prompt, description;
+    double score;
+    type type;
+
+    string *options[4], correctAnswer;
+    string answer;
+
     Display::login(username, password);
     if (Authenticator::authenticate(username, password)) {
         int choice;
@@ -40,16 +40,14 @@ int main() {
                     std::cout << "2. View Exam History" << std::endl;
                     break;
                 case 3:
-                    Display::CreateQuestion(time, prompt, description, score,type);
-                    Manager::CreateQuestion(time, prompt, description, score,type);
-                    if(type==0) {
-                    	Manager::createDescriptiveQuestion(answer);
-					}
-					else
-					{
-						Display::createMultipleChoiceQuestion(options[4],correctAnswer);
-						Manager::createMultipleChoiceQuestion(options[4],correctAnswer);
-					}
+                    Display::CreateQuestion(time, prompt, description, score, type);
+                    Manager::CreateQuestion(time, prompt, description, score, type);
+                    if (type == 0) {
+                        Manager::createDescriptiveQuestion(answer);
+                    } else {
+                        Display::createMultipleChoiceQuestion(options[4], correctAnswer);
+                        Manager::createMultipleChoiceQuestion(options[4], correctAnswer);
+                    }
                     break;
                 case 4:
                     Display::createStudentGroup(studentGroupName);
