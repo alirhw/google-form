@@ -62,9 +62,10 @@ public:
 
     static void createStudentGroup(std::string &name) {
         std::cout << "Please enter name:" << std::endl;
-        std::cin >> name;
+        std::getline(std::cin, name);
         std::cout << "Creating Student Group:" << name << std::endl;
     }
+
     static void CreateQuestion(int &time, std::string &prompt, std::string &description, double &score, type &type) {
 
         std::cout << "Please enter type   Descriptive=0   MultipleChoice=1" << std::endl;
@@ -77,5 +78,17 @@ public:
         std::cin >> time;
         std::cout << "Please enter  score" << std::endl;
         std::cin >> score;
+    }
+
+    static void addToStudentGroup(std::string &name, std::vector<std::string> usernames) {
+        int count;
+        std::cout << "Please enter the group name:" << std::endl;
+        std::getline(std::cin, name);
+        std::cout << "Please enter the student count:" << std::endl;
+        std::cin >> count;
+        std::cout << "Please enter the students username (seperated by space):" << std::endl;
+        for (int i = 0; i < count; ++i) {
+            std::cin >> usernames[i];
+        }
     }
 };

@@ -3,6 +3,7 @@
 #include "src/views/display.hpp"
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -19,6 +20,9 @@ int main() {
 
     string *options[4], correctAnswer;
     string answer;
+
+    vector<string> usernames{};
+    string groupNameToAdd;
 
     Display::login(username, password);
     if (Authenticator::authenticate(username, password)) {
@@ -53,7 +57,8 @@ int main() {
                     Manager::createStudentGroup(studentGroupName);
                     break;
                 case 5:
-                    std::cout << "5. View Student Groups" << std::endl;
+                    Display::addToStudentGroup(groupNameToAdd, usernames);
+                    Manager::addStudentToGroup(groupNameToAdd, usernames);
                     break;
                 case 6:
                     std::cout << "6. Add Student To Groups" << std::endl;

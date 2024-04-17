@@ -7,6 +7,7 @@
 #include "../models/descriptiveQuestion.h"
 #include "../models/exam.h"
 #include "../models/multipleChoiceQuestion.h"
+#include "../models/student.h"
 #include "../models/studentGroup.h"
 
 class Manager {
@@ -26,5 +27,13 @@ public:
     static void createDescriptiveQuestion(int time, std::string prompt, std::string description, double score, type type, std::string answer) {
         DescriptiveQuestion descriptiveQuestion(type, std::move(prompt), std::move(description), time, score, std::move(answer));
         descriptiveQuestion.saveToFile("data/descriptiveQuestion.csv");
+    }
+    static void addStudentToGroup(const std::string &name, const std::vector<std::string> &usernames) {
+        for (const std::string &username: usernames) {
+            Student student = Student::findByUsername("data/credentials.csv", username);
+            StudentGroup studentGroup(name);
+            studentGroup.appendStudent(student);
+            studentGroup.saveToFile("data/studentGroups.csv");
+        }
     }
 };
