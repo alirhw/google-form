@@ -18,6 +18,7 @@ int main() {
 	type type;
 	
 	string options[4],correctAnswer;
+	string answer;
     
     Display::login(username, password);
     if (Authenticator::authenticate(username, password)) {
@@ -42,11 +43,12 @@ int main() {
                     Display::CreateQuestion(time, prompt, description, score,type);
                     Manager::CreateQuestion(time, prompt, description, score,type);
                     if(type==0) {
-                    	
+                    	Manager::createDescriptiveQuestion(answer);
 					}
 					else
 					{
-						Display::createExam(options[4],correctAnswer);
+						Display::createMultipleChoiceQuestion(options[4],correctAnswer);
+						Manager::createMultipleChoiceQuestion(options[4],correctAnswer);
 					}
                     break;
                 case 4:
