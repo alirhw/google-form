@@ -18,7 +18,9 @@ public:
     static void CreateQuestion(int time, std::string prompt, std::string description, double score, type type) {
      	Question question( time, sprompt, description, score, type);
      	question.saveToFile("data/question.csv");
-     	
 	 }
-	
+	static void createMultipleChoiceQuestion(std::string options[4], std::string correctAnswer) {
+		MultipleChoiceQuestion multipleChoiceQuestion(options[4], correctAnswer);
+		multipleChoiceQuestion.saveToFile("data/multipleChoiceQuestion.csv");
+	}
 };
