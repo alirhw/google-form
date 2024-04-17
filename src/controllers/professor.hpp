@@ -15,4 +15,10 @@ public:
         Exam exam(examId, examName, examDate, examTime, totalScore);
         exam.saveToFile("data/exam.csv");
     }
+    static void CreateQuestion(int time, std::string prompt, std::string description, double score, type type) {
+     	Question question( time, sprompt, description, score, type);
+     	question.saveToFile("data/question.csv");
+     	
+	 }
+	
 };
