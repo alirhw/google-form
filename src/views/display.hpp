@@ -73,7 +73,7 @@ public:
         getline(std::cin, prompt);
         std::cout << "Please enter description" << std::endl;
         getline(std::cin, description);
-        std::cout << "Please enter  time" << std::endl;
+        std::cout << "Please enter  time in seconds " << std::endl;
         std::cin >> time;
         std::cout << "Please enter  score" << std::endl;
         std::cin >> score;
