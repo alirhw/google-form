@@ -41,12 +41,11 @@ int main() {
                     break;
                 case 3:
                     Display::CreateQuestion(time, prompt, description, score, type);
-                    Manager::CreateQuestion(time, prompt, description, score, type);
                     if (type == 0) {
-                        Manager::createDescriptiveQuestion(answer);
+                        Manager::createDescriptiveQuestion(time, prompt, description, score, type, answer);
                     } else {
                         Display::createMultipleChoiceQuestion(options[4], correctAnswer);
-                        Manager::createMultipleChoiceQuestion(options[4], correctAnswer);
+                        Manager::createMultipleChoiceQuestion(time, prompt, description, score, type, options[4], correctAnswer);
                     }
                     break;
                 case 4:

@@ -32,6 +32,11 @@ void MultipleChoiceQuestion::saveToFile(const std::string &filename) const {
     }
 
     // Write MultipleChoiceQuestion data to csv file
+    outFile << type << ",";
+    outFile << prompt << ",";
+    outFile << description << ",";
+    outFile << time << ",";
+    outFile << score << ",";
     outFile << options[0] << ",";
     outFile << options[1] << ",";
     outFile << options[2] << ",";

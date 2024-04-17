@@ -6,8 +6,8 @@
 #include <utility>
 
 
-DescriptiveQuestion::DescriptiveQuestion(enum type type, std::string prompt, std::string description, int time, double score,std::string answer) : Question(type, prompt, description, time, score)  {
-	answer = std::move(answer);
+DescriptiveQuestion::DescriptiveQuestion(enum type type, std::string prompt, std::string description, int time, double score, std::string answer) : Question(type, prompt, description, time, score) {
+    this->answer = std::move(answer);
 }
 
 
@@ -21,6 +21,11 @@ void DescriptiveQuestion::saveToFile(const std::string &filename) const {
     }
 
     // Write DescriptiveQuestion data to csv file
+    outFile << type << ",";
+    outFile << prompt << ",";
+    outFile << description << ",";
+    outFile << time << ",";
+    outFile << score << ",";
     outFile << answer << "," << std::endl;
 
     // Close the file
