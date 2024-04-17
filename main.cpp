@@ -57,11 +57,11 @@ int main() {
                     Manager::createStudentGroup(studentGroupName);
                     break;
                 case 5:
-                    Display::addToStudentGroup(groupNameToAdd, usernames);
-                    Manager::addStudentToGroup(groupNameToAdd, usernames);
+                    std::cout << "5. View Student Groups" << std::endl;
                     break;
                 case 6:
-                    std::cout << "6. Add Student To Groups" << std::endl;
+                    Display::addToStudentGroup(groupNameToAdd, usernames);
+                    Manager::addStudentToGroup(groupNameToAdd, usernames);
                     break;
                 case 7:
                     std::cout << "7. Exam To Be Correct" << std::endl;
