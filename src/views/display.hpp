@@ -66,10 +66,12 @@ public:
         std::cout << "Creating Student Group:" << name << std::endl;
     }
 
-    static void CreateQuestion(int &time, std::string &prompt, std::string &description, double &score, type &type) {
+    static void CreateQuestion(type &type,std::string &questionID,std::string &prompt, std::string &description,int &time ,double &score) {
 
         std::cout << "Please enter type   Descriptive=0   MultipleChoice=1" << std::endl;
         std::cin >> reinterpret_cast<bool &>(type);
+        std::cout << "Please enter questionID" << std::endl;
+        getline(std::cin, questionID);
         std::cout << "Please enter prompt" << std::endl;
         getline(std::cin, prompt);
         std::cout << "Please enter description" << std::endl;
