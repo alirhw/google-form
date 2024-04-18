@@ -5,6 +5,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <utility>
 #include <vector>
@@ -66,4 +67,38 @@ void StudentGroup::saveToFile(const std::string &filename) const {
     }
 
     outFile.close();
+}
+
+std::vector<StudentGroup> StudentGroup::getAll(const std::string &filename) {
+    std::ifstream inFile(filename, std::ios::app);
+    // Check if file opened successfully
+    if (!inFile.is_open()) {
+        std::cerr << "Error opening file!" << std::endl;
+    }
+
+    std::vector<StudentGroup> studentGroups;
+    std::string line;
+    while (std::getline(inFile, line)) {
+        std::vector<std::string> fields;
+        std::string token;
+        std::stringstream ss(line);
+        while (getline(ss, token, ',')) {
+            fields.push_back(token);
+        }
+        for (int i = 0; i < fields.size(); ++i) {
+            std::string Usernames(fields.at(1));
+            Usernames.erase(0, Usernames.find_first_not_of('['));
+            Usernames.erase(Usernames.find_last_not_of(']') + 1);
+            StudentGroup group(fields.at(0));
+            std::string username;
+            std::stringstream usernameStream(Usernames);
+            while (getline(usernameStream, username, '-')) {
+                Student student = Student::findByUsername("data/credentials.csv", username);
+                group.appendStudent(student);
+            }
+            studentGroups.push_back(group);
+        }
+    }
+    inFile.close();
+    return studentGroups;
 }
