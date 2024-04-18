@@ -26,6 +26,8 @@ int main() {
 
     vector<Exam> exams;
 
+    vector<StudentGroup> studentGroups;
+
     Display::login(username, password);
     if (Authenticator::authenticate(username, password)) {
         int choice;
@@ -60,7 +62,8 @@ int main() {
                     Manager::createStudentGroup(studentGroupName);
                     break;
                 case 5:
-                    std::cout << "5. View Student Groups" << std::endl;
+                    Manager::getAllStudentGroups(studentGroups);
+                    Display::studentGroupHistory(studentGroups);
                     break;
                 case 6:
                     Display::addToStudentGroup(groupNameToAdd, usernames);

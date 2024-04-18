@@ -67,7 +67,7 @@ public:
         std::cout << "Creating Student Group:" << name << std::endl;
     }
 
-    static void CreateQuestion(type &type,std::string &questionID,std::string &prompt, std::string &description,int &time ,double &score) {
+    static void CreateQuestion(type &type, std::string &questionID, std::string &prompt, std::string &description, int &time, double &score) {
 
         std::cout << "Please enter type   Descriptive=0   MultipleChoice=1" << std::endl;
         std::cin >> reinterpret_cast<bool &>(type);
@@ -112,6 +112,24 @@ public:
         printHorizontalLine((columnWidth + 1) * 5);
         for (auto &&exam: exams) {
             printTableRow(std::to_string(exam.examId), exam.examName, exam.examDate, exam.examTime, std::to_string(exam.totalScore), columnWidth);
+        }
+        printHorizontalLine((columnWidth + 1) * 5);
+    }
+
+    static void studentGroupHistory(const std::vector<StudentGroup> &studentGroups) {
+        int studentGroupId;
+        std::cout << "Please enter choose of the groups to see the detail" << std::endl;
+        for (int i = 0; i < studentGroups.size(); ++i) {
+            std::cout << i << ". "
+                      << studentGroups.at(i).name << std::endl;
+        }
+        std::cin >> studentGroupId;
+        const int columnWidth = 20;
+        printHorizontalLine((columnWidth + 1) * 5);
+        std::cout << "| " << std::setw(columnWidth / 2) << "Student Username" << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << "Student Fullname" << std::setw(columnWidth / 2) << " | " << std::endl;
+        printHorizontalLine((columnWidth + 1) * 5);
+        for (const auto & student : studentGroups.at(studentGroupId).students) {
+            std::cout << "| " << std::setw(columnWidth / 2) << student.username << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << student.fullname << std::setw(columnWidth / 2) << " | " << std::endl;
         }
         printHorizontalLine((columnWidth + 1) * 5);
     }

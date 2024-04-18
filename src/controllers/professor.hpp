@@ -20,12 +20,12 @@ public:
         Exam exam(examId, std::move(examName), std::move(examDate), std::move(examTime), totalScore);
         exam.saveToFile("data/exam.csv");
     }
-    static void createMultipleChoiceQuestion(int time,std::string questionID,std::string prompt, std::string description, double score, type type, std::string options[4], std::string correctAnswer) {
-        MultipleChoiceQuestion multipleChoiceQuestion(type,std::move(questionID),std::move(prompt), std::move(description), time, score, options, std::move(correctAnswer));
+    static void createMultipleChoiceQuestion(int time, std::string questionID, std::string prompt, std::string description, double score, type type, std::string options[4], std::string correctAnswer) {
+        MultipleChoiceQuestion multipleChoiceQuestion(type, std::move(questionID), std::move(prompt), std::move(description), time, score, options, std::move(correctAnswer));
         multipleChoiceQuestion.saveToFile("data/multipleChoiceQuestion.csv");
     }
-    static void createDescriptiveQuestion(int time,std::string questionID,std::string prompt, std::string description, double score, type type, std::string answer) {
-        DescriptiveQuestion descriptiveQuestion(type,std::move(questionID),std::move(prompt), std::move(description), time, score, std::move(answer));
+    static void createDescriptiveQuestion(int time, std::string questionID, std::string prompt, std::string description, double score, type type, std::string answer) {
+        DescriptiveQuestion descriptiveQuestion(type, std::move(questionID), std::move(prompt), std::move(description), time, score, std::move(answer));
         descriptiveQuestion.saveToFile("data/descriptiveQuestion.csv");
     }
     static void addStudentToGroup(const std::string &name, const std::vector<std::string> &usernames) {
@@ -38,5 +38,8 @@ public:
     }
     static void getAllExams(std::vector<Exam> &exams) {
         exams = Exam::getAll("data/exam.csv");
+    }
+    static void getAllStudentGroups(std::vector<StudentGroup> &studentGroups) {
+        studentGroups = StudentGroup::getAll("data/studentGroups.csv");
     }
 };
