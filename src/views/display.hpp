@@ -26,6 +26,7 @@ public:
         std::cout << "5. View Student Groups" << std::endl;
         std::cout << "6. Add Student To Groups" << std::endl;
         std::cout << "7. Exam To Be Correct" << std::endl;
+        std::cout << "8. Add Student Group To Exam" << std::endl;
         std::cout << "0. Exit" << std::endl;
         std::cout << "Choose an option:";
     }
@@ -67,12 +68,14 @@ public:
         std::cout << "Creating Student Group:" << name << std::endl;
     }
 
-    static void CreateQuestion(type &type, std::string &questionID, std::string &prompt, std::string &description, int &time, double &score) {
+    static void CreateQuestion(type &type, std::string &questionID, int &examId, std::string &prompt, std::string &description, int &time, double &score) {
 
         std::cout << "Please enter type   Descriptive=0   MultipleChoice=1" << std::endl;
         std::cin >> reinterpret_cast<bool &>(type);
         std::cout << "Please enter questionID" << std::endl;
         getline(std::cin, questionID);
+        std::cout << "Please enter exam id to want to add the question to" << std::endl;
+        std::cin >> examId;
         std::cout << "Please enter prompt" << std::endl;
         getline(std::cin, prompt);
         std::cout << "Please enter description" << std::endl;
@@ -128,9 +131,16 @@ public:
         printHorizontalLine((columnWidth + 1) * 5);
         std::cout << "| " << std::setw(columnWidth / 2) << "Student Username" << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << "Student Fullname" << std::setw(columnWidth / 2) << " | " << std::endl;
         printHorizontalLine((columnWidth + 1) * 5);
-        for (const auto & student : studentGroups.at(studentGroupId).students) {
+        for (const auto &student: studentGroups.at(studentGroupId).students) {
             std::cout << "| " << std::setw(columnWidth / 2) << student.username << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << student.fullname << std::setw(columnWidth / 2) << " | " << std::endl;
         }
         printHorizontalLine((columnWidth + 1) * 5);
+    }
+
+    static void addStudentGroupToExam(int &examId, std::string &studentGroupName) {
+        std::cout << "Please enter examId" << std::endl;
+        std::cin >> examId;
+        std::cout << "Please enter student group name" << std::endl;
+        getline(std::cin, studentGroupName);
     }
 };

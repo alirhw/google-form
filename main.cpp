@@ -13,7 +13,7 @@ int main() {
     string examName, examDate, examTime;
     double totalScore;
 
-    int time;
+    int time, examIdToAddQuestion;
     string prompt, description, questionID;
     double score;
     type type;
@@ -27,6 +27,9 @@ int main() {
     vector<Exam> exams;
 
     vector<StudentGroup> studentGroups;
+
+    int examIdToAdd;
+    string groupName;
 
     Display::login(username, password);
     if (Authenticator::authenticate(username, password)) {
@@ -49,12 +52,12 @@ int main() {
                     Display::examHistory(exams);
                     break;
                 case 3:
-                    Display::CreateQuestion(type, questionID, prompt, description, time, score);
+                    Display::CreateQuestion(type, questionID, examIdToAddQuestion, prompt, description, time, score);
                     if (type == 0) {
-                        Manager::createDescriptiveQuestion(time, questionID, prompt, description, score, type, answer);
+                        Manager::createDescriptiveQuestion(time, questionID, examIdToAddQuestion, prompt, description, score, type, answer);
                     } else {
                         Display::createMultipleChoiceQuestion(options[4], correctAnswer);
-                        Manager::createMultipleChoiceQuestion(time, questionID, prompt, description, score, type, options[4], correctAnswer);
+                        Manager::createMultipleChoiceQuestion(time, questionID, examIdToAddQuestion, prompt, description, score, type, options[4], correctAnswer);
                     }
                     break;
                 case 4:
@@ -71,6 +74,10 @@ int main() {
                     break;
                 case 7:
                     std::cout << "7. Exam To Be Correct" << std::endl;
+                    break;
+                case 8:
+                    Display::addStudentGroupToExam(examIdToAdd, groupName);
+                    Manager::addStudentGroupToExam(examIdToAdd, groupName);
                     break;
                 default:
                     cout << "Invalid choice. Please choose again." << endl;
