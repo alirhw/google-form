@@ -6,7 +6,7 @@
 #include <utility>
 
 
-DescriptiveQuestion::DescriptiveQuestion(enum type type,std::string questionID ,std::string prompt, std::string description, int time, double score, std::string answer) : Question(type, prompt, description, time, score) {
+DescriptiveQuestion::DescriptiveQuestion(enum type type,std::string questionID ,std::string prompt, std::string description, int time, double score, std::string answer) : Question(type,questionID, prompt, description, time, score) {
     this->answer = std::move(answer);
 }
 

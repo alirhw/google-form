@@ -14,7 +14,7 @@ int main() {
     double totalScore;
 
     int time;
-    string prompt, description;
+    string prompt, description, questionID;
     double score;
     type type;
 
@@ -47,12 +47,12 @@ int main() {
                     Display::examHistory(exams);
                     break;
                 case 3:
-                    Display::CreateQuestion(time, prompt, description, score, type);
+                    Display::CreateQuestion(type, questionID, prompt, description, time, score);
                     if (type == 0) {
-                        Manager::createDescriptiveQuestion(time, prompt, description, score, type, answer);
+                        Manager::createDescriptiveQuestion(time, questionID, prompt, description, score, type, answer);
                     } else {
                         Display::createMultipleChoiceQuestion(options[4], correctAnswer);
-                        Manager::createMultipleChoiceQuestion(time, prompt, description, score, type, options[4], correctAnswer);
+                        Manager::createMultipleChoiceQuestion(time, questionID, prompt, description, score, type, options[4], correctAnswer);
                     }
                     break;
                 case 4:

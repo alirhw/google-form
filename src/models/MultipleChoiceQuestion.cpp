@@ -9,7 +9,7 @@
 #include <utility>
 
 
-MultipleChoiceQuestion::MultipleChoiceQuestion(enum type type,std::string questionID ,std::string prompt, std::string description, int time, double score, std::string options[4], std::string correctAnswer) : Question(type, prompt, description, time, score) {
+MultipleChoiceQuestion::MultipleChoiceQuestion(enum type type, std::string questionID, std::string prompt, std::string description, int time, double score, std::string options[4], std::string correctAnswer) : Question(type, questionID, prompt, description, time, score) {
     options[0] = std::move(options[0]);
     options[1] = std::move(options[1]);
     options[2] = std::move(options[2]);
@@ -47,14 +47,11 @@ void MultipleChoiceQuestion::saveToFile(const std::string &filename) const {
     // Close the file
     outFile.close();
 }
-bool  MultipleChoiceQuestion:: AutoCorrector(std::string Answer ) {
-	
-	if(Answer==correctAnswer){
-		return true;
-	}
-	else
-	{
-		return false;	
-	}
-	
+bool MultipleChoiceQuestion::AutoCorrector(std::string Answer) {
+
+    if (Answer == correctAnswer) {
+        return true;
+    } else {
+        return false;
+    }
 }
