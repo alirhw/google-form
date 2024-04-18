@@ -19,6 +19,7 @@ public:
     std::string description;
     int time{};// seconds
     double score{};
+    static Question findByQuestionID(const std::string &filename,std::string questionID);
     virtual void saveToFile(const std::string &filename) const;
 };
 
