@@ -1,3 +1,4 @@
+#include <iomanip>
 #include <iostream>
 #include <string>
 
@@ -90,5 +91,26 @@ public:
         for (int i = 0; i < count; ++i) {
             std::cin >> usernames[i];
         }
+    }
+
+    static void printHorizontalLine(int width) {
+        for (int i = 0; i < width; ++i)
+            std::cout << "-";
+        std::cout << std::endl;
+    }
+
+    static void printTableRow(const std::string &col1, const std::string &col2, const std::string &col3, const std::string &col4, const std::string &col5, int width) {
+        std::cout << "| " << std::setw(width / 2) << col1 << std::setw(width / 2) << " | " << std::setw(width / 2) << col2 << std::setw(width / 2) << " | " << std::setw(width / 2) << col3 << std::setw(width / 2) << " |" << std::setw(width / 2) << col4 << std::setw(width / 2) << " |" << std::setw(width / 2) << col5 << std::setw(width / 2) << " |" << std::endl;
+    }
+
+    static void examHistory(const std::vector<Exam> &exams) {
+        const int columnWidth = 20;
+        printHorizontalLine((columnWidth + 1) * 5);
+        printTableRow("ID", "Name", "Date", "Time", "Score", columnWidth);
+        printHorizontalLine((columnWidth + 1) * 5);
+        for (auto &&exam: exams) {
+            printTableRow(std::to_string(exam.examId), exam.examName, exam.examDate, exam.examTime, std::to_string(exam.totalScore), columnWidth);
+        }
+        printHorizontalLine((columnWidth + 1) * 5);
     }
 };

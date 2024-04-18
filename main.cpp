@@ -24,6 +24,8 @@ int main() {
     vector<string> usernames{};
     string groupNameToAdd;
 
+    vector<Exam> exams;
+
     Display::login(username, password);
     if (Authenticator::authenticate(username, password)) {
         int choice;
@@ -41,7 +43,8 @@ int main() {
                     Manager::createExam(examId, examName, examDate, examTime, totalScore);
                     break;
                 case 2:
-                    std::cout << "2. View Exam History" << std::endl;
+                    Manager::getAllExams(exams);
+                    Display::examHistory(exams);
                     break;
                 case 3:
                     Display::CreateQuestion(time, prompt, description, score, type);
