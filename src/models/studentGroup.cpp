@@ -102,3 +102,37 @@ std::vector<StudentGroup> StudentGroup::getAll(const std::string &filename) {
     inFile.close();
     return studentGroups;
 }
+
+StudentGroup StudentGroup::findByGroupName(const std::string &filename, const std::string &groupNameToFind) {
+    std::ifstream inFile(filename, std::ios::app);
+    // Check if file opened successfully
+    if (!inFile.is_open()) {
+        std::cerr << "Error opening file!" << std::endl;
+    }
+
+    std::string line;
+    while (std::getline(inFile, line)) {
+        std::vector<std::string> fields;
+        std::string token;
+        std::stringstream ss(line);
+        while (getline(ss, token, ',')) {
+            fields.push_back(token);
+        }
+        for (int i = 0; i < fields.size(); ++i) {
+            if (fields.at(0) == groupNameToFind) {
+                std::string Usernames(fields.at(1));
+                Usernames.erase(0, Usernames.find_first_not_of('['));
+                Usernames.erase(Usernames.find_last_not_of(']') + 1);
+                StudentGroup group(fields.at(0));
+                std::string username;
+                std::stringstream usernameStream(Usernames);
+                while (getline(usernameStream, username, '-')) {
+                    Student student = Student::findByUsername("data/credentials.csv", username);
+                    group.appendStudent(student);
+                }
+                return group;
+            }
+        }
+    }
+    inFile.close();
+}
