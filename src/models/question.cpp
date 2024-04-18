@@ -6,12 +6,14 @@
 
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <utility>
+#include <vector>
 
 
-Question::Question(enum type type, std::string questionID,std::string prompt, std::string description, int time, double score) {
+Question::Question(enum type type, std::string questionID, std::string prompt, std::string description = "", int time = 0, double score = 0) {
     type = type;
-    questionID=std::move(questionID);
+    questionID = std::move(questionID);
     prompt = std::move(prompt);
     description = std::move(description);
     time = time;
@@ -34,8 +36,8 @@ Question Question::findByQuestionID(const std::string &filename, std::string que
             fields.push_back(token);
         }
         for (int i = 0; i < fields.size(); ++i) {
-            if (fields.at(0) == questionID ) {
-                Question found(fields.at(3), fields.at(0), fields.at(1));
+            if (fields.at(0) == questionID) {
+                Question found(static_cast<enum type>(reinterpret_cast<bool &>(fields.at(3))), fields.at(0), fields.at(1));
                 return found;
             }
         }

@@ -32,8 +32,8 @@ void Exam::saveToFile(const std::string &filename) const {
     while (std::getline(inFile, line)) {
         for (int i = 0; i < line.length(); ++i) {
             if (line[i] != ',' && line[i + 1] == ',') {
-                if (line.substr(i + 1) == this->examId) {
-                    line = examId + "," + "[";
+                if (line.substr(i + 1) == std::to_string(this->examId)) {
+                    line = std::to_string(examId) + "," + "[";
                     for (const auto &question: questions) {
                         line += question.questionID + "-";
                     }
@@ -58,11 +58,11 @@ void Exam::saveToFile(const std::string &filename) const {
         } else {
             outFile << examId << ",";
             outFile << "[";
-                            // Exam ID
-    		outFile << examName << ",";               // Exam Name
-    		outFile << examDate << ",";               // Exam Date
-    		outFile << examTime << ",";               // Exam Time
-      		outFile << totalScore << "," << std::endl;// Total Score
+            // Exam ID
+            outFile << examName << ",";               // Exam Name
+            outFile << examDate << ",";               // Exam Date
+            outFile << examTime << ",";               // Exam Time
+            outFile << totalScore << "," << std::endl;// Total Score
 
             for (const auto &question: questions) {
                 outFile << question.questionID << "-";
@@ -74,5 +74,3 @@ void Exam::saveToFile(const std::string &filename) const {
 
     outFile.close();
 }
-
-
