@@ -9,7 +9,7 @@
 #include <utility>
 
 
-MultipleChoiceQuestion::MultipleChoiceQuestion(enum type type, std::string prompt, std::string description, int time, double score, std::string options[4], std::string correctAnswer) : Question(type, prompt, description, time, score) {
+MultipleChoiceQuestion::MultipleChoiceQuestion(enum type type,std::string questionID ,std::string prompt, std::string description, int time, double score, std::string options[4], std::string correctAnswer) : Question(type, prompt, description, time, score) {
     options[0] = std::move(options[0]);
     options[1] = std::move(options[1]);
     options[2] = std::move(options[2]);
@@ -33,6 +33,7 @@ void MultipleChoiceQuestion::saveToFile(const std::string &filename) const {
 
     // Write MultipleChoiceQuestion data to csv file
     outFile << type << ",";
+    outFile << questionID << ",";
     outFile << prompt << ",";
     outFile << description << ",";
     outFile << time << ",";

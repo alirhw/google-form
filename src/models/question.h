@@ -12,8 +12,9 @@ enum type { Descriptive = 0,
 
 class Question {
 public:
-    Question(type _type, std::string _prompt, std::string _description, int _time, double _score);
+    Question(type _type,std::string questionID ,std::string _prompt, std::string _description, int _time, double _score);
     type type;
+    std::string questionID;
     std::string prompt;
     std::string description;
     int time{};// seconds
