@@ -8,19 +8,20 @@
 #include "question.h"
 #include <string>
 #include <utility>
+#include <vector>
 
 class Exam {
 public:
-	 Exam(int _examId, std::string _examName, std::string _examDate, std::string _examTime, double _totalScore);
+    Exam(int examId, std::string examName, std::string examDate, std::string examTime, double totalScore);
     int examId;
     std::string examName;
     std::string examDate;
     std::string examTime;
     double totalScore;
-    Question *questions[100]{};                      // Assuming a maximum of 100 questions
-    std::pair<std::string, int> studentScores[100];// Pair of student username and score
+    std::vector<Question> questions;
+    std::vector<std::pair<std::string, int>> studentScores;
     void saveToFile(const std::string &filename) const;
+    static std::vector<Exam> getAll(const std::string &filename);
 };
 
 #endif//GOOGLE_FORM_EXAM_H
-
