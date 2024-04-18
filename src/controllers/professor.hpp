@@ -36,4 +36,7 @@ public:
             studentGroup.saveToFile("data/studentGroups.csv");
         }
     }
+    static void getAllExams(std::vector<Exam> &exams) {
+        exams = Exam::getAll("data/exam.csv");
+    }
 };
