@@ -161,13 +161,13 @@ public:
         }
         std::cin >> studentGroupId;
         const int columnWidth = 20;
-        printHorizontalLine((columnWidth + 1) * 2);
-        std::cout << "| " << std::setw(columnWidth / 2) << "Student Username" << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << "Student Fullname" << std::setw(columnWidth / 2) << " | " << std::endl;
-        printHorizontalLine((columnWidth + 1) * 2);
+        printHorizontalLine((columnWidth) * 3);
+        std::cout << "| " << std::setw(columnWidth) << "Student Username" << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << "Student Fullname" << std::setw(columnWidth / 2) << " | " << std::endl;
+        printHorizontalLine((columnWidth ) * 3);
         for (const auto &student: studentGroups.at(studentGroupId).students) {
             std::cout << "| " << std::setw(columnWidth / 2) << student.username << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << student.fullname << std::setw(columnWidth / 2) << " | " << std::endl;
         }
-        printHorizontalLine((columnWidth + 1) * 2);
+        printHorizontalLine((columnWidth) * 3);
     }
 
     static void addStudentGroupToExam(int &examId, std::string &studentGroupName) {

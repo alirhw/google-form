@@ -95,19 +95,17 @@ std::vector<StudentGroup> StudentGroup::getAll(const std::string &filename) {
         while (getline(ss, token, ',')) {
             fields.push_back(token);
         }
-        for (int i = 0; i < fields.size(); ++i) {
-            std::string Usernames(fields.at(1));
-            Usernames.erase(0, Usernames.find_first_not_of('['));
-            Usernames.erase(Usernames.find_last_not_of(']') + 1);
-            StudentGroup group(fields.at(0));
-            std::string username;
-            std::stringstream usernameStream(Usernames);
-            while (getline(usernameStream, username, '-')) {
-                Student student = Student::findByUsername("data/credentials.csv", username);
-                group.appendStudent(student);
-            }
-            studentGroups.push_back(group);
+        std::string Usernames(fields.at(1));
+        Usernames.erase(0, Usernames.find_first_not_of('['));
+        Usernames.erase(Usernames.find_last_not_of(']') + 1);
+        StudentGroup group(fields.at(0));
+        std::string username;
+        std::stringstream usernameStream(Usernames);
+        while (getline(usernameStream, username, '-')) {
+            Student student = Student::findByUsername("data/credentials.csv", username);
+            group.appendStudent(student);
         }
+        studentGroups.push_back(group);
     }
     inFile.close();
     return studentGroups;
