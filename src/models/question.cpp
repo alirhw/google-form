@@ -6,18 +6,20 @@
 
 #include <fstream>
 #include <iostream>
+#include <map>
 #include <sstream>
 #include <utility>
 #include <vector>
 
 
-Question::Question(enum type type, std::string questionID, std::string prompt, std::string description = "", int time = 0, double score) {
-    type = type;
-    questionID = std::move(questionID);
-    prompt = std::move(prompt);
-    description = std::move(description);
-    time = time;
-    score = score std::make_pair(0,score);
+Question::Question(enum type type, std::string questionID, std::string prompt, std::string description = "", int time = 0, double score = 0) {
+    this->type = type;
+    this->questionID = std::move(questionID);
+    this->prompt = std::move(prompt);
+    this->description = std::move(description);
+    this->time = time;
+    this->score.first = 0;
+    this->score.second = score;
 }
 
 Question Question::findByQuestionID(const std::string &filename, std::string questionID) {
@@ -45,5 +47,20 @@ Question Question::findByQuestionID(const std::string &filename, std::string que
     inFile.close();
 }
 
+void Question::changeDescription(std::string comment) {
+    this->description = std::move(comment);
+}
+
 void Question::saveToFile(const std::string &filename) const {
+}
+
+std::string Question::enumToString(enum type value) {
+    switch(value) {
+        case type::Descriptive:
+            return "Descriptive";
+        case type::MultipleChoice:
+            return "MultipleChoice";
+        default:
+            throw std::invalid_argument("Invalid enum value");
+    }
 }

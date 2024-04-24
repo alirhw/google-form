@@ -27,42 +27,52 @@ void StudentGroup::saveToFile(const std::string &filename) const {
         return;
     }
 
-    std::vector<std::string> lines;
-    std::string line;
+    std::vector<std::string> lines{};
+    std::string line = "";
+    std::vector<std::string> updatedLines{};
+    std::string updatedLine = "";
+    bool found = false;
     while (std::getline(inFile, line)) {
-        for (int i = 0; i < line.length(); ++i) {
-            if (line[i] != ',' && line[i + 1] == ',') {
-                if (line.substr(i + 1) == this->name) {
-                    line = name + "," + "[";
-                    for (const auto &student: students) {
-                        line += student.username + "-";
-                    }
-                    line += "]\n";
-                }
-            }
+        if (line.empty()) continue;
+        std::vector<std::string> fields;
+        std::string token;
+        std::stringstream ss(line);
+        while (getline(ss, token, ',')) {
+            fields.push_back(token);
         }
-        lines.push_back(line);
+        if (fields.at(0) == this->name) {
+            found = true;
+            updatedLine = name + "," + "[";
+            for (const auto &student: students) {
+                updatedLine += student.username + "-";
+            }
+            updatedLine += "]";
+        } else {
+            updatedLine = line;
+        }
+        updatedLines.push_back(updatedLine);
     }
     inFile.close();
 
-    std::ofstream outFile(filename, std::ios::app);
+    std::ofstream outFile(filename, std::ios::trunc);
     // Check if file opened successfully
     if (!outFile.is_open()) {
         std::cerr << "Error opening file!" << std::endl;
         return;
     }
 
-    for (const std::string &l: lines) {
+    if (!found) {
+        updatedLine = name + "," + "[";
+        for (const auto &student: students) {
+            updatedLine += student.username + "-";
+        }
+        updatedLine += "]";
+        updatedLines.push_back(updatedLine);
+    }
+
+    for (const std::string &l: updatedLines) {
         if (!l.empty()) {
-            outFile << line << std::endl;
-        } else {
-            outFile << name << ",";
-            outFile << "[";
-            for (const auto &student: students) {
-                outFile << student.username << "-";
-            }
-            outFile << "]"
-                    << "\n";
+            outFile << l << std::endl;
         }
     }
 

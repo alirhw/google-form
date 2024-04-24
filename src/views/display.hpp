@@ -18,105 +18,81 @@ public:
     }
 
     static void menu(const std::string &username) {
-//        std::cout << "Professor Dashboard! Welcome, " << username << "!" << std::endl;
-//        std::cout << "1. Create New Exam" << std::endl;
-//        std::cout << "2. View Exam History" << std::endl;
-//        std::cout << "3. Create New Question" << std::endl;
-//        std::cout << "4. Create Student Group" << std::endl;
-//        std::cout << "5. View Student Groups" << std::endl;
-//        std::cout << "6. Add Student To Groups" << std::endl;
-//        std::cout << "7. Exam To Be Correct" << std::endl;
-//        std::cout << "8. Add Student Group To Exam" << std::endl;
-//        std::cout << "0. Exit" << std::endl;
-//        std::cout << "Choose an option:";
-		std::cout << "***************************************************"<< std::endl;
-		std::cout << "**  Professor Dashboard! Welcome, " << username << "!      **" << std::endl;
-        std::cout << "**  1. Create New Exam                           **" << std::endl;
-        std::cout << "**  2. View Exam History                         **" << std::endl;
-        std::cout << "**  3. Create New Question                       **" << std::endl;
-        std::cout << "**  4. Create Student Group                      **" << std::endl;
-        std::cout << "**  5. View Student Groups                       **" << std::endl;
-        std::cout << "**  6. Add Student To Groups                     **" << std::endl;
-        std::cout << "**  7. Exam To Be Correct                        **" << std::endl;
-        std::cout << "**  8. Add Student Group To Exam                 **" << std::endl;
-        std::cout << "**  0. Exit                                      **" << std::endl;
-        std::cout << "***************************************************"<< std::endl;
-	    std::cout << "Choose an option:";
+        std::cout << "Professor Dashboard! Welcome, " << username << "!" << std::endl;
+        std::cout << "1. Create New Exam" << std::endl;
+        std::cout << "2. View Exam History" << std::endl;
+        std::cout << "3. Create New Question" << std::endl;
+        std::cout << "4. Create Student Group" << std::endl;
+        std::cout << "5. View Student Groups" << std::endl;
+        std::cout << "6. Add Student To Groups" << std::endl;
+        std::cout << "7. Exam To Be Correct" << std::endl;
+        std::cout << "8. Add Student Group To Exam" << std::endl;
+        std::cout << "0. Exit" << std::endl;
+        std::cout << "Choose an option:";
     }
 
     static void createMultipleChoiceQuestion(std::string options[4], std::string &correctAnswer) {
-        std::cout << "Please Enter Options 1:" << std::endl;
+        std::cout << "Please enter options1" << std::endl;
         getline(std::cin, options[0]);
 
-        std::cout << "Please Enter Options 2:" << std::endl;
+        std::cout << "Please enter options2" << std::endl;
         getline(std::cin, options[1]);
 
-        std::cout << "Please Enter Options 3:" << std::endl;
+        std::cout << "Please enter options3" << std::endl;
         getline(std::cin, options[2]);
 
-        std::cout << "Please Enter Options 4:" << std::endl;
+        std::cout << "Please enter options4" << std::endl;
         getline(std::cin, options[3]);
 
-        std::cout << "Please Enter Correct Answer:" << std::endl;
+        std::cout << "Please enter correctAnswer" << std::endl;
         getline(std::cin, correctAnswer);
     }
 
     static void createExam(int &examId, std::string &examName, std::string &examDate, std::string &examTime, double &totalScore) {
-        std::cout << "Please Enter Exam ID:" << std::endl;
+        std::cout << "Please enter examId" << std::endl;
         std::cin >> examId;
-        
-        std::cout << "Please Enter Exam Name:" << std::endl;
+        std::cout << "Please enter examName" << std::endl;
         getline(std::cin, examName);
-        
-        std::cout << "Please Enter Exam Date (something like 1403/02/16):" << std::endl;
+        std::cout << "Please enter examDate " << std::endl;
+        std::cout << "something like 1403/02/16 " << std::endl;
         getline(std::cin, examDate);
-        
-        std::cout << "Please Enter Exam Time In Minutes:" << std::endl;
+        std::cout << "Please enter examTime in minutes" << std::endl;
         getline(std::cin, examTime);
-        
-        std::cout << "Please Enter Total Score:" << std::endl;
+        std::cout << "Please enter totalScore" << std::endl;
         std::cin >> totalScore;
     }
 
     static void createStudentGroup(std::string &name) {
-        std::cout << "Please Enter Name:" << std::endl;
+        std::cout << "Please enter name:" << std::endl;
         std::getline(std::cin, name);
         std::cout << "Creating Student Group:" << name << std::endl;
     }
 
     static void CreateQuestion(type &type, std::string &questionID, int &examId, std::string &prompt, std::string &description, int &time, double &score) {
 
-        std::cout << "Please Enter Type (Descriptive=0 || MultipleChoice=1):" << std::endl;
+        std::cout << "Please enter type   Descriptive=0   MultipleChoice=1" << std::endl;
         std::cin >> reinterpret_cast<bool &>(type);
-        
-        std::cout << "Please Enter Question ID:" << std::endl;
+        std::cout << "Please enter questionID" << std::endl;
         getline(std::cin, questionID);
-        
-        std::cout << "Please Enter Exam Id To Want To Add The Question To:" << std::endl;
+        std::cout << "Please enter exam id to want to add the question to" << std::endl;
         std::cin >> examId;
-        
-        std::cout << "Please Enter Prompt:" << std::endl;
+        std::cout << "Please enter prompt" << std::endl;
         getline(std::cin, prompt);
-        
-        std::cout << "Please Enter Description:" << std::endl;
+        std::cout << "Please enter description" << std::endl;
         getline(std::cin, description);
-        
-        std::cout << "Please Enter Time In Seconds:" << std::endl;
+        std::cout << "Please enter  time in seconds " << std::endl;
         std::cin >> time;
-        
-        std::cout << "Please Enter Score:" << std::endl;
+        std::cout << "Please enter  score" << std::endl;
         std::cin >> score;
     }
 
     static void addToStudentGroup(std::string &name, std::vector<std::string> usernames) {
         int count;
-        std::cout << "Please Enter The Group Name:" << std::endl;
+        std::cout << "Please enter the group name:" << std::endl;
         std::getline(std::cin, name);
-        
-        std::cout << "Please Enter The Student Count:" << std::endl;
+        std::cout << "Please enter the student count:" << std::endl;
         std::cin >> count;
-        
-        std::cout << "Please Enter The Students Username (seperated by space):" << std::endl;
+        std::cout << "Please enter the students username (seperated by space):" << std::endl;
         for (int i = 0; i < count; ++i) {
             std::cin >> usernames[i];
         }
@@ -145,7 +121,7 @@ public:
 
     static void studentGroupHistory(const std::vector<StudentGroup> &studentGroups) {
         int studentGroupId;
-        std::cout << "Please Enter Choose Of The Groups To See The Detail:" << std::endl;
+        std::cout << "Please enter choose of the groups to see the detail" << std::endl;
         for (int i = 0; i < studentGroups.size(); ++i) {
             std::cout << i << ". "
                       << studentGroups.at(i).name << std::endl;
@@ -162,10 +138,9 @@ public:
     }
 
     static void addStudentGroupToExam(int &examId, std::string &studentGroupName) {
-        std::cout << "Please Enter Exam ID:" << std::endl;
+        std::cout << "Please enter examId" << std::endl;
         std::cin >> examId;
-        
-        std::cout << "Please Enter Student Group Name:" << std::endl;
+        std::cout << "Please enter student group name" << std::endl;
         getline(std::cin, studentGroupName);
     }
 };

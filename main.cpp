@@ -9,27 +9,16 @@ using namespace std;
 
 int main() {
     string username, password, studentGroupName;
-    int examId;
     string examName, examDate, examTime;
-    double totalScore;
-
-    int time, examIdToAddQuestion;
     string prompt, description, questionID;
-    double score;
-    type type;
-
-    string *options[4], correctAnswer;
-    string answer;
-
+    string correctAnswer, groupNameToAdd, groupName;
+    int examId, time, examIdToAddQuestion, examIdToAdd;
+    double totalScore, score;
+    enum type type;
+    vector<string> options;
     vector<string> usernames{};
-    string groupNameToAdd;
-
     vector<Exam> exams;
-
     vector<StudentGroup> studentGroups;
-
-    int examIdToAdd;
-    string groupName;
 
     Display::login(username, password);
     if (Authenticator::authenticate(username, password)) {
@@ -53,11 +42,13 @@ int main() {
                     break;
                 case 3:
                     Display::CreateQuestion(type, questionID, examIdToAddQuestion, prompt, description, time, score);
-                    if (type == 0) {
-                        Manager::createDescriptiveQuestion(time, questionID, examIdToAddQuestion, prompt, description, score, type, answer);
+                    if (type == type::Descriptive) {
+                        Manager::createDescriptiveQuestion(time, "D:" + questionID, examIdToAddQuestion, prompt, description, score, type);
+                    } else if (type == type::MultipleChoice) {
+                        Display::createMultipleChoiceQuestion(options, correctAnswer);
+                        Manager::createMultipleChoiceQuestion(time, "M:" + questionID, examIdToAddQuestion, prompt, description, score, type, options, correctAnswer);
                     } else {
-                        Display::createMultipleChoiceQuestion(options[4], correctAnswer);
-                        Manager::createMultipleChoiceQuestion(time, questionID, examIdToAddQuestion, prompt, description, score, type, options[4], correctAnswer);
+                        cout << "Wrong Question Type!" << endl;
                     }
                     break;
                 case 4:
@@ -73,7 +64,8 @@ int main() {
                     Manager::addStudentToGroup(groupNameToAdd, usernames);
                     break;
                 case 7:
-                    std::cout << "7. Exam To Be Correct" << std::endl;
+                    Manager::getAllExamToBeCorrect(exams);
+                    Display::examToBeCorrect(exams);
                     break;
                 case 8:
                     Display::addStudentGroupToExam(examIdToAdd, groupName);

@@ -20,15 +20,15 @@ public:
         Exam exam(examId, std::move(examName), std::move(examDate), std::move(examTime), totalScore);
         exam.saveToFile("data/exam.csv");
     }
-    static void createMultipleChoiceQuestion(int time, std::string questionID, const int &examId, std::string prompt, std::string description, double score, type type, std::string options[4], std::string correctAnswer) {
+    static void createMultipleChoiceQuestion(int time, std::string questionID, const int &examId, std::string prompt, std::string description, double score, type type, std::vector<std::string> options, std::string correctAnswer) {
         MultipleChoiceQuestion multipleChoiceQuestion(type, std::move(questionID), std::move(prompt), std::move(description), time, score, options, std::move(correctAnswer));
         multipleChoiceQuestion.saveToFile("data/multipleChoiceQuestion.csv");
         Exam exam = Exam::findByExamId("data/exam.csv", examId);
         exam.questions.push_back(multipleChoiceQuestion);
         exam.saveToFile("data/exam.csv");
     }
-    static void createDescriptiveQuestion(int time, std::string questionID, const int &examId, std::string prompt, std::string description, double score, type type, std::string answer) {
-        DescriptiveQuestion descriptiveQuestion(type, std::move(questionID), std::move(prompt), std::move(description), time, score, std::move(answer));
+    static void createDescriptiveQuestion(int time, std::string questionID, const int &examId, std::string prompt, std::string description, double score, enum type type) {
+        DescriptiveQuestion descriptiveQuestion(type, std::move(questionID), std::move(prompt), std::move(description), time, score);
         descriptiveQuestion.saveToFile("data/descriptiveQuestion.csv");
         Exam exam = Exam::findByExamId("data/exam.csv", examId);
         exam.questions.push_back(descriptiveQuestion);
@@ -55,5 +55,8 @@ public:
             exam.studentScores.emplace_back(student.username, 0);
         }
         exam.saveToFile("data/exam.csv");
+    }
+    static void getAllExamToBeCorrect(std::vector<Exam> &examsToBeCorrect) {
+        examsToBeCorrect = Exam::findByCorrected("data/exam.csv");
     }
 };
