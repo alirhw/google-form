@@ -49,16 +49,19 @@ public:
     }
 
     static void createExam(int &examId, std::string &examName, std::string &examDate, std::string &examTime, double &totalScore) {
-        std::cout << "Please nter examId" << std::endl;
+        std::cout << "Please Enter Exam Id:" << std::endl;
         std::cin >> examId;
-        std::cout << "Please Enter examName" << std::endl;
+        
+        std::cout << "Please Enter Exam Name:" << std::endl;
         getline(std::cin, examName);
-        std::cout << "Please Enter examDate " << std::endl;
-        std::cout << "something like 1403/02/16 " << std::endl;
+        
+        std::cout << "Please Enter Exam Date  (something like 1403/02/16):" << std::endl;
         getline(std::cin, examDate);
-        std::cout << "Please Enter examTime in minutes" << std::endl;
+        
+        std::cout << "Please Enter Exam Time In Minutes:" << std::endl;
         getline(std::cin, examTime);
-        std::cout << "Please Enter totalScore" << std::endl;
+        
+        std::cout << "Please Enter Total Score:" << std::endl;
         std::cin >> totalScore;
     }
 
