@@ -9,26 +9,16 @@ using namespace std;
 
 int main() {
     string username, password, studentGroupName;
-    int examId;
     string examName, examDate, examTime;
-    double totalScore;
-
-    int time, examIdToAddQuestion;
     string prompt, description, questionID;
-    double score;
+    string correctAnswer, groupNameToAdd, groupName;
+    int examId, time, examIdToAddQuestion, examIdToAdd;
+    double totalScore, score;
     type type;
-
-    string *options[4], correctAnswer;
-
+    vector<string> options;
     vector<string> usernames{};
-    string groupNameToAdd;
-
     vector<Exam> exams;
-
     vector<StudentGroup> studentGroups;
-
-    int examIdToAdd;
-    string groupName;
 
     Display::login(username, password);
     if (Authenticator::authenticate(username, password)) {
@@ -55,8 +45,8 @@ int main() {
                     if (type == 0) {
                         Manager::createDescriptiveQuestion(time, "D:" + questionID, examIdToAddQuestion, prompt, description, score, type);
                     } else {
-                        Display::createMultipleChoiceQuestion(options[4], correctAnswer);
-                        Manager::createMultipleChoiceQuestion(time, "M:" + questionID, examIdToAddQuestion, prompt, description, score, type, options[4], correctAnswer);
+                        Display::createMultipleChoiceQuestion(options, correctAnswer);
+                        Manager::createMultipleChoiceQuestion(time, "M:" + questionID, examIdToAddQuestion, prompt, description, score, type, options, correctAnswer);
                     }
                     break;
                 case 4:

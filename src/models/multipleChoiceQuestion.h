@@ -7,11 +7,12 @@
 
 #include "question.h"
 #include <string>
+#include <vector>
 
 class MultipleChoiceQuestion : public Question {
 public:
-    MultipleChoiceQuestion(enum type type, std::string questionID, std::string prompt, std::string description, int time, double score, std::string options[4], std::string correctAnswer);
-    std::string options[4];
+    MultipleChoiceQuestion(enum type type, std::string questionID, std::string prompt, std::string description, int time, double score, std::vector<std::string> options, std::string correctAnswer);
+    std::vector<std::string> options;
     std::string correctAnswer;
 
     bool autoCorrector(std::string answer);
