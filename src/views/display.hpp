@@ -31,7 +31,7 @@ public:
         std::cout << "Choose an option:";
     }
 
-    static void createMultipleChoiceQuestion(std::string options[4], std::string &correctAnswer) {
+    static void createMultipleChoiceQuestion(std::vector<std::string> options, std::string &correctAnswer) {
         std::cout << "Please enter options1" << std::endl;
         getline(std::cin, options[0]);
 
@@ -52,6 +52,7 @@ public:
         std::cout << "Please enter examId" << std::endl;
         std::cin >> examId;
         std::cout << "Please enter examName" << std::endl;
+        std::cin.ignore();
         getline(std::cin, examName);
         std::cout << "Please enter examDate " << std::endl;
         std::cout << "something like 1403/02/16 " << std::endl;
@@ -64,8 +65,8 @@ public:
 
     static void createStudentGroup(std::string &name) {
         std::cout << "Please enter name:" << std::endl;
+        std::cin.ignore();
         std::getline(std::cin, name);
-        std::cout << "Creating Student Group:" << name << std::endl;
     }
 
     static void CreateQuestion(type &type, std::string &questionID, int &examId, std::string &prompt, std::string &description, int &time, double &score) {

@@ -13,9 +13,9 @@
 
 Exam::Exam(int examId, std::string examName, std::string examDate, std::string examTime, double totalScore) {
     this->examId = examId;
-    examName = std::move(examName);
-    examDate = std::move(examDate);
-    examTime = std::move(examTime);
+    this->examName = std::move(examName);
+    this->examDate = std::move(examDate);
+    this->examTime = std::move(examTime);
     this->totalScore = totalScore;
 }
 
@@ -27,58 +27,65 @@ void Exam::saveToFile(const std::string &filename) const {
         return;
     }
 
-    std::vector<std::string> lines;
-    std::string line;
+    std::vector<std::string> lines{};
+    std::string line = "";
+    std::vector<std::string> updatedLines{};
+    std::string updatedLine = "";
+    bool found = false;
     while (std::getline(inFile, line)) {
-        for (int i = 0; i < line.length(); ++i) {
-            if (line[i] != ',' && line[i + 1] == ',') {
-                if (line.substr(i + 1) == std::to_string(this->examId)) {
-                    line = std::to_string(examId) + "," + examName + "," + examDate + "," + examTime + "," + std::to_string(totalScore) + "," + std::to_string(corrected) + ",";
-                    line += "[";
-                    for (const auto &question: questions) {
-                        line += question.questionID + "-";
-                    }
-                    line += "],";
-                    line += "[";
-                    for (const auto &student: studentScores) {
-                        line += "(" + student.first + "," + std::to_string(student.second) + ")" + "-";
-                    }
-                    line += "]\n";
-                }
-            }
+        if (line.empty()) continue;
+        std::vector<std::string> fields;
+        std::string token;
+        std::stringstream ss(line);
+        while (getline(ss, token, ',')) {
+            fields.push_back(token);
         }
-        lines.push_back(line);
+        if (fields.at(0) == std::to_string(this->examId)) {
+            found = true;
+            updatedLine = std::to_string(this->examId) + "," + this->examName + "," + this->examDate + "," + this->examTime + "," + std::to_string(this->totalScore) + "," + std::to_string(this->corrected) + ",";
+            updatedLine += "[";
+            for (const auto &question: this->questions) {
+                updatedLine += question.questionID + "-";
+            }
+            updatedLine += "],";
+            updatedLine += "[";
+            for (const auto &student: this->studentScores) {
+                updatedLine += "(" + student.first + "," + std::to_string(student.second) + ")" + "-";
+            }
+            updatedLine += "]";
+        } else {
+            updatedLine = line;
+        }
+        updatedLines.push_back(updatedLine);
     }
     inFile.close();
 
-    std::ofstream outFile(filename, std::ios::app);
+    std::ofstream outFile(filename, std::ios::trunc);
     // Check if file opened successfully
     if (!outFile.is_open()) {
         std::cerr << "Error opening file!" << std::endl;
         return;
     }
 
-    for (const std::string &l: lines) {
+    if (!found) {
+        updatedLine = std::to_string(this->examId) + "," + this->examName + "," + this->examDate + "," + this->examTime + "," + std::to_string(this->totalScore) + "," + std::to_string(this->corrected) + ",";
+        updatedLine += "[";
+        for (const auto &question: this->questions) {
+            updatedLine += question.questionID + "-";
+        }
+        updatedLine += "],";
+        updatedLine += "[";
+        for (const auto &student: this->studentScores) {
+            updatedLine += "(" + student.first + "," + std::to_string(student.second) + ")" + "-";
+        }
+        updatedLine += "]";
+        std::cout << updatedLine;
+        updatedLines.push_back(updatedLine);
+    }
+
+    for (const std::string &l: updatedLines) {
         if (!l.empty()) {
-            outFile << line << std::endl;
-        } else {
-            outFile << examId << ",";
-            outFile << examName << ",";
-            outFile << examDate << ",";
-            outFile << examTime << ",";
-            outFile << totalScore << ",";
-            outFile << corrected << ",";
-            outFile << "[";
-            for (const auto &question: questions) {
-                outFile << question.questionID << "-";
-            }
-            outFile << "],";
-            outFile << "[";
-            for (const auto &student: studentScores) {
-                outFile << "(" << student.first << "," << std::to_string(student.second) << ")"
-                        << "-";
-            }
-            outFile << "]\n";
+            outFile << l << std::endl;
         }
     }
 
