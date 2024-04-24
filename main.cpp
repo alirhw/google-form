@@ -54,10 +54,10 @@ int main() {
                 case 3:
                     Display::CreateQuestion(type, questionID, examIdToAddQuestion, prompt, description, time, score);
                     if (type == 0) {
-                        Manager::createDescriptiveQuestion(time, questionID, examIdToAddQuestion, prompt, description, score, type, answer);
+                        Manager::createDescriptiveQuestion(time, "D:" + questionID, examIdToAddQuestion, prompt, description, score, type, answer);
                     } else {
                         Display::createMultipleChoiceQuestion(options[4], correctAnswer);
-                        Manager::createMultipleChoiceQuestion(time, questionID, examIdToAddQuestion, prompt, description, score, type, options[4], correctAnswer);
+                        Manager::createMultipleChoiceQuestion(time, "M:" + questionID, examIdToAddQuestion, prompt, description, score, type, options[4], correctAnswer);
                     }
                     break;
                 case 4:
