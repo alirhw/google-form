@@ -18,8 +18,9 @@ public:
     std::string prompt;
     std::string description;
     int time{};// seconds
-    double score{};
+    std::vector<std::pair<double, double>> score;
     std::string answer;
+    
     static Question findByQuestionID(const std::string &filename, std::string questionID);
     virtual void saveToFile(const std::string &filename) const;
 };
