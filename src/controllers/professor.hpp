@@ -27,8 +27,8 @@ public:
         exam.questions.push_back(multipleChoiceQuestion);
         exam.saveToFile("data/exam.csv");
     }
-    static void createDescriptiveQuestion(int time, std::string questionID, const int &examId, std::string prompt, std::string description, double score, type type, std::string answer) {
-        DescriptiveQuestion descriptiveQuestion(type, std::move(questionID), std::move(prompt), std::move(description), time, score, std::move(answer));
+    static void createDescriptiveQuestion(int time, std::string questionID, const int &examId, std::string prompt, std::string description, double score, type type) {
+        DescriptiveQuestion descriptiveQuestion(type, std::move(questionID), std::move(prompt), std::move(description), time, score);
         descriptiveQuestion.saveToFile("data/descriptiveQuestion.csv");
         Exam exam = Exam::findByExamId("data/exam.csv", examId);
         exam.questions.push_back(descriptiveQuestion);

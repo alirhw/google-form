@@ -19,7 +19,6 @@ int main() {
     type type;
 
     string *options[4], correctAnswer;
-    string answer;
 
     vector<string> usernames{};
     string groupNameToAdd;
@@ -54,7 +53,7 @@ int main() {
                 case 3:
                     Display::CreateQuestion(type, questionID, examIdToAddQuestion, prompt, description, time, score);
                     if (type == 0) {
-                        Manager::createDescriptiveQuestion(time, "D:" + questionID, examIdToAddQuestion, prompt, description, score, type, answer);
+                        Manager::createDescriptiveQuestion(time, "D:" + questionID, examIdToAddQuestion, prompt, description, score, type);
                     } else {
                         Display::createMultipleChoiceQuestion(options[4], correctAnswer);
                         Manager::createMultipleChoiceQuestion(time, "M:" + questionID, examIdToAddQuestion, prompt, description, score, type, options[4], correctAnswer);
