@@ -46,6 +46,10 @@ void StudentGroup::saveToFile(const std::string &filename) const {
             for (const auto &student: students) {
                 updatedLine += student.username + "-";
             }
+            std::string studentsUsername(fields.at(1));
+            studentsUsername.erase(0, studentsUsername.find_first_not_of('['));
+            studentsUsername.erase(studentsUsername.find_last_not_of(']') + 1);
+            updatedLine += studentsUsername;
             updatedLine += "]";
         } else {
             updatedLine = line;
@@ -126,20 +130,18 @@ StudentGroup StudentGroup::findByGroupName(const std::string &filename, const st
         while (getline(ss, token, ',')) {
             fields.push_back(token);
         }
-        for (int i = 0; i < fields.size(); ++i) {
-            if (fields.at(0) == groupNameToFind) {
-                std::string Usernames(fields.at(1));
-                Usernames.erase(0, Usernames.find_first_not_of('['));
-                Usernames.erase(Usernames.find_last_not_of(']') + 1);
-                StudentGroup group(fields.at(0));
-                std::string username;
-                std::stringstream usernameStream(Usernames);
-                while (getline(usernameStream, username, '-')) {
-                    Student student = Student::findByUsername("data/credentials.csv", username);
-                    group.appendStudent(student);
-                }
-                return group;
+        if (fields.at(0) == groupNameToFind) {
+            std::string Usernames(fields.at(1));
+            Usernames.erase(0, Usernames.find_first_not_of('['));
+            Usernames.erase(Usernames.find_last_not_of(']') + 1);
+            StudentGroup group(fields.at(0));
+            std::string username;
+            std::stringstream usernameStream(Usernames);
+            while (getline(usernameStream, username, '-')) {
+                Student student = Student::findByUsername("data/credentials.csv", username);
+                group.appendStudent(student);
             }
+            return group;
         }
     }
     inFile.close();

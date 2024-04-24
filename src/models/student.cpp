@@ -27,11 +27,9 @@ Student Student::findByUsername(const std::string &filename, std::string usernam
         while (getline(ss, token, ',')) {
             fields.push_back(token);
         }
-        for (int i = 0; i < fields.size(); ++i) {
-            if (fields.at(0) == username && fields.at(2) == "student") {
-                Student found(fields.at(3), fields.at(0), fields.at(1));
-                return found;
-            }
+        if (fields.at(0) == username && fields.at(2) == "student") {
+            Student found(fields.at(3), fields.at(0), fields.at(1));
+            return found;
         }
     }
     inFile.close();

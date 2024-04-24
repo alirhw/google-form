@@ -35,7 +35,7 @@ public:
     }
 
     static void createMultipleChoiceQuestion(std::vector<std::string> &options, std::string &correctAnswer) {
-        std::string choice1,choice2,choice3,choice4;
+        std::string choice1, choice2, choice3, choice4;
         std::cout << "Please Enter Options 1:" << std::endl;
         std::cin.ignore();
         getline(std::cin, choice1);
@@ -119,6 +119,7 @@ public:
     static void addToStudentGroup(std::string &name, std::vector<std::string> usernames) {
         int count;
         std::cout << "Please enter the group name:" << std::endl;
+        std::cin.ignore();
         std::getline(std::cin, name);
         std::cout << "Please enter the student count:" << std::endl;
         std::cin >> count;
@@ -163,7 +164,7 @@ public:
         const int columnWidth = 20;
         printHorizontalLine((columnWidth) * 3);
         std::cout << "| " << std::setw(columnWidth) << "Student Username" << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << "Student Fullname" << std::setw(columnWidth / 2) << " | " << std::endl;
-        printHorizontalLine((columnWidth ) * 3);
+        printHorizontalLine((columnWidth) * 3);
         for (const auto &student: studentGroups.at(studentGroupId).students) {
             std::cout << "| " << std::setw(columnWidth / 2) << student.username << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << student.fullname << std::setw(columnWidth / 2) << " | " << std::endl;
         }
