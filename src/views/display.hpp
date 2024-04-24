@@ -49,13 +49,13 @@ public:
     }
 
     static void createExam(int &examId, std::string &examName, std::string &examDate, std::string &examTime, double &totalScore) {
-        std::cout << "Please Enter Exam Id:" << std::endl;
+        std::cout << "Please Enter Exam ID:" << std::endl;
         std::cin >> examId;
         
         std::cout << "Please Enter Exam Name:" << std::endl;
         getline(std::cin, examName);
         
-        std::cout << "Please Enter Exam Date  (something like 1403/02/16):" << std::endl;
+        std::cout << "Please Enter Exam Date (something like 1403/02/16):" << std::endl;
         getline(std::cin, examDate);
         
         std::cout << "Please Enter Exam Time In Minutes:" << std::endl;
@@ -73,7 +73,7 @@ public:
 
     static void CreateQuestion(type &type, std::string &questionID, int &examId, std::string &prompt, std::string &description, int &time, double &score) {
 
-        std::cout << "Please Enter Type  (Descriptive=0   MultipleChoice=1) :" << std::endl;
+        std::cout << "Please Enter Type (Descriptive=0 || MultipleChoice=1):" << std::endl;
         std::cin >> reinterpret_cast<bool &>(type);
         
         std::cout << "Please Enter Question ID:" << std::endl;
@@ -88,20 +88,22 @@ public:
         std::cout << "Please Enter Description:" << std::endl;
         getline(std::cin, description);
         
-        std::cout << "Please Enter  Time In Seconds:" << std::endl;
+        std::cout << "Please Enter Time In Seconds:" << std::endl;
         std::cin >> time;
         
-        std::cout << "Please Enter  Score:" << std::endl;
+        std::cout << "Please Enter Score:" << std::endl;
         std::cin >> score;
     }
 
     static void addToStudentGroup(std::string &name, std::vector<std::string> usernames) {
         int count;
-        std::cout << "Please enter the group name:" << std::endl;
+        std::cout << "Please Enter The Group Name:" << std::endl;
         std::getline(std::cin, name);
-        std::cout << "Please enter the student count:" << std::endl;
+        
+        std::cout << "Please Enter The Student Count:" << std::endl;
         std::cin >> count;
-        std::cout << "Please enter the students username (seperated by space):" << std::endl;
+        
+        std::cout << "Please Enter The Students Username (seperated by space):" << std::endl;
         for (int i = 0; i < count; ++i) {
             std::cin >> usernames[i];
         }
@@ -130,7 +132,7 @@ public:
 
     static void studentGroupHistory(const std::vector<StudentGroup> &studentGroups) {
         int studentGroupId;
-        std::cout << "Please enter choose of the groups to see the detail" << std::endl;
+        std::cout << "Please Enter Choose Of The Groups To See The Detail:" << std::endl;
         for (int i = 0; i < studentGroups.size(); ++i) {
             std::cout << i << ". "
                       << studentGroups.at(i).name << std::endl;
