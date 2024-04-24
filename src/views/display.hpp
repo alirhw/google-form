@@ -1,5 +1,6 @@
 #include <iomanip>
 #include <iostream>
+#include <map>
 #include <string>
 
 class Display {
@@ -33,6 +34,7 @@ public:
 
     static void createMultipleChoiceQuestion(std::vector<std::string> options, std::string &correctAnswer) {
         std::cout << "Please enter options1" << std::endl;
+        std::cin.ignore();
         getline(std::cin, options[0]);
 
         std::cout << "Please enter options2" << std::endl;
@@ -69,15 +71,32 @@ public:
         std::getline(std::cin, name);
     }
 
-    static void CreateQuestion(type &type, std::string &questionID, int &examId, std::string &prompt, std::string &description, int &time, double &score) {
+    static type stringToType(const std::string &str) {
+        static const std::map<std::string, type> enumMap = {
+                {"Descriptive", type::Descriptive},
+                {"MultipleChoice", type::MultipleChoice}};
 
-        std::cout << "Please enter type   Descriptive=0   MultipleChoice=1" << std::endl;
-        std::cin >> reinterpret_cast<bool &>(type);
+        auto it = enumMap.find(str);
+        if (it != enumMap.end()) {
+            return it->second;
+        } else {
+            // Return a default value or throw an exception for invalid input
+            throw std::invalid_argument("Invalid enum string");
+        }
+    }
+
+    static void CreateQuestion(type &type, std::string &questionID, int &examId, std::string &prompt, std::string &description, int &time, double &score) {
+        std::cout << "Please enter type   (Descriptive || MultipleChoice)" << std::endl;
+        std::string stype;
+        std::cin >> stype;
+        type = stringToType(stype);
         std::cout << "Please enter questionID" << std::endl;
+        std::cin.ignore();
         getline(std::cin, questionID);
         std::cout << "Please enter exam id to want to add the question to" << std::endl;
         std::cin >> examId;
         std::cout << "Please enter prompt" << std::endl;
+        std::cin.ignore();
         getline(std::cin, prompt);
         std::cout << "Please enter description" << std::endl;
         getline(std::cin, description);

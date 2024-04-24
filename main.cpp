@@ -42,11 +42,13 @@ int main() {
                     break;
                 case 3:
                     Display::CreateQuestion(type, questionID, examIdToAddQuestion, prompt, description, time, score);
-                    if (type == 0) {
+                    if (type == Descriptive) {
                         Manager::createDescriptiveQuestion(time, "D:" + questionID, examIdToAddQuestion, prompt, description, score, type);
-                    } else {
+                    } else if (type == MultipleChoice) {
                         Display::createMultipleChoiceQuestion(options, correctAnswer);
                         Manager::createMultipleChoiceQuestion(time, "M:" + questionID, examIdToAddQuestion, prompt, description, score, type, options, correctAnswer);
+                    } else {
+                        cout << "Wrong Question Type!" << endl;
                     }
                     break;
                 case 4:
