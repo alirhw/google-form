@@ -9,8 +9,7 @@
 
 class DescriptiveQuestion : public Question {
 public:
-    DescriptiveQuestion(enum type type,std::string questionID ,std::string prompt, std::string description, int time, double score, std::string answer);
-    std::string answer;
+    DescriptiveQuestion(enum type type,std::string questionID ,std::string prompt, std::string description, int time, double score);
     void saveToFile(const std::string &filename) const;
 };
 
