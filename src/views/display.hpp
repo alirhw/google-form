@@ -85,7 +85,7 @@ public:
         }
     }
 
-    static void CreateQuestion(type &type, std::string &questionID, int &examId, std::string &prompt, std::string &description, int &time, double &score) {
+    static void CreateQuestion(enum type &type, std::string &questionID, int &examId, std::string &prompt, std::string &description, int &time, double &score) {
         std::cout << "Please enter type   (Descriptive || MultipleChoice)" << std::endl;
         std::string stype;
         std::cin >> stype;
@@ -185,7 +185,7 @@ public:
             int command;
             std::cout << "1. Next Question!" << std::endl;
             std::cout << "2. Comment It!" << std::endl;
-            if (question.type == Descriptive) {
+            if (question.type == type::Descriptive) {
                 std::cout << "3. Score It!" << std::endl;
             }
             std::cin >> command;
@@ -196,13 +196,13 @@ public:
                 std::cout << "Please leave your comment for this question:" << std::endl;
                 std::getline(std::cin, comment);
                 question.changeDescription(comment);
-                if (question.type == MultipleChoice) {
+                if (question.type == type::MultipleChoice) {
                     question.saveToFile("data/multipleChoiceQuestion.csv");
                 } else {
                     question.saveToFile("data/descriptiveQuestion.csv");
                 }
             } else if (command == 3) {
-                if (question.type == Descriptive) {
+                if (question.type == type::Descriptive) {
                     double score;
                     std::cout << "Please enter the student score according to answer from 0 to " << question.score.second << ":" << std::endl;
                     std::cin >> score;

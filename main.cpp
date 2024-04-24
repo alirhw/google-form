@@ -14,7 +14,7 @@ int main() {
     string correctAnswer, groupNameToAdd, groupName;
     int examId, time, examIdToAddQuestion, examIdToAdd;
     double totalScore, score;
-    type type;
+    enum type type;
     vector<string> options;
     vector<string> usernames{};
     vector<Exam> exams;
@@ -42,9 +42,9 @@ int main() {
                     break;
                 case 3:
                     Display::CreateQuestion(type, questionID, examIdToAddQuestion, prompt, description, time, score);
-                    if (type == Descriptive) {
+                    if (type == type::Descriptive) {
                         Manager::createDescriptiveQuestion(time, "D:" + questionID, examIdToAddQuestion, prompt, description, score, type);
-                    } else if (type == MultipleChoice) {
+                    } else if (type == type::MultipleChoice) {
                         Display::createMultipleChoiceQuestion(options, correctAnswer);
                         Manager::createMultipleChoiceQuestion(time, "M:" + questionID, examIdToAddQuestion, prompt, description, score, type, options, correctAnswer);
                     } else {
