@@ -32,33 +32,33 @@ public:
     }
 
     static void createMultipleChoiceQuestion(std::string options[4], std::string &correctAnswer) {
-        std::cout << "Please enter options1" << std::endl;
+        std::cout << "Please Enter Options 1:" << std::endl;
         getline(std::cin, options[0]);
 
-        std::cout << "Please enter options2" << std::endl;
+        std::cout << "Please Enter Options 2:" << std::endl;
         getline(std::cin, options[1]);
 
-        std::cout << "Please enter options3" << std::endl;
+        std::cout << "Please Enter Options 3:" << std::endl;
         getline(std::cin, options[2]);
 
-        std::cout << "Please enter options4" << std::endl;
+        std::cout << "Please Enter Options 4:" << std::endl;
         getline(std::cin, options[3]);
 
-        std::cout << "Please enter correctAnswer" << std::endl;
+        std::cout << "Please Enter Correct Answer:" << std::endl;
         getline(std::cin, correctAnswer);
     }
 
     static void createExam(int &examId, std::string &examName, std::string &examDate, std::string &examTime, double &totalScore) {
-        std::cout << "Please enter examId" << std::endl;
+        std::cout << "Please nter examId" << std::endl;
         std::cin >> examId;
-        std::cout << "Please enter examName" << std::endl;
+        std::cout << "Please Enter examName" << std::endl;
         getline(std::cin, examName);
-        std::cout << "Please enter examDate " << std::endl;
+        std::cout << "Please Enter examDate " << std::endl;
         std::cout << "something like 1403/02/16 " << std::endl;
         getline(std::cin, examDate);
-        std::cout << "Please enter examTime in minutes" << std::endl;
+        std::cout << "Please Enter examTime in minutes" << std::endl;
         getline(std::cin, examTime);
-        std::cout << "Please enter totalScore" << std::endl;
+        std::cout << "Please Enter totalScore" << std::endl;
         std::cin >> totalScore;
     }
 
