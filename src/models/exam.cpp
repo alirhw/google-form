@@ -162,34 +162,32 @@ std::vector<Exam> Exam::findByCorrected(const std::string &filename) {
         while (getline(ss, token, ',')) {
             fields.push_back(token);
         }
-        for (int i = 0; i < fields.size(); ++i) {
-            std::vector<Question> questions;
-            std::string questionsID(fields.at(6));
-            questionsID.erase(0, questionsID.find_first_not_of('['));
-            questionsID.erase(questionsID.find_last_not_of(']') + 1);
-            std::string questionID;
-            std::stringstream questionsStream(questionsID);
-            while (getline(questionsStream, questionID, '-')) {
-                std::vector<std::string> parts;
-                std::string part;
-                std::stringstream questionStream(questionID);
-                while (getline(questionStream, token, ':')) {
-                    parts.push_back(part);
-                }
+        std::vector<Question> questions;
+        std::string questionsID(fields.at(6));
+        questionsID.erase(0, questionsID.find_first_not_of('['));
+        questionsID.erase(questionsID.find_last_not_of(']') + 1);
+        std::string questionID;
+        std::stringstream questionsStream(questionsID);
+        while (getline(questionsStream, questionID, '-')) {
+            std::vector<std::string> parts;
+            std::string part;
+            std::stringstream questionStream(questionID);
+            while (getline(questionStream, token, ':')) {
+                parts.push_back(part);
+            }
 
-                if (parts.at(0) == "D") {
-                    Question question = Question::findByQuestionID("data/descriptiveQuestion.csv", parts.at(1));
-                    questions.push_back(question);
-                } else if (parts.at(0) == "M") {
-                    Question question = Question::findByQuestionID("data/multipleChoiceQuestion.csv", parts.at(1));
-                    questions.push_back(question);
-                }
+            if (parts.at(0) == "D") {
+                Question question = Question::findByQuestionID("data/descriptiveQuestion.csv", parts.at(1));
+                questions.push_back(question);
+            } else if (parts.at(0) == "M") {
+                Question question = Question::findByQuestionID("data/multipleChoiceQuestion.csv", parts.at(1));
+                questions.push_back(question);
             }
-            if (fields.at(5) == std::to_string(false)) {
-                Exam exam(stoi(fields.at(0)), fields.at(1), fields.at(2), fields.at(3), stod(fields.at(4)));
-                exam.questions = questions;
-                exams.push_back(exam);
-            }
+        }
+        if (fields.at(5) == std::to_string(false)) {
+            Exam exam(stoi(fields.at(0)), fields.at(1), fields.at(2), fields.at(3), stod(fields.at(4)));
+            exam.questions = questions;
+            exams.push_back(exam);
         }
     }
     inFile.close();

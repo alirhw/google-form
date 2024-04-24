@@ -176,6 +176,7 @@ public:
     static void addStudentGroupToExam(int &examId, std::string &studentGroupName) {
         std::cout << "Please Enter Exam ID:" << std::endl;
         std::cin >> examId;
+        std::cin.ignore();
         std::cout << "Please Enter Student Group Name:" << std::endl;
         getline(std::cin, studentGroupName);
     }
