@@ -24,6 +24,7 @@ public:
     void saveToFile(const std::string &filename) const;
     static std::vector<Exam> getAll(const std::string &filename);
     static Exam findByExamId(const std::string &filename, const int &examIdToFind);
+    static Exam findByCorrected(const std::string &filename);
 };
 
 #endif//GOOGLE_FORM_EXAM_H
