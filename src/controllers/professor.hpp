@@ -56,4 +56,7 @@ public:
         }
         exam.saveToFile("data/exam.csv");
     }
+    static void getAllExamToBeCorrect(std::vector<Exam> &examsToBeCorrect) {
+        examsToBeCorrect = Exam::findByCorrected("data/exam.csv");
+    }
 };
