@@ -37,7 +37,8 @@ void MultipleChoiceQuestion::saveToFile(const std::string &filename) const {
     outFile << prompt << ",";
     outFile << description << ",";
     outFile << time << ",";
-    outFile << score << ",";
+    outFile << score.first << ",";
+    outFile << score.second << ",";
     outFile << options[0] << ",";
     outFile << options[1] << ",";
     outFile << options[2] << ",";
@@ -47,9 +48,9 @@ void MultipleChoiceQuestion::saveToFile(const std::string &filename) const {
     // Close the file
     outFile.close();
 }
-bool MultipleChoiceQuestion::AutoCorrector(std::string Answer) {
+bool MultipleChoiceQuestion::autoCorrector(std::string answer) {
 
-    if (Answer == correctAnswer) {
+    if (answer == correctAnswer) {
         return true;
     } else {
         return false;

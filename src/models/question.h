@@ -18,7 +18,7 @@ public:
     std::string prompt;
     std::string description;
     int time{};// seconds
-    std::vector<std::pair<double, double>> score;
+    std::pair<double, double> score; // (studentScore, maxScore)
     std::string answer;
     
     static Question findByQuestionID(const std::string &filename, std::string questionID);

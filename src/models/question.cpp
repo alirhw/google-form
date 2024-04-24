@@ -11,13 +11,14 @@
 #include <vector>
 
 
-Question::Question(enum type type, std::string questionID, std::string prompt, std::string description = "", int time = 0, double score) {
+Question::Question(enum type type, std::string questionID, std::string prompt, std::string description = "", int time = 0, double score = 0) {
     type = type;
     questionID = std::move(questionID);
     prompt = std::move(prompt);
     description = std::move(description);
     time = time;
-    score = score std::make_pair(0,score);
+    this->score.first = 0;
+    this->score.second = score;
 }
 
 Question Question::findByQuestionID(const std::string &filename, std::string questionID) {

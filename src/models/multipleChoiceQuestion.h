@@ -10,11 +10,11 @@
 
 class MultipleChoiceQuestion : public Question {
 public:
-    MultipleChoiceQuestion(enum type type,std::string questionID ,std::string prompt, std::string description, int time, double score, std::string options[4], std::string correctAnswer);
+    MultipleChoiceQuestion(enum type type, std::string questionID, std::string prompt, std::string description, int time, double score, std::string options[4], std::string correctAnswer);
     std::string options[4];
     std::string correctAnswer;
-    
-	bool AutoCorrector(std::string answer );
+
+    bool autoCorrector(std::string answer);
     void saveToFile(const std::string &filename) const;
 };
 
