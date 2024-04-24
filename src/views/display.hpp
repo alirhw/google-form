@@ -34,19 +34,24 @@ public:
         std::cout << "Choose an option:";
     }
 
-    static void createMultipleChoiceQuestion(std::vector<std::string> options, std::string &correctAnswer) {
+    static void createMultipleChoiceQuestion(std::vector<std::string> &options, std::string &correctAnswer) {
+        std::string choice1,choice2,choice3,choice4;
         std::cout << "Please Enter Options 1:" << std::endl;
         std::cin.ignore();
-        getline(std::cin, options[0]);
+        getline(std::cin, choice1);
+        options.push_back(choice1);
 
         std::cout << "Please Enter Options 2:" << std::endl;
-        getline(std::cin, options[1]);
+        getline(std::cin, choice2);
+        options.push_back(choice2);
 
         std::cout << "Please Enter Options 3:" << std::endl;
-        getline(std::cin, options[2]);
+        getline(std::cin, choice3);
+        options.push_back(choice3);
 
         std::cout << "Please Enter Options 4:" << std::endl;
-        getline(std::cin, options[3]);
+        getline(std::cin, choice4);
+        options.push_back(choice4);
 
         std::cout << "Please Enter Correct Answer:" << std::endl;
         getline(std::cin, correctAnswer);

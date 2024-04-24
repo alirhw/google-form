@@ -11,10 +11,10 @@
 
 
 MultipleChoiceQuestion::MultipleChoiceQuestion(enum type type, std::string questionID, std::string prompt, std::string description, int time, double score, std::vector<std::string> options, std::string correctAnswer) : Question(type, questionID, prompt, description, time, score) {
-    this->options[0] = options[0];
-    this->options[1] = options[1];
-    this->options[2] = options[2];
-    this->options[3] = options[3];
+    this->options.push_back(options.at(0));
+    this->options.push_back(options.at(1));
+    this->options.push_back(options.at(2));
+    this->options.push_back(options.at(3));
     this->correctAnswer = std::move(correctAnswer);
 }
 

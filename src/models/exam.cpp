@@ -79,7 +79,6 @@ void Exam::saveToFile(const std::string &filename) const {
             updatedLine += "(" + student.first + "," + std::to_string(student.second) + ")" + "-";
         }
         updatedLine += "]";
-        std::cout << updatedLine;
         updatedLines.push_back(updatedLine);
     }
 
@@ -131,11 +130,9 @@ Exam Exam::findByExamId(const std::string &filename, const int &examIdToFind) {
         while (getline(ss, token, ',')) {
             fields.push_back(token);
         }
-        for (int i = 0; i < fields.size(); ++i) {
-            if (fields.at(0) == std::to_string(examIdToFind)) {
-                Exam found(stoi(fields.at(0)), fields.at(1), fields.at(2), fields.at(3), stod(fields.at(4)));
-                return found;
-            }
+        if (fields.at(0) == std::to_string(examIdToFind)) {
+            Exam found(stoi(fields.at(0)), fields.at(1), fields.at(2), fields.at(3), stod(fields.at(4)));
+            return found;
         }
     }
     inFile.close();
