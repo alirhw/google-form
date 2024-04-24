@@ -47,11 +47,19 @@ void Exam::saveToFile(const std::string &filename) const {
             for (const auto &question: this->questions) {
                 updatedLine += question.questionID + "-";
             }
+            std::string questionsID(fields.at(6));
+            questionsID.erase(0, questionsID.find_first_not_of('['));
+            questionsID.erase(questionsID.find_last_not_of(']') + 1);
+            updatedLine += questionsID;
             updatedLine += "],";
             updatedLine += "[";
             for (const auto &student: this->studentScores) {
                 updatedLine += "(" + student.first + "," + std::to_string(student.second) + ")" + "-";
             }
+            std::string studentsScore(fields.at(7));
+            questionsID.erase(0, questionsID.find_first_not_of('['));
+            questionsID.erase(questionsID.find_last_not_of(']') + 1);
+            updatedLine += studentsScore;
             updatedLine += "]";
         } else {
             updatedLine = line;
