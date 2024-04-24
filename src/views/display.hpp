@@ -116,7 +116,7 @@ public:
         std::cin >> score;
     }
 
-    static void addToStudentGroup(std::string &name, std::vector<std::string> usernames) {
+    static void addToStudentGroup(std::string &name, std::vector<std::string> &usernames) {
         int count;
         std::cout << "Please enter the group name:" << std::endl;
         std::cin.ignore();
@@ -125,7 +125,9 @@ public:
         std::cin >> count;
         std::cout << "Please enter the students username (seperated by space):" << std::endl;
         for (int i = 0; i < count; ++i) {
-            std::cin >> usernames[i];
+            std::string username;
+            std::cin >> username;
+            usernames.push_back(username);
         }
     }
 
