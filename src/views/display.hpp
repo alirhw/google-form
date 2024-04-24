@@ -149,9 +149,10 @@ public:
     }
 
     static void addStudentGroupToExam(int &examId, std::string &studentGroupName) {
-        std::cout << "Please enter examId" << std::endl;
+        std::cout << "Please Enter Exam ID:" << std::endl;
         std::cin >> examId;
-        std::cout << "Please enter student group name" << std::endl;
+        
+        std::cout << "Please Enter Student Group Name:" << std::endl;
         getline(std::cin, studentGroupName);
     }
 };
