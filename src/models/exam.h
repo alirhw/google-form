@@ -18,6 +18,7 @@ public:
     std::string examDate;
     std::string examTime;
     double totalScore;
+    bool corrected = false;
     std::vector<Question> questions;
     std::vector<std::pair<std::string, int>> studentScores;
     void saveToFile(const std::string &filename) const;
