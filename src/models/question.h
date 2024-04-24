@@ -12,13 +12,14 @@ enum type { Descriptive = 0,
 
 class Question {
 public:
-    Question(type _type, std::string questionID, std::string _prompt, std::string _description, int _time, double _score);
+    Question(type type, std::string questionID, std::string prompt, std::string description, int time, double score);
     type type;
     std::string questionID;
     std::string prompt;
     std::string description;
     int time{};// seconds
     double score{};
+    std::string answer;
     static Question findByQuestionID(const std::string &filename, std::string questionID);
     virtual void saveToFile(const std::string &filename) const;
 };
