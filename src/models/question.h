@@ -23,6 +23,7 @@ public:
     
     static Question findByQuestionID(const std::string &filename, std::string questionID);
     virtual void saveToFile(const std::string &filename) const;
+    void changeDescription(std::string comment);
 };
 
 #endif//GOOGLE_FORM_QUESTION_H

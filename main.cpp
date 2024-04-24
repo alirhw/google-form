@@ -72,7 +72,8 @@ int main() {
                     Manager::addStudentToGroup(groupNameToAdd, usernames);
                     break;
                 case 7:
-                    std::cout << "7. Exam To Be Correct" << std::endl;
+                    Manager::getAllExamToBeCorrect(exams);
+                    Display::examToBeCorrect(exams);
                     break;
                 case 8:
                     Display::addStudentGroupToExam(examIdToAdd, groupName);

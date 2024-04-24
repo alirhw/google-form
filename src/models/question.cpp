@@ -46,5 +46,9 @@ Question Question::findByQuestionID(const std::string &filename, std::string que
     inFile.close();
 }
 
+void Question::changeDescription(std::string comment) {
+    this->description = std::move(comment);
+}
+
 void Question::saveToFile(const std::string &filename) const {
 }

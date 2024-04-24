@@ -143,4 +143,54 @@ public:
         std::cout << "Please enter student group name" << std::endl;
         getline(std::cin, studentGroupName);
     }
+
+    static void examToBeCorrect(std::vector<Exam> &examsToBeCorrect) {
+        int examID;
+        std::cout << "Please enter choose of the exams to start review and correct process" << std::endl;
+        for (int i = 0; i < examsToBeCorrect.size(); ++i) {
+            std::cout << i << ". "
+                      << examsToBeCorrect.at(i).examName << std::endl;
+        }
+        std::cin >> examID;
+        const int columnWidth = 20;
+        for (Question question: examsToBeCorrect.at(examID).questions) {
+            printHorizontalLine((columnWidth + 1) * 5);
+            std::cout << "| " << std::setw(columnWidth / 2) << "Prompt" << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << question.prompt << std::setw(columnWidth / 2) << " | " << std::endl;
+            printHorizontalLine((columnWidth + 1) * 5);
+            std::cout << "| " << std::setw(columnWidth / 2) << "Answer" << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << question.answer << std::setw(columnWidth / 2) << " | " << std::endl;
+            printHorizontalLine((columnWidth + 1) * 5);
+            int command;
+            std::cout << "1. Next Question!" << std::endl;
+            std::cout << "2. Comment It!" << std::endl;
+            if (question.type == Descriptive) {
+                std::cout << "3. Score It!" << std::endl;
+            }
+            std::cin >> command;
+            if (command == 1) {
+                continue;
+            } else if (command == 2) {
+                std::string comment;
+                std::cout << "Please leave your comment for this question:" << std::endl;
+                std::getline(std::cin, comment);
+                question.changeDescription(comment);
+                if (question.type == MultipleChoice) {
+                    question.saveToFile("data/multipleChoiceQuestion.csv");
+                } else {
+                    question.saveToFile("data/descriptiveQuestion.csv");
+                }
+            } else if (command == 3) {
+                if (question.type == Descriptive) {
+                    double score;
+                    std::cout << "Please enter the student score according to answer from 0 to " << question.score.second << ":" << std::endl;
+                    std::cin >> score;
+                    question.score.first = score;
+                    question.saveToFile("data/descriptiveQuestion.csv");
+                }
+            } else {
+                std::cout << "Invalid Command!" << std::endl;
+            }
+        }
+        examsToBeCorrect.at(examID).corrected = true;
+        examsToBeCorrect.at(examID).saveToFile("data/exam.csv");
+    }
 };
