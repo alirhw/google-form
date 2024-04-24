@@ -105,18 +105,14 @@ public:
         std::cout << std::endl;
     }
 
-    static void printTableRow(const std::string &col1, const std::string &col2, const std::string &col3, const std::string &col4, const std::string &col5, const std::string &col6, int width) {
-        std::cout << "| " << std::setw(width / 2) << col1 << std::setw(width / 2) << " | " << std::setw(width / 2) << col2 << std::setw(width / 2) << " | " << std::setw(width / 2) << col3 << std::setw(width / 2) << " |" << std::setw(width / 2) << col4 << std::setw(width / 2) << " |" << std::setw(width / 2) << col5 << std::setw(width / 2) << " |" << std::setw(width / 2) << col6 << std::setw(width / 2) << " |" << std::endl;
-    }
-
     static void examHistory(const std::vector<Exam> &exams) {
-        const int columnWidth = 20;
+        const int columnWidth = 15;
         for (auto &&exam: exams) {
-            printHorizontalLine((columnWidth + 1) * 6);
-            printTableRow("ID", "Name", "Date", "Time", "Score", "Corrected", columnWidth);
-            printHorizontalLine((columnWidth + 1) * 6);
-            printTableRow(std::to_string(exam.examId), exam.examName, exam.examDate, exam.examTime, std::to_string(exam.totalScore), std::to_string(exam.corrected), columnWidth);
-            printHorizontalLine((columnWidth + 1) * 6);
+            printHorizontalLine((columnWidth) * 6);
+            std::cout << "| " << std::setw(columnWidth / 2) << "ID" << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << "Name" << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << "Date" << std::setw(columnWidth / 2) << " |" << std::setw(columnWidth / 2) << "Time" << std::setw(columnWidth / 3) << " |" << std::setw(columnWidth / 2) << "Score" << std::setw(columnWidth / 2) << " |" << std::setw(columnWidth / 2) << "Corrected" << std::setw(columnWidth / 2) << " |" << std::endl;
+            printHorizontalLine((columnWidth) * 6);
+            std::cout << "| " << std::setw(columnWidth / 2) << std::to_string(exam.examId) << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << exam.examName << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << exam.examDate << std::setw(columnWidth / 3) << " |" << std::setw(columnWidth / 2) << exam.examTime << std::setw(columnWidth / 3) << " |" << std::setw(columnWidth / 2) << std::to_string(exam.totalScore) << std::setw(columnWidth / 3) << " |" << std::setw(columnWidth / 2) << std::to_string(exam.corrected) << std::setw(columnWidth / 2) << " |" << std::endl;
+            printHorizontalLine((columnWidth) * 6);
             for (auto &studentScore: exam.studentScores) {
                 printHorizontalLine((columnWidth + 1) * 2);
                 std::cout << "| " << std::setw(columnWidth / 2) << "Student ID" << std::setw(columnWidth / 2) << " | " << std::setw(columnWidth / 2) << "Score" << std::setw(columnWidth / 2) << " | " << std::endl;

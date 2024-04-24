@@ -102,16 +102,15 @@ std::vector<Exam> Exam::getAll(const std::string &filename) {
     std::vector<Exam> exams;
     std::string line;
     while (std::getline(inFile, line)) {
+        if (line.empty()) continue;
         std::vector<std::string> fields;
         std::string token;
         std::stringstream ss(line);
         while (getline(ss, token, ',')) {
             fields.push_back(token);
         }
-        for (int i = 0; i < fields.size(); ++i) {
-            Exam exam(stoi(fields.at(0)), fields.at(1), fields.at(2), fields.at(3), stod(fields.at(4)));
-            exams.push_back(exam);
-        }
+        Exam exam(stoi(fields.at(0)), fields.at(1), fields.at(2), fields.at(3), stod(fields.at(4)));
+        exams.push_back(exam);
     }
     inFile.close();
     return exams;
