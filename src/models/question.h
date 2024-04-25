@@ -25,6 +25,7 @@ public:
     virtual void saveToFile(const std::string &filename) const;
     void changeDescription(std::string comment);
     static std::string enumToString(enum type value);
+    static enum type stringToType(const std::string &str);
 };
 
 #endif//GOOGLE_FORM_QUESTION_H

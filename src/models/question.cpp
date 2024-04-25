@@ -37,8 +37,8 @@ Question Question::findByQuestionID(const std::string &filename, std::string que
         while (getline(ss, token, ',')) {
             fields.push_back(token);
         }
-        if (fields.at(0) == questionID) {
-            Question found(static_cast<enum type>(reinterpret_cast<bool &>(fields.at(3))), fields.at(0), fields.at(1));
+        if (fields.at(1) == questionID) {
+            Question found(Question::stringToType(fields.at(0)), fields.at(1), fields.at(2), fields.at(3), stoi(fields.at(4)), stod(fields.at(6)));
             return found;
         }
     }
@@ -50,6 +50,61 @@ void Question::changeDescription(std::string comment) {
 }
 
 void Question::saveToFile(const std::string &filename) const {
+    std::ifstream inFile(filename, std::ios::app);
+    // Check if file opened successfully
+    if (!inFile.is_open()) {
+        std::cerr << "Error opening file!" << std::endl;
+        return;
+    }
+
+    std::vector<std::string> lines{};
+    std::string line = "";
+    std::vector<std::string> updatedLines{};
+    std::string updatedLine = "";
+    bool found = false;
+    while (std::getline(inFile, line)) {
+        if (line.empty()) continue;
+        std::vector<std::string> fields;
+        std::string token;
+        std::stringstream ss(line);
+        while (getline(ss, token, ',')) {
+            fields.push_back(token);
+        }
+        if (fields.at(1) == this->questionID) {
+            found = true;
+            updatedLine = Question::enumToString(type) + "," + questionID + "," + prompt + "," + description + "," + std::to_string(time) + "," + std::to_string(score.first) + "," + std::to_string(score.second) + ",";
+            if (filename == "data/multipleChoiceQuestion.csv") {
+                std::string options(fields.at(7));
+                updatedLine += options + ",";
+                std::string correctAnswer(fields.at(8));
+                updatedLine += options + ',';
+            }
+        } else {
+            updatedLine = line;
+        }
+        updatedLines.push_back(updatedLine);
+    }
+    inFile.close();
+
+    std::ofstream outFile(filename, std::ios::trunc);
+    // Check if file opened successfully
+    if (!outFile.is_open()) {
+        std::cerr << "Error opening file!" << std::endl;
+        return;
+    }
+
+    if (!found) {
+        updatedLine = Question::enumToString(type) + "," + questionID + "," + prompt + "," + description + "," + std::to_string(time) + "," + std::to_string(score.first) + "," + std::to_string(score.second) + ",";
+        updatedLines.push_back(updatedLine);
+    }
+
+    for (const std::string &l: updatedLines) {
+        if (!l.empty()) {
+            outFile << l << std::endl;
+        }
+    }
+
+    outFile.close();
 }
 
 std::string Question::enumToString(enum type value) {
@@ -60,5 +115,19 @@ std::string Question::enumToString(enum type value) {
             return "MultipleChoice";
         default:
             throw std::invalid_argument("Invalid enum value");
+    }
+}
+
+type Question::stringToType(const std::string &str) {
+    static const std::map<std::string, enum type> enumMap = {
+            {"Descriptive", type::Descriptive},
+            {"MultipleChoice", type::MultipleChoice}};
+
+    auto it = enumMap.find(str);
+    if (it != enumMap.end()) {
+        return it->second;
+    } else {
+        // Return a default value or throw an exception for invalid input
+        throw std::invalid_argument("Invalid enum string");
     }
 }
