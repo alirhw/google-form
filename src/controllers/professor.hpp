@@ -21,10 +21,12 @@ public:
         exam.saveToFile("data/exam.csv");
     }
     static void createMultipleChoiceQuestion(int time, std::string questionID, const int &examId, std::string prompt, double score, type type, std::vector<std::string> options, std::string correctAnswer) {
-        MultipleChoiceQuestion multipleChoiceQuestion(type, std::move(questionID), std::move(prompt), time, score, options, std::move(correctAnswer));
+        MultipleChoiceQuestion multipleChoiceQuestion(type, std::move(questionID), std::move(prompt), time, score, std::move(options), std::move(correctAnswer));
         multipleChoiceQuestion.saveToFile("data/multipleChoiceQuestion.csv");
         Exam exam = Exam::findByExamId("data/exam.csv", examId);
         exam.questions.push_back(multipleChoiceQuestion);
+        exam.examTime += multipleChoiceQuestion.time;
+        exam.totalScore += multipleChoiceQuestion.score.second;
         exam.saveToFile("data/exam.csv");
     }
     static void createDescriptiveQuestion(int time, std::string questionID, const int &examId, std::string prompt, double score, enum type type) {
@@ -32,6 +34,8 @@ public:
         descriptiveQuestion.saveToFile("data/descriptiveQuestion.csv");
         Exam exam = Exam::findByExamId("data/exam.csv", examId);
         exam.questions.push_back(descriptiveQuestion);
+        exam.examTime += descriptiveQuestion.time;
+        exam.totalScore += descriptiveQuestion.score.second;
         exam.saveToFile("data/exam.csv");
     }
     static void addStudentToGroup(const std::string &name, const std::vector<std::string> &usernames) {
