@@ -12,7 +12,7 @@ enum class type { Descriptive,
 
 class Question {
 public:
-    Question(type type, std::string questionID, std::string prompt, std::string description, int time, double score);
+    Question(type type, std::string questionID, std::string prompt, int time, double score);
     type type;
     std::string questionID;
     std::string prompt;

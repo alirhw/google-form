@@ -1,18 +1,25 @@
+//
+// Created by alirhw on 4/11/2024.
+//
 
-#include "descriptiveQuestion.h"
+#include "MultipleChoiceQuestion.h"
 
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <utility>
-#include <vector>
 
 
-DescriptiveQuestion::DescriptiveQuestion(enum type type, std::string questionID, std::string prompt, std::string description, int time, double score) : Question(type, questionID, prompt, description, time, score) {
+MultipleChoiceQuestion::MultipleChoiceQuestion(enum type type, std::string questionID, std::string prompt, int time, double score, std::vector<std::string> options, std::string correctAnswer) : Question(type, questionID, prompt, time, score) {
+    this->options.push_back(options.at(0));
+    this->options.push_back(options.at(1));
+    this->options.push_back(options.at(2));
+    this->options.push_back(options.at(3));
+    this->correctAnswer = std::move(correctAnswer);
 }
 
 
-void DescriptiveQuestion::saveToFile(const std::string &filename) const {
+void MultipleChoiceQuestion::saveToFile(const std::string &filename) const {
     std::ifstream inFile(filename, std::ios::app);
     // Check if file opened successfully
     if (!inFile.is_open()) {
@@ -36,6 +43,7 @@ void DescriptiveQuestion::saveToFile(const std::string &filename) const {
         if (fields.at(0) == this->questionID) {
             found = true;
             updatedLine = Question::enumToString(type) + "," + questionID + "," + prompt + "," + description + "," + std::to_string(time) + "," + std::to_string(score.first) + "," + std::to_string(score.second) + ",";
+            updatedLine += "[" + options[0] + "-" + options[1] + "-" + options[2] + "-" + options[3] + "]," + correctAnswer + "\n";
         } else {
             updatedLine = line;
         }
@@ -52,6 +60,7 @@ void DescriptiveQuestion::saveToFile(const std::string &filename) const {
 
     if (!found) {
         updatedLine = Question::enumToString(type) + "," + questionID + "," + prompt + "," + description + "," + std::to_string(time) + "," + std::to_string(score.first) + "," + std::to_string(score.second) + ",";
+        updatedLine += "[" + options[0] + "-" + options[1] + "-" + options[2] + "-" + options[3] + "]," + correctAnswer + "\n";
         updatedLines.push_back(updatedLine);
     }
 
@@ -62,4 +71,12 @@ void DescriptiveQuestion::saveToFile(const std::string &filename) const {
     }
 
     outFile.close();
+}
+bool MultipleChoiceQuestion::autoCorrector(std::string answer) {
+
+    if (answer == correctAnswer) {
+        return true;
+    } else {
+        return false;
+    }
 }

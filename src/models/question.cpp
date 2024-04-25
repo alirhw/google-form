@@ -12,11 +12,10 @@
 #include <vector>
 
 
-Question::Question(enum type type, std::string questionID, std::string prompt, std::string description = "", int time = 0, double score = 0) {
+Question::Question(enum type type, std::string questionID, std::string prompt, int time = 0, double score = 0) {
     this->type = type;
     this->questionID = std::move(questionID);
     this->prompt = std::move(prompt);
-    this->description = std::move(description);
     this->time = time;
     this->score.first = 0;
     this->score.second = score;
@@ -38,7 +37,7 @@ Question Question::findByQuestionID(const std::string &filename, std::string que
             fields.push_back(token);
         }
         if (fields.at(1) == questionID) {
-            Question found(Question::stringToType(fields.at(0)), fields.at(1), fields.at(2), fields.at(3), stoi(fields.at(4)), stod(fields.at(6)));
+            Question found(Question::stringToType(fields.at(0)), fields.at(1), fields.at(2), stoi(fields.at(4)), stod(fields.at(6)));
             return found;
         }
     }

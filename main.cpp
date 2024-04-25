@@ -10,7 +10,7 @@ using namespace std;
 int main() {
     string username, password, studentGroupName;
     string examName, examDate, examTime;
-    string prompt, description, questionID;
+    string prompt, questionID;
     string correctAnswer, groupNameToAdd, groupName;
     int examId, time, examIdToAddQuestion, examIdToAdd;
     double totalScore, score;
@@ -41,12 +41,12 @@ int main() {
                     Display::examHistory(exams);
                     break;
                 case 3:
-                    Display::CreateQuestion(type, questionID, examIdToAddQuestion, prompt, description, time, score);
+                    Display::CreateQuestion(type, questionID, examIdToAddQuestion, prompt, time, score);
                     if (type == type::Descriptive) {
-                        Manager::createDescriptiveQuestion(time, "D:" + questionID, examIdToAddQuestion, prompt, description, score, type);
+                        Manager::createDescriptiveQuestion(time, "D:" + questionID, examIdToAddQuestion, prompt, score, type);
                     } else if (type == type::MultipleChoice) {
                         Display::createMultipleChoiceQuestion(options, correctAnswer);
-                        Manager::createMultipleChoiceQuestion(time, "M:" + questionID, examIdToAddQuestion, prompt, description, score, type, options, correctAnswer);
+                        Manager::createMultipleChoiceQuestion(time, "M:" + questionID, examIdToAddQuestion, prompt, score, type, options, correctAnswer);
                     } else {
                         cout << "Wrong Question Type!" << endl;
                     }

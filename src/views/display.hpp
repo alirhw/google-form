@@ -81,7 +81,7 @@ public:
         std::getline(std::cin, name);
     }
 
-    static void CreateQuestion(enum type &type, std::string &questionID, int &examId, std::string &prompt, std::string &description, int &time, double &score) {
+    static void CreateQuestion(enum type &type, std::string &questionID, int &examId, std::string &prompt, int &time, double &score) {
         std::cout << "Please Enter Type (Descriptive || MultipleChoice):" << std::endl;
         std::string stype;
         std::cin >> stype;
@@ -94,8 +94,6 @@ public:
         std::cout << "Please Enter Prompt:" << std::endl;
         std::cin.ignore();
         getline(std::cin, prompt);
-        std::cout << "Please Enter Description:" << std::endl;
-        getline(std::cin, description);
         std::cout << "Please Enter Time In Seconds:" << std::endl;
         std::cin >> time;
         std::cout << "Please Enter Score:" << std::endl;
