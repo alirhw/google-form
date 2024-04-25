@@ -11,12 +11,10 @@
 #include <vector>
 
 
-Exam::Exam(int examId, std::string examName, std::string examDate, std::string examTime, double totalScore) {
+Exam::Exam(int examId, std::string examName, std::string examDate) {
     this->examId = examId;
     this->examName = std::move(examName);
     this->examDate = std::move(examDate);
-    this->examTime = std::move(examTime);
-    this->totalScore = totalScore;
 }
 
 void Exam::saveToFile(const std::string &filename) const {
@@ -42,7 +40,7 @@ void Exam::saveToFile(const std::string &filename) const {
         }
         if (fields.at(0) == std::to_string(this->examId)) {
             found = true;
-            updatedLine = std::to_string(this->examId) + "," + this->examName + "," + this->examDate + "," + this->examTime + "," + std::to_string(this->totalScore) + "," + std::to_string(this->corrected) + ",";
+            updatedLine = std::to_string(this->examId) + "," + this->examName + "," + this->examDate + "," + std::to_string(this->examTime) + "," + std::to_string(this->totalScore) + "," + std::to_string(this->corrected) + ",";
             updatedLine += "[";
             for (const auto &question: this->questions) {
                 updatedLine += question.questionID + "-";
@@ -68,7 +66,7 @@ void Exam::saveToFile(const std::string &filename) const {
     }
 
     if (!found) {
-        updatedLine = std::to_string(this->examId) + "," + this->examName + "," + this->examDate + "," + this->examTime + "," + std::to_string(this->totalScore) + "," + std::to_string(this->corrected) + ",";
+        updatedLine = std::to_string(this->examId) + "," + this->examName + "," + this->examDate + "," + std::to_string(this->examTime) + "," + std::to_string(this->totalScore) + "," + std::to_string(this->corrected) + ",";
         updatedLine += "[";
         for (const auto &question: this->questions) {
             updatedLine += question.questionID + "-";
@@ -130,8 +128,10 @@ std::vector<Exam> Exam::getAll(const std::string &filename) {
                 questions.push_back(question);
             }
         }
-        Exam exam(stoi(fields.at(0)), fields.at(1), fields.at(2), fields.at(3), stod(fields.at(4)));
+        Exam exam(stoi(fields.at(0)), fields.at(1), fields.at(2));
         exam.questions = questions;
+        exam.examTime += stoi(fields.at(3));
+        exam.totalScore += stod(fields.at(4));
         exams.push_back(exam);
     }
     inFile.close();
@@ -176,8 +176,10 @@ Exam Exam::findByExamId(const std::string &filename, const int &examIdToFind) {
             }
         }
         if (fields.at(0) == std::to_string(examIdToFind)) {
-            Exam exam(stoi(fields.at(0)), fields.at(1), fields.at(2), fields.at(3), stod(fields.at(4)));
+            Exam exam(stoi(fields.at(0)), fields.at(1), fields.at(2));
             exam.questions = questions;
+            exam.examTime += stoi(fields.at(3));
+            exam.totalScore += stod(fields.at(4));
             return exam;
         }
     }
@@ -223,8 +225,10 @@ std::vector<Exam> Exam::findByCorrected(const std::string &filename) {
             }
         }
         if (fields.at(5) == std::to_string(false)) {
-            Exam exam(stoi(fields.at(0)), fields.at(1), fields.at(2), fields.at(3), stod(fields.at(4)));
+            Exam exam(stoi(fields.at(0)), fields.at(1), fields.at(2));
             exam.questions = questions;
+            exam.examTime += stoi(fields.at(3));
+            exam.totalScore += stod(fields.at(4));
             exams.push_back(exam);
         }
     }

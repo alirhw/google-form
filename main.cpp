@@ -8,12 +8,10 @@
 using namespace std;
 
 int main() {
-    string username, password, studentGroupName;
-    string examName, examDate, examTime;
-    string prompt, questionID;
-    string correctAnswer, groupNameToAdd, groupName;
+    string username, password;
+    string examName, examDate, studentGroupName, prompt, questionID, correctAnswer, groupNameToAdd, groupName;
     int examId, time, examIdToAddQuestion, examIdToAdd;
-    double totalScore, score;
+    double score;
     enum type type;
     vector<string> options;
     vector<string> usernames{};
@@ -33,8 +31,8 @@ int main() {
                     std::cout << "0. Exit" << std::endl;
                     exit(0);
                 case 1:
-                    Display::createExam(examId, examName, examDate, examTime, totalScore);
-                    Manager::createExam(examId, examName, examDate, examTime, totalScore);
+                    Display::createExam(examId, examName, examDate);
+                    Manager::createExam(examId, examName, examDate);
                     break;
                 case 2:
                     Manager::getAllExams(exams);

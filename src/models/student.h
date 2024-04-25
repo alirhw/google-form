@@ -12,7 +12,6 @@ class Student : public User {
 public:
     Student(std::string fullname, std::string username, std::string password);
     static Student findByUsername(const std::string &filename, std::string username);
-    std::vector<std::string> split(const std::string &s, char delimiter);
 };
 
 #endif//GOOGLE_FORM_STUDENT_H

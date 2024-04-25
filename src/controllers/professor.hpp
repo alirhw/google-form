@@ -16,8 +16,8 @@ public:
         StudentGroup studentGroup(name);
         studentGroup.saveToFile("data/studentGroups.csv");
     }
-    static void createExam(int examId, std::string examName, std::string examDate, std::string examTime, double totalScore) {
-        Exam exam(examId, std::move(examName), std::move(examDate), std::move(examTime), totalScore);
+    static void createExam(int examId, std::string examName, std::string examDate) {
+        Exam exam(examId, std::move(examName), std::move(examDate));
         exam.saveToFile("data/exam.csv");
     }
     static void createMultipleChoiceQuestion(int time, std::string questionID, const int &examId, std::string prompt, double score, type type, std::vector<std::string> options, std::string correctAnswer) {

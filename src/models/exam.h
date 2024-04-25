@@ -12,12 +12,12 @@
 
 class Exam {
 public:
-    Exam(int examId, std::string examName, std::string examDate, std::string examTime, double totalScore);
+    Exam(int examId, std::string examName, std::string examDate);
     int examId;
     std::string examName;
     std::string examDate;
-    std::string examTime;
-    double totalScore;
+    int examTime = 0;
+    double totalScore = 0;
     bool corrected = false;
     std::vector<Question> questions;
     std::vector<std::pair<std::string, int>> studentScores;

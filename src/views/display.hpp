@@ -57,7 +57,7 @@ public:
         getline(std::cin, correctAnswer);
     }
 
-    static void createExam(int &examId, std::string &examName, std::string &examDate, std::string &examTime, double &totalScore) {
+    static void createExam(int &examId, std::string &examName, std::string &examDate) {
         std::cout << "Please Enter Exam ID:" << std::endl;
         std::cin >> examId;
 
@@ -67,12 +67,6 @@ public:
 
         std::cout << "Please Enter Exam Date (something like 1403/02/16):" << std::endl;
         getline(std::cin, examDate);
-
-        std::cout << "Please Enter Exam Time In Minutes:" << std::endl;
-        getline(std::cin, examTime);
-
-        std::cout << "Please Enter Total Score:" << std::endl;
-        std::cin >> totalScore;
     }
 
     static void createStudentGroup(std::string &name) {
