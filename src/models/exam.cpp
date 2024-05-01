@@ -35,12 +35,14 @@ void Exam::saveToFile(const std::string &filename) const {
         std::vector<std::string> fields;
         std::string token;
         std::stringstream ss(line);
-        while (getline(ss, token, ',')) {
-            fields.push_back(token);
-        }
+        while (getline(ss, token, ',')) { fields.push_back(token); }
         if (fields.at(0) == std::to_string(this->examId)) {
             found = true;
-            updatedLine = std::to_string(this->examId) + "," + this->examName + "," + this->examDate + "," + std::to_string(this->examTime) + "," + std::to_string(this->totalScore) + "," + std::to_string(this->corrected) + ",";
+            updatedLine = std::to_string(this->examId) + "," + this->examName +
+                          "," + this->examDate + "," +
+                          std::to_string(this->examTime) + "," +
+                          std::to_string(this->totalScore) + "," +
+                          std::to_string(this->corrected) + ",";
             updatedLine += "[";
             for (const auto &question: this->questions) {
                 updatedLine += question.questionID + "-";
@@ -48,7 +50,8 @@ void Exam::saveToFile(const std::string &filename) const {
             updatedLine += "],";
             updatedLine += "[";
             for (const auto &student: this->studentScores) {
-                updatedLine += "(" + student.first + "," + std::to_string(student.second) + ")" + "-";
+                updatedLine += "(" + student.first + "," +
+                               std::to_string(student.second) + ")" + "-";
             }
             updatedLine += "]";
         } else {
@@ -66,7 +69,11 @@ void Exam::saveToFile(const std::string &filename) const {
     }
 
     if (!found) {
-        updatedLine = std::to_string(this->examId) + "," + this->examName + "," + this->examDate + "," + std::to_string(this->examTime) + "," + std::to_string(this->totalScore) + "," + std::to_string(this->corrected) + ",";
+        updatedLine = std::to_string(this->examId) + "," + this->examName +
+                      "," + this->examDate + "," +
+                      std::to_string(this->examTime) + "," +
+                      std::to_string(this->totalScore) + "," +
+                      std::to_string(this->corrected) + ",";
         updatedLine += "[";
         for (const auto &question: this->questions) {
             updatedLine += question.questionID + "-";
@@ -74,16 +81,15 @@ void Exam::saveToFile(const std::string &filename) const {
         updatedLine += "],";
         updatedLine += "[";
         for (const auto &student: this->studentScores) {
-            updatedLine += "(" + student.first + "," + std::to_string(student.second) + ")" + "-";
+            updatedLine += "(" + student.first + "," +
+                           std::to_string(student.second) + ")" + "-";
         }
         updatedLine += "]";
         updatedLines.push_back(updatedLine);
     }
 
     for (const std::string &l: updatedLines) {
-        if (!l.empty()) {
-            outFile << l << std::endl;
-        }
+        if (!l.empty()) { outFile << l << std::endl; }
     }
 
     outFile.close();
@@ -92,9 +98,7 @@ void Exam::saveToFile(const std::string &filename) const {
 std::vector<Exam> Exam::getAll(const std::string &filename) {
     std::ifstream inFile(filename, std::ios::app);
     // Check if file opened successfully
-    if (!inFile.is_open()) {
-        std::cerr << "Error opening file!" << std::endl;
-    }
+    if (!inFile.is_open()) { std::cerr << "Error opening file!" << std::endl; }
 
     std::vector<Exam> exams;
     std::string line;
@@ -103,9 +107,7 @@ std::vector<Exam> Exam::getAll(const std::string &filename) {
         std::vector<std::string> fields;
         std::string token;
         std::stringstream ss(line);
-        while (getline(ss, token, ',')) {
-            fields.push_back(token);
-        }
+        while (getline(ss, token, ',')) { fields.push_back(token); }
         std::vector<Question> questions;
         std::string questionsID(fields.at(6));
         questionsID.erase(0, questionsID.find_first_not_of('['));
@@ -121,10 +123,12 @@ std::vector<Exam> Exam::getAll(const std::string &filename) {
             }
 
             if (parts.at(0) == "D") {
-                Question question = Question::findByQuestionID("data/descriptiveQuestion.csv", questionID);
+                Question question = Question::findByQuestionID(
+                        "data/descriptiveQuestion.csv", questionID);
                 questions.push_back(question);
             } else if (parts.at(0) == "M") {
-                Question question = Question::findByQuestionID("data/multipleChoiceQuestion.csv", questionID);
+                Question question = Question::findByQuestionID(
+                        "data/multipleChoiceQuestion.csv", questionID);
                 questions.push_back(question);
             }
         }
@@ -141,18 +145,14 @@ std::vector<Exam> Exam::getAll(const std::string &filename) {
 Exam Exam::findByExamId(const std::string &filename, const int &examIdToFind) {
     std::ifstream inFile(filename, std::ios::app);
     // Check if file opened successfully
-    if (!inFile.is_open()) {
-        std::cerr << "Error opening file!" << std::endl;
-    }
+    if (!inFile.is_open()) { std::cerr << "Error opening file!" << std::endl; }
 
     std::string line;
     while (std::getline(inFile, line)) {
         std::vector<std::string> fields;
         std::string token;
         std::stringstream ss(line);
-        while (getline(ss, token, ',')) {
-            fields.push_back(token);
-        }
+        while (getline(ss, token, ',')) { fields.push_back(token); }
         std::vector<Question> questions;
         std::string questionsID(fields.at(6));
         questionsID.erase(0, questionsID.find_first_not_of('['));
@@ -168,10 +168,12 @@ Exam Exam::findByExamId(const std::string &filename, const int &examIdToFind) {
             }
 
             if (parts.at(0) == "D") {
-                Question question = Question::findByQuestionID("data/descriptiveQuestion.csv", questionID);
+                Question question = Question::findByQuestionID(
+                        "data/descriptiveQuestion.csv", questionID);
                 questions.push_back(question);
             } else if (parts.at(0) == "M") {
-                Question question = Question::findByQuestionID("data/multipleChoiceQuestion.csv", questionID);
+                Question question = Question::findByQuestionID(
+                        "data/multipleChoiceQuestion.csv", questionID);
                 questions.push_back(question);
             }
         }
@@ -189,9 +191,7 @@ Exam Exam::findByExamId(const std::string &filename, const int &examIdToFind) {
 std::vector<Exam> Exam::findByCorrected(const std::string &filename) {
     std::ifstream inFile(filename, std::ios::app);
     // Check if file opened successfully
-    if (!inFile.is_open()) {
-        std::cerr << "Error opening file!" << std::endl;
-    }
+    if (!inFile.is_open()) { std::cerr << "Error opening file!" << std::endl; }
 
     std::vector<Exam> exams;
     std::string line;
@@ -199,9 +199,7 @@ std::vector<Exam> Exam::findByCorrected(const std::string &filename) {
         std::vector<std::string> fields;
         std::string token;
         std::stringstream ss(line);
-        while (getline(ss, token, ',')) {
-            fields.push_back(token);
-        }
+        while (getline(ss, token, ',')) { fields.push_back(token); }
         std::vector<Question> questions;
         std::string questionsID(fields.at(6));
         questionsID.erase(0, questionsID.find_first_not_of('['));
@@ -217,10 +215,12 @@ std::vector<Exam> Exam::findByCorrected(const std::string &filename) {
             }
 
             if (parts.at(0) == "D") {
-                Question question = Question::findByQuestionID("data/descriptiveQuestion.csv", questionID);
+                Question question = Question::findByQuestionID(
+                        "data/descriptiveQuestion.csv", questionID);
                 questions.push_back(question);
             } else if (parts.at(0) == "M") {
-                Question question = Question::findByQuestionID("data/multipleChoiceQuestion.csv", questionID);
+                Question question = Question::findByQuestionID(
+                        "data/multipleChoiceQuestion.csv", questionID);
                 questions.push_back(question);
             }
         }

@@ -11,7 +11,8 @@
 
 class Professor : public User {
 public:
-    Professor(std::string fullname, std::string username, std::string password);
+    Professor(std::string fullname, std::string username,
+              std::string password);
 };
 
 #endif//GOOGLE_FORM_PROFESSOR_H

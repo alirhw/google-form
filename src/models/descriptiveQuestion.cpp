@@ -8,8 +8,11 @@
 #include <vector>
 
 
-DescriptiveQuestion::DescriptiveQuestion(enum type type, std::string questionID, std::string prompt, int time, double score) : Question(type, questionID, prompt, time, score) {
-}
+DescriptiveQuestion::DescriptiveQuestion(enum type type,
+                                         std::string questionID,
+                                         std::string prompt, int time,
+                                         double score)
+    : Question(type, questionID, prompt, time, score) {}
 
 
 void DescriptiveQuestion::saveToFile(const std::string &filename) const {
@@ -30,12 +33,14 @@ void DescriptiveQuestion::saveToFile(const std::string &filename) const {
         std::vector<std::string> fields;
         std::string token;
         std::stringstream ss(line);
-        while (getline(ss, token, ',')) {
-            fields.push_back(token);
-        }
+        while (getline(ss, token, ',')) { fields.push_back(token); }
         if (fields.at(0) == this->questionID) {
             found = true;
-            updatedLine = Question::enumToString(type) + "," + questionID + "," + prompt + "," + description + "," + std::to_string(time) + "," + std::to_string(score.first) + "," + std::to_string(score.second) + ",";
+            updatedLine = Question::enumToString(type) + "," + questionID +
+                          "," + prompt + "," + description + "," +
+                          std::to_string(time) + "," +
+                          std::to_string(score.first) + "," +
+                          std::to_string(score.second) + ",";
         } else {
             updatedLine = line;
         }
@@ -51,14 +56,15 @@ void DescriptiveQuestion::saveToFile(const std::string &filename) const {
     }
 
     if (!found) {
-        updatedLine = Question::enumToString(type) + "," + questionID + "," + prompt + "," + description + "," + std::to_string(time) + "," + std::to_string(score.first) + "," + std::to_string(score.second) + ",";
+        updatedLine = Question::enumToString(type) + "," + questionID + "," +
+                      prompt + "," + description + "," + std::to_string(time) +
+                      "," + std::to_string(score.first) + "," +
+                      std::to_string(score.second) + ",";
         updatedLines.push_back(updatedLine);
     }
 
     for (const std::string &l: updatedLines) {
-        if (!l.empty()) {
-            outFile << l << std::endl;
-        }
+        if (!l.empty()) { outFile << l << std::endl; }
     }
 
     outFile.close();

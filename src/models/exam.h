@@ -23,7 +23,8 @@ public:
     std::vector<std::pair<std::string, int>> studentScores;
     void saveToFile(const std::string &filename) const;
     static std::vector<Exam> getAll(const std::string &filename);
-    static Exam findByExamId(const std::string &filename, const int &examIdToFind);
+    static Exam findByExamId(const std::string &filename,
+                             const int &examIdToFind);
     static std::vector<Exam> findByCorrected(const std::string &filename);
 };
 

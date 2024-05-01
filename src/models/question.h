@@ -7,12 +7,12 @@
 
 #include <string>
 
-enum class type { Descriptive,
-                  MultipleChoice };
+enum class type { Descriptive, MultipleChoice };
 
 class Question {
 public:
-    Question(type type, std::string questionID, std::string prompt, int time, double score);
+    Question(type type, std::string questionID, std::string prompt, int time,
+             double score);
     type type;
     std::string questionID;
     std::string prompt;
@@ -21,7 +21,8 @@ public:
     std::pair<double, double> score;// (studentScore, maxScore)
     std::string answer;
 
-    static Question findByQuestionID(const std::string &filename, std::string questionID);
+    static Question findByQuestionID(const std::string &filename,
+                                     std::string questionID);
     virtual void saveToFile(const std::string &filename) const;
     void changeDescription(std::string comment);
     static std::string enumToString(enum type value);

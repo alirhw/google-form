@@ -12,7 +12,8 @@
 #include <vector>
 
 
-Question::Question(enum type type, std::string questionID, std::string prompt, int time = 0, double score = 0) {
+Question::Question(enum type type, std::string questionID, std::string prompt,
+                   int time = 0, double score = 0) {
     this->type = type;
     this->questionID = std::move(questionID);
     this->prompt = std::move(prompt);
@@ -21,23 +22,22 @@ Question::Question(enum type type, std::string questionID, std::string prompt, i
     this->score.second = score;
 }
 
-Question Question::findByQuestionID(const std::string &filename, std::string questionID) {
+Question Question::findByQuestionID(const std::string &filename,
+                                    std::string questionID) {
     std::ifstream inFile(filename, std::ios::app);
     // Check if file opened successfully
-    if (!inFile.is_open()) {
-        std::cerr << "Error opening file!" << std::endl;
-    }
+    if (!inFile.is_open()) { std::cerr << "Error opening file!" << std::endl; }
 
     std::string line;
     while (std::getline(inFile, line)) {
         std::vector<std::string> fields;
         std::string token;
         std::stringstream ss(line);
-        while (getline(ss, token, ',')) {
-            fields.push_back(token);
-        }
+        while (getline(ss, token, ',')) { fields.push_back(token); }
         if (fields.at(1) == questionID) {
-            Question found(Question::stringToType(fields.at(0)), fields.at(1), fields.at(2), stoi(fields.at(4)), stod(fields.at(6)));
+            Question found(Question::stringToType(fields.at(0)), fields.at(1),
+                           fields.at(2), stoi(fields.at(4)),
+                           stod(fields.at(6)));
             return found;
         }
     }
@@ -66,12 +66,14 @@ void Question::saveToFile(const std::string &filename) const {
         std::vector<std::string> fields;
         std::string token;
         std::stringstream ss(line);
-        while (getline(ss, token, ',')) {
-            fields.push_back(token);
-        }
+        while (getline(ss, token, ',')) { fields.push_back(token); }
         if (fields.at(1) == this->questionID) {
             found = true;
-            updatedLine = Question::enumToString(type) + "," + questionID + "," + prompt + "," + description + "," + std::to_string(time) + "," + std::to_string(score.first) + "," + std::to_string(score.second) + ",";
+            updatedLine = Question::enumToString(type) + "," + questionID +
+                          "," + prompt + "," + description + "," +
+                          std::to_string(time) + "," +
+                          std::to_string(score.first) + "," +
+                          std::to_string(score.second) + ",";
             if (filename == "data/multipleChoiceQuestion.csv") {
                 std::string options(fields.at(7));
                 updatedLine += options + ",";
@@ -93,14 +95,15 @@ void Question::saveToFile(const std::string &filename) const {
     }
 
     if (!found) {
-        updatedLine = Question::enumToString(type) + "," + questionID + "," + prompt + "," + description + "," + std::to_string(time) + "," + std::to_string(score.first) + "," + std::to_string(score.second) + ",";
+        updatedLine = Question::enumToString(type) + "," + questionID + "," +
+                      prompt + "," + description + "," + std::to_string(time) +
+                      "," + std::to_string(score.first) + "," +
+                      std::to_string(score.second) + ",";
         updatedLines.push_back(updatedLine);
     }
 
     for (const std::string &l: updatedLines) {
-        if (!l.empty()) {
-            outFile << l << std::endl;
-        }
+        if (!l.empty()) { outFile << l << std::endl; }
     }
 
     outFile.close();

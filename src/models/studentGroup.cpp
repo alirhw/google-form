@@ -11,9 +11,7 @@
 #include <vector>
 
 
-StudentGroup::StudentGroup(std::string name) {
-    this->name = std::move(name);
-}
+StudentGroup::StudentGroup(std::string name) { this->name = std::move(name); }
 
 void StudentGroup::appendStudent(const Student &student) {
     this->students.push_back(student);
@@ -37,9 +35,7 @@ void StudentGroup::saveToFile(const std::string &filename) const {
         std::vector<std::string> fields;
         std::string token;
         std::stringstream ss(line);
-        while (getline(ss, token, ',')) {
-            fields.push_back(token);
-        }
+        while (getline(ss, token, ',')) { fields.push_back(token); }
         if (fields.at(0) == this->name) {
             found = true;
             updatedLine = name + "," + "[";
@@ -75,9 +71,7 @@ void StudentGroup::saveToFile(const std::string &filename) const {
     }
 
     for (const std::string &l: updatedLines) {
-        if (!l.empty()) {
-            outFile << l << std::endl;
-        }
+        if (!l.empty()) { outFile << l << std::endl; }
     }
 
     outFile.close();
@@ -86,9 +80,7 @@ void StudentGroup::saveToFile(const std::string &filename) const {
 std::vector<StudentGroup> StudentGroup::getAll(const std::string &filename) {
     std::ifstream inFile(filename, std::ios::app);
     // Check if file opened successfully
-    if (!inFile.is_open()) {
-        std::cerr << "Error opening file!" << std::endl;
-    }
+    if (!inFile.is_open()) { std::cerr << "Error opening file!" << std::endl; }
 
     std::vector<StudentGroup> studentGroups;
     std::string line;
@@ -96,9 +88,7 @@ std::vector<StudentGroup> StudentGroup::getAll(const std::string &filename) {
         std::vector<std::string> fields;
         std::string token;
         std::stringstream ss(line);
-        while (getline(ss, token, ',')) {
-            fields.push_back(token);
-        }
+        while (getline(ss, token, ',')) { fields.push_back(token); }
         std::string Usernames(fields.at(1));
         Usernames.erase(0, Usernames.find_first_not_of('['));
         Usernames.erase(Usernames.find_last_not_of(']') + 1);
@@ -106,7 +96,8 @@ std::vector<StudentGroup> StudentGroup::getAll(const std::string &filename) {
         std::string username;
         std::stringstream usernameStream(Usernames);
         while (getline(usernameStream, username, '-')) {
-            Student student = Student::findByUsername("data/credentials.csv", username);
+            Student student =
+                    Student::findByUsername("data/credentials.csv", username);
             group.appendStudent(student);
         }
         studentGroups.push_back(group);
@@ -115,21 +106,19 @@ std::vector<StudentGroup> StudentGroup::getAll(const std::string &filename) {
     return studentGroups;
 }
 
-StudentGroup StudentGroup::findByGroupName(const std::string &filename, const std::string &groupNameToFind) {
+StudentGroup
+StudentGroup::findByGroupName(const std::string &filename,
+                              const std::string &groupNameToFind) {
     std::ifstream inFile(filename, std::ios::app);
     // Check if file opened successfully
-    if (!inFile.is_open()) {
-        std::cerr << "Error opening file!" << std::endl;
-    }
+    if (!inFile.is_open()) { std::cerr << "Error opening file!" << std::endl; }
 
     std::string line;
     while (std::getline(inFile, line)) {
         std::vector<std::string> fields;
         std::string token;
         std::stringstream ss(line);
-        while (getline(ss, token, ',')) {
-            fields.push_back(token);
-        }
+        while (getline(ss, token, ',')) { fields.push_back(token); }
         if (fields.at(0) == groupNameToFind) {
             std::string Usernames(fields.at(1));
             Usernames.erase(0, Usernames.find_first_not_of('['));
@@ -138,7 +127,8 @@ StudentGroup StudentGroup::findByGroupName(const std::string &filename, const st
             std::string username;
             std::stringstream usernameStream(Usernames);
             while (getline(usernameStream, username, '-')) {
-                Student student = Student::findByUsername("data/credentials.csv", username);
+                Student student = Student::findByUsername(
+                        "data/credentials.csv", username);
                 group.appendStudent(student);
             }
             return group;

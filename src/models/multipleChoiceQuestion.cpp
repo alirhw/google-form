@@ -10,7 +10,11 @@
 #include <utility>
 
 
-MultipleChoiceQuestion::MultipleChoiceQuestion(enum type type, std::string questionID, std::string prompt, int time, double score, std::vector<std::string> options, std::string correctAnswer) : Question(type, questionID, prompt, time, score) {
+MultipleChoiceQuestion::MultipleChoiceQuestion(
+        enum type type, std::string questionID, std::string prompt, int time,
+        double score, std::vector<std::string> options,
+        std::string correctAnswer)
+    : Question(type, questionID, prompt, time, score) {
     this->options.push_back(options.at(0));
     this->options.push_back(options.at(1));
     this->options.push_back(options.at(2));
@@ -37,13 +41,17 @@ void MultipleChoiceQuestion::saveToFile(const std::string &filename) const {
         std::vector<std::string> fields;
         std::string token;
         std::stringstream ss(line);
-        while (getline(ss, token, ',')) {
-            fields.push_back(token);
-        }
+        while (getline(ss, token, ',')) { fields.push_back(token); }
         if (fields.at(0) == this->questionID) {
             found = true;
-            updatedLine = Question::enumToString(type) + "," + questionID + "," + prompt + "," + description + "," + std::to_string(time) + "," + std::to_string(score.first) + "," + std::to_string(score.second) + ",";
-            updatedLine += "[" + options[0] + "-" + options[1] + "-" + options[2] + "-" + options[3] + "]," + correctAnswer + "\n";
+            updatedLine = Question::enumToString(type) + "," + questionID +
+                          "," + prompt + "," + description + "," +
+                          std::to_string(time) + "," +
+                          std::to_string(score.first) + "," +
+                          std::to_string(score.second) + ",";
+            updatedLine += "[" + options[0] + "-" + options[1] + "-" +
+                           options[2] + "-" + options[3] + "]," +
+                           correctAnswer + "\n";
         } else {
             updatedLine = line;
         }
@@ -59,15 +67,17 @@ void MultipleChoiceQuestion::saveToFile(const std::string &filename) const {
     }
 
     if (!found) {
-        updatedLine = Question::enumToString(type) + "," + questionID + "," + prompt + "," + description + "," + std::to_string(time) + "," + std::to_string(score.first) + "," + std::to_string(score.second) + ",";
-        updatedLine += "[" + options[0] + "-" + options[1] + "-" + options[2] + "-" + options[3] + "]," + correctAnswer + "\n";
+        updatedLine = Question::enumToString(type) + "," + questionID + "," +
+                      prompt + "," + description + "," + std::to_string(time) +
+                      "," + std::to_string(score.first) + "," +
+                      std::to_string(score.second) + ",";
+        updatedLine += "[" + options[0] + "-" + options[1] + "-" + options[2] +
+                       "-" + options[3] + "]," + correctAnswer + "\n";
         updatedLines.push_back(updatedLine);
     }
 
     for (const std::string &l: updatedLines) {
-        if (!l.empty()) {
-            outFile << l << std::endl;
-        }
+        if (!l.empty()) { outFile << l << std::endl; }
     }
 
     outFile.close();

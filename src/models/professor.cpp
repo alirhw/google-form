@@ -5,5 +5,6 @@
 #include "professor.h"
 #include "student.h"
 
-Professor::Professor(std::string fullname, std::string username, std::string password)
+Professor::Professor(std::string fullname, std::string username,
+                     std::string password)
     : User(std::move(fullname), std::move(username), std::move(password)) {}

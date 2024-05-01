@@ -9,7 +9,8 @@ using namespace std;
 
 int main() {
     string username, password;
-    string examName, examDate, studentGroupName, prompt, questionID, correctAnswer, groupNameToAdd, groupName;
+    string examName, examDate, studentGroupName, prompt, questionID,
+            correctAnswer, groupNameToAdd, groupName;
     int examId, time, examIdToAddQuestion, examIdToAdd;
     double score;
     enum type type;
@@ -39,12 +40,19 @@ int main() {
                     Display::examHistory(exams);
                     break;
                 case 3:
-                    Display::CreateQuestion(type, questionID, examIdToAddQuestion, prompt, time, score);
+                    Display::CreateQuestion(type, questionID,
+                                            examIdToAddQuestion, prompt, time,
+                                            score);
                     if (type == type::Descriptive) {
-                        Manager::createDescriptiveQuestion(time, "D:" + questionID, examIdToAddQuestion, prompt, score, type);
+                        Manager::createDescriptiveQuestion(
+                                time, "D:" + questionID, examIdToAddQuestion,
+                                prompt, score, type);
                     } else if (type == type::MultipleChoice) {
-                        Display::createMultipleChoiceQuestion(options, correctAnswer);
-                        Manager::createMultipleChoiceQuestion(time, "M:" + questionID, examIdToAddQuestion, prompt, score, type, options, correctAnswer);
+                        Display::createMultipleChoiceQuestion(options,
+                                                              correctAnswer);
+                        Manager::createMultipleChoiceQuestion(
+                                time, "M:" + questionID, examIdToAddQuestion,
+                                prompt, score, type, options, correctAnswer);
                     } else {
                         cout << "Wrong Question Type!" << endl;
                     }
