@@ -9,7 +9,7 @@
 
 class Authenticator {
 public:
-    static bool authenticate(const std::string &username,
+    static std::string authenticate(const std::string &username,
                              const std::string &password) {
         std::ifstream credentialsFile("data/credentials.csv");
         std::string line;
@@ -17,7 +17,7 @@ public:
         if (!credentialsFile.is_open()) {
             std::cerr << "Error: Unable to open credentials file."
                       << std::endl;
-            return false;
+            return nullptr;
         }
 
         // Read each line from the CSV file
@@ -31,15 +31,14 @@ public:
                 getline(iss, storedRole, ',')) {
 
                 // Check if the provided username and password match the stored credentials
-                if (username == storedUsername && password == storedPassword &&
-                    storedRole == "professor") {
+                if (username == storedUsername && password == storedPassword) {
                     credentialsFile.close();
-                    return true;// Authentication successful
+                    return storedRole;// Authentication successful
                 }
             }
         }
 
         credentialsFile.close();
-        return false;// Authentication failed
+        return nullptr;// Authentication failed
     }
 };

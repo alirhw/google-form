@@ -20,7 +20,7 @@ int main() {
     vector<StudentGroup> studentGroups;
 
     Display::login(username, password);
-    if (Authenticator::authenticate(username, password)) {
+    if (Authenticator::authenticate(username, password) == "professor") {
         int choice;
 
         while (true) {
@@ -77,6 +77,22 @@ int main() {
                     Display::addStudentGroupToExam(examIdToAdd, groupName);
                     Manager::addStudentGroupToExam(examIdToAdd, groupName);
                     break;
+                default:
+                    cout << "Invalid choice. Please choose again." << endl;
+                    break;
+            }
+        }
+    } else if (Authenticator::authenticate(username, password) == "student") {
+        int choice;
+
+        while (true) {
+            Display::menu(username);
+            cin >> choice;
+
+            switch (choice) {
+                case 0:
+                    std::cout << "0. Exit" << std::endl;
+                    exit(0);
                 default:
                     cout << "Invalid choice. Please choose again." << endl;
                     break;
