@@ -24,7 +24,7 @@ int main() {
         int choice;
 
         while (true) {
-            Display::menu(username);
+            Display::professorMenu(username);
             cin >> choice;
 
             switch (choice) {
@@ -86,7 +86,7 @@ int main() {
         int choice;
 
         while (true) {
-            Display::menu(username);
+            Display::studentMenu(username);
             cin >> choice;
 
             switch (choice) {

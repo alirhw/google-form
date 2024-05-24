@@ -18,11 +18,11 @@ public:
         getline(std::cin, password);
     }
 
-    static void menu(const std::string &username) {
+    static void professorMenu(const std::string &username) {
         std::cout << "***************************************************"
                   << std::endl;
         std::cout << "**  Professor Dashboard! Welcome, " << username
-                  << "!      **" << std::endl;
+                  << "!         **" << std::endl;
         std::cout << "**  1. Create New Exam                           **"
                   << std::endl;
         std::cout << "**  2. View Exam History                         **"
@@ -287,5 +287,21 @@ public:
         } else {
             std::cout << "There is no exam to correct" << std::endl;
         }
+    }
+
+    static void studentMenu(const std::string &username) {
+        std::cout << "***************************************************"
+                  << std::endl;
+        std::cout << "**  Student Dashboard! Welcome, " << username
+                  << "!            **" << std::endl;
+        std::cout << "**  1. Take A Test                               **"
+                  << std::endl;
+        std::cout << "**  2. View Exam History                         **"
+                  << std::endl;
+        std::cout << "**  0. Exit                                      **"
+                  << std::endl;
+        std::cout << "***************************************************"
+                  << std::endl;
+        std::cout << "Choose an option:";
     }
 };
