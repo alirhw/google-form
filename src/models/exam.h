@@ -19,6 +19,7 @@ public:
     int examTime = 0;
     double totalScore = 0;
     bool corrected = false;
+    bool takeable = false;
     std::vector<Question> questions;
     std::vector<std::pair<std::string, int>> studentScores;
     void saveToFile(const std::string &filename) const;
@@ -26,6 +27,7 @@ public:
     static Exam findByExamId(const std::string &filename,
                              const int &examIdToFind);
     static std::vector<Exam> findByCorrected(const std::string &filename);
+    static std::vector<Exam> findByTakeable(const std::string &filename);
 };
 
 #endif//GOOGLE_FORM_EXAM_H
