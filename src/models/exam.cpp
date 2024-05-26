@@ -181,7 +181,7 @@ std::vector<Exam> Exam::getAll(const std::string &filename) {
 Exam Exam::findByExamId(const std::string &filename, const int &examIdToFind) {
     std::vector<Exam> exams = Exam::getAll(filename);
     for (auto &exam: exams) {
-        if (exam.examId == examIdToFind) { return exam; }
+        if (exam.examId == examIdToFind) { return std::move(exam); }
     }
 }
 
@@ -189,7 +189,7 @@ std::vector<Exam> Exam::findByCorrected(const std::string &filename) {
     std::vector<Exam> correctableExams;
     std::vector<Exam> exams = Exam::getAll(filename);
     for (auto &exam: exams) {
-        if (!exam.corrected) correctableExams.push_back(exam);
+        if (!exam.corrected) correctableExams.push_back(std::move(exam));
     }
     return correctableExams;
 }
@@ -198,7 +198,7 @@ std::vector<Exam> Exam::findByTakeAble(const std::string &filename) {
     std::vector<Exam> takeAbleExams;
     std::vector<Exam> exams = Exam::getAll(filename);
     for (auto &exam: exams) {
-        if (exam.takeable) takeAbleExams.push_back(exam);
+        if (exam.takeable) takeAbleExams.push_back(std::move(exam));
     }
     return takeAbleExams;
 }
