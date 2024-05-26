@@ -6,6 +6,7 @@
 #define GOOGLE_FORM_QUESTION_H
 
 #include <string>
+#include <vector>
 
 enum class type { Descriptive, MultipleChoice };
 
@@ -19,10 +20,8 @@ public:
     std::string description;
     int time{};                     // seconds
     std::pair<double, double> score;// (studentScore, maxScore)
-    std::string answer;
-
-    static Question findByQuestionID(const std::string &filename,
-                                     std::string questionID);
+    std::vector<std::pair<std::string, std::string>>
+            answer;// (studentId, studentAnswer)
     virtual void saveToFile(const std::string &filename) const;
     void changeDescription(std::string comment);
     static std::string enumToString(enum type value);

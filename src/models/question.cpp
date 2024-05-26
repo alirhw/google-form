@@ -22,28 +22,6 @@ Question::Question(enum type type, std::string questionID, std::string prompt,
     this->score.second = score;
 }
 
-Question Question::findByQuestionID(const std::string &filename,
-                                    std::string questionID) {
-    std::ifstream inFile(filename, std::ios::app);
-    // Check if file opened successfully
-    if (!inFile.is_open()) { std::cerr << "Error opening file!" << std::endl; }
-
-    std::string line;
-    while (std::getline(inFile, line)) {
-        std::vector<std::string> fields;
-        std::string token;
-        std::stringstream ss(line);
-        while (getline(ss, token, ',')) { fields.push_back(token); }
-        if (fields.at(1) == questionID) {
-            Question found(Question::stringToType(fields.at(0)), fields.at(1),
-                           fields.at(2), stoi(fields.at(4)),
-                           stod(fields.at(6)));
-            return found;
-        }
-    }
-    inFile.close();
-}
-
 void Question::changeDescription(std::string comment) {
     this->description = std::move(comment);
 }
