@@ -10,7 +10,7 @@
 #include "../models/student.h"
 #include "../models/studentGroup.h"
 
-class Manager {
+class ProfessorManager {
 public:
     static void createStudentGroup(std::string &name) {
         StudentGroup studentGroup(name);
@@ -32,7 +32,9 @@ public:
                 std::move(options), std::move(correctAnswer));
         multipleChoiceQuestion.saveToFile("data/multipleChoiceQuestion.csv");
         Exam exam = Exam::findByExamId("data/exam.csv", examId);
-        exam.questions.push_back(multipleChoiceQuestion);
+        exam.questions.push_back(std::make_unique<MultipleChoiceQuestion>(
+                type, std::move(questionID), std::move(prompt), time, score,
+                std::move(options), std::move(correctAnswer)));
         exam.examTime += multipleChoiceQuestion.time;
         exam.totalScore += multipleChoiceQuestion.score.second;
         exam.saveToFile("data/exam.csv");
@@ -45,7 +47,8 @@ public:
                 type, std::move(questionID), std::move(prompt), time, score);
         descriptiveQuestion.saveToFile("data/descriptiveQuestion.csv");
         Exam exam = Exam::findByExamId("data/exam.csv", examId);
-        exam.questions.push_back(descriptiveQuestion);
+        exam.questions.push_back(std::make_unique<DescriptiveQuestion>(
+                type, std::move(questionID), std::move(prompt), time, score));
         exam.examTime += descriptiveQuestion.time;
         exam.totalScore += descriptiveQuestion.score.second;
         exam.saveToFile("data/exam.csv");

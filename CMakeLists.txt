@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.27)
 project(google_form)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 add_executable(google_form main.cpp
         src/models/user.cpp
@@ -23,4 +23,5 @@ add_executable(google_form main.cpp
         src/controllers/professor.hpp
         src/models/question.cpp
         src/models/descriptiveQuestion.cpp
+        src/controllers/student.hpp
 )

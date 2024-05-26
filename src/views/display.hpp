@@ -231,23 +231,26 @@ public:
             }
             std::cin >> examID;
             const int columnWidth = 20;
-            for (Question question: examsToBeCorrect.at(examID).questions) {
+            for (auto &question: examsToBeCorrect.at(examID).questions) {
                 printHorizontalLine((columnWidth + 1) * 2);
                 std::cout << "| " << std::setw(columnWidth / 2) << "Prompt"
                           << std::setw(columnWidth / 2) << " | "
-                          << std::setw(columnWidth / 2) << question.prompt
+                          << std::setw(columnWidth / 2) << question->prompt
                           << std::setw(columnWidth / 2) << " | " << std::endl;
                 printHorizontalLine((columnWidth + 1) * 2);
-                std::cout << "| " << std::setw(columnWidth / 2) << "Answer"
-                          << std::setw(columnWidth / 2) << " | "
-                          << std::setw(columnWidth / 2) << question.answer
-                          << std::setw(columnWidth / 2) << " | " << std::endl;
+                std::cout
+                        << "| " << std::setw(columnWidth / 2) << "Answer"
+                        << std::setw(columnWidth / 2)
+                        << " | "
+                        //                          << std::setw(columnWidth / 2) << question->answer
+                        << std::setw(columnWidth / 2) << " | " << std::endl;
                 printHorizontalLine((columnWidth + 1) * 2);
             menu:
                 int command;
+
                 std::cout << "1. Next Question!" << std::endl;
                 std::cout << "2. Comment It!" << std::endl;
-                if (question.type == type::Descriptive) {
+                if (question->type == type::Descriptive) {
                     std::cout << "3. Score It!" << std::endl;
                 }
                 std::cin >> command;
@@ -259,23 +262,25 @@ public:
                               << std::endl;
                     std::cin.ignore();
                     std::getline(std::cin, comment);
-                    question.changeDescription(comment);
-                    if (question.type == type::MultipleChoice) {
-                        question.saveToFile("data/multipleChoiceQuestion.csv");
+                    question->changeDescription(comment);
+                    if (question->type == type::MultipleChoice) {
+                        question->saveToFile(
+                                "data/multipleChoiceQuestion.csv");
                         goto menu;
                     } else {
-                        question.saveToFile("data/descriptiveQuestion.csv");
+                        question->saveToFile("data/descriptiveQuestion.csv");
                         goto menu;
                     }
                 } else if (command == 3) {
-                    if (question.type == type::Descriptive) {
+                    if (question->type == type::Descriptive) {
                         double score;
                         std::cout << "Please enter the student score "
                                      "according to answer from 0 to "
-                                  << question.score.second << ":" << std::endl;
+                                  << question->score.second << ":"
+                                  << std::endl;
                         std::cin >> score;
-                        question.score.first = score;
-                        question.saveToFile("data/descriptiveQuestion.csv");
+                        question->score.first = score;
+                        question->saveToFile("data/descriptiveQuestion.csv");
                         goto menu;
                     }
                 } else {
@@ -303,5 +308,156 @@ public:
         std::cout << "***************************************************"
                   << std::endl;
         std::cout << "Choose an option:";
+    }
+
+    static void studentExamTaking(const std::vector<Exam> &examsToBeTake,
+                                  const std::string &username) {
+        if (!examsToBeTake.empty()) {
+            int examId;
+            const int columnWidth = 15;
+            for (auto &&exam: examsToBeTake) {
+                printHorizontalLine((columnWidth) * 6);
+                std::cout << "| " << std::setw(columnWidth / 2) << "ID"
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << "Name"
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << "Date"
+                          << std::setw(columnWidth / 2) << " |"
+                          << std::setw(columnWidth / 2) << "Time"
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2) << "Score"
+                          << std::setw(columnWidth / 2) << " |"
+                          << std::setw(columnWidth / 2) << "Question Count"
+                          << std::setw(columnWidth / 2) << " |" << std::endl;
+                printHorizontalLine((columnWidth) * 6);
+                std::cout << "| " << std::setw(columnWidth / 2)
+                          << std::to_string(exam.examId)
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << exam.examName
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << exam.examDate
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2) << exam.examTime
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2)
+                          << std::to_string(exam.totalScore)
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2)
+                          << std::to_string(exam.questions.size())
+                          << std::setw(columnWidth / 2) << " |" << std::endl;
+                printHorizontalLine((columnWidth) * 6);
+            }
+            std::cout << "Please Choose Of The Exams To Take It:" << std::endl;
+            std::cin >> examId;
+            int remainingQuestion;
+            for (const auto &i: examsToBeTake) {
+                if (i.examId == examId) {
+                    remainingQuestion = i.questions.size();
+                    for (auto &question: i.questions) {
+                        printHorizontalLine((columnWidth + 1) * 2);
+
+                        std::cout << "| " << std::setw(columnWidth / 2)
+                                  << "Prompt: " << question->prompt
+                                  << std::endl;
+
+                        printHorizontalLine((columnWidth + 1) * 2);
+                        std::cout << "| " << std::setw(columnWidth / 2)
+                                  << "Score" << std::setw(columnWidth / 2)
+                                  << " | " << std::setw(columnWidth / 2)
+                                  << "Time" << std::setw(columnWidth / 2)
+                                  << " | " << std::endl;
+                        printHorizontalLine((columnWidth + 1) * 2);
+                        std::cout << "| " << std::setw(columnWidth / 2)
+                                  << question->score.second
+                                  << std::setw(columnWidth / 2) << " | "
+                                  << std::setw(columnWidth / 2)
+                                  << question->time
+                                  << std::setw(columnWidth / 2) << " | "
+                                  << std::endl;
+                        printHorizontalLine((columnWidth + 1) * 2);
+                    menu:
+                        int command;
+                        if (remainingQuestion > 1) {
+                            std::cout << "1. Next Question!" << std::endl;
+                        } else {
+                            std::cout << "1. End Exam!" << std::endl;
+                        }
+                        std::cout << "2. Answer It!" << std::endl;
+                        std::cin >> command;
+                        if (command == 1) {
+                            remainingQuestion--;
+                            continue;
+                        } else if (command == 2) {
+                            if (question->type == type::Descriptive) {
+                                std::string answer;
+                                std::cout
+                                        << "Please leave your answer for this "
+                                           "question:"
+                                        << std::endl;
+                                std::cin.ignore();
+                                std::getline(std::cin, answer);
+                                question->answer.emplace_back(username,
+                                                              answer);
+                            } else {
+                                if (auto mcq = dynamic_cast<
+                                            MultipleChoiceQuestion *>(
+                                            question.get())) {
+                                    printHorizontalLine((columnWidth) * 4);
+                                    std::cout << "| "
+                                              << std::setw(columnWidth / 2)
+                                              << "Option 1"
+                                              << std::setw(columnWidth / 2)
+                                              << " | "
+                                              << std::setw(columnWidth / 2)
+                                              << "Option 2"
+                                              << std::setw(columnWidth / 2)
+                                              << " | "
+                                              << std::setw(columnWidth / 2)
+                                              << "Option 3"
+                                              << std::setw(columnWidth / 2)
+                                              << " |"
+                                              << std::setw(columnWidth / 2)
+                                              << "Option 4"
+                                              << std::setw(columnWidth / 3)
+                                              << std::setw(columnWidth / 2)
+                                              << " |" << std::endl;
+                                    printHorizontalLine((columnWidth) * 4);
+                                    std::cout << "| "
+                                              << std::setw(columnWidth / 2);
+                                    for (int i = 0; i < 4; ++i) {
+                                        std::cout << mcq->options.at(i)
+                                                  << std::setw(columnWidth / 2)
+                                                  << " |";
+                                    }
+                                    std::cout << std::endl;
+                                    printHorizontalLine((columnWidth) * 4);
+                                }
+                                std::string answer;
+                                std::cout << "Please select a answer for this "
+                                             "question:"
+                                          << std::endl;
+                                std::cin.ignore();
+                                std::getline(std::cin, answer);
+                                question->answer.emplace_back(username,
+                                                              answer);
+                            }
+                            if (question->type == type::MultipleChoice) {
+                                question->saveToFile(
+                                        "data/multipleChoiceQuestion.csv");
+                                goto menu;
+                            } else {
+                                question->saveToFile(
+                                        "data/descriptiveQuestion.csv");
+                                goto menu;
+                            }
+                        } else {
+                            std::cout << "Invalid Command!" << std::endl;
+                        }
+                    }
+                }
+            }
+        } else {
+            std::cout << "There is no exam to take" << std::endl;
+        }
     }
 };

@@ -1,4 +1,5 @@
 #include "src/controllers/professor.hpp"
+#include "src/controllers/student.hpp"
 #include "src/controllers/user.hpp"
 #include "src/views/display.hpp"
 #include <iostream>
@@ -33,10 +34,10 @@ int main() {
                     exit(0);
                 case 1:
                     Display::createExam(examId, examName, examDate);
-                    Manager::createExam(examId, examName, examDate);
+                    ProfessorManager::createExam(examId, examName, examDate);
                     break;
                 case 2:
-                    Manager::getAllExams(exams);
+                    ProfessorManager::getAllExams(exams);
                     Display::examHistory(exams);
                     break;
                 case 3:
@@ -44,13 +45,13 @@ int main() {
                                             examIdToAddQuestion, prompt, time,
                                             score);
                     if (type == type::Descriptive) {
-                        Manager::createDescriptiveQuestion(
+                        ProfessorManager::createDescriptiveQuestion(
                                 time, "D:" + questionID, examIdToAddQuestion,
                                 prompt, score, type);
                     } else if (type == type::MultipleChoice) {
                         Display::createMultipleChoiceQuestion(options,
                                                               correctAnswer);
-                        Manager::createMultipleChoiceQuestion(
+                        ProfessorManager::createMultipleChoiceQuestion(
                                 time, "M:" + questionID, examIdToAddQuestion,
                                 prompt, score, type, options, correctAnswer);
                     } else {
@@ -59,23 +60,23 @@ int main() {
                     break;
                 case 4:
                     Display::createStudentGroup(studentGroupName);
-                    Manager::createStudentGroup(studentGroupName);
+                    ProfessorManager::createStudentGroup(studentGroupName);
                     break;
                 case 5:
-                    Manager::getAllStudentGroups(studentGroups);
+                    ProfessorManager::getAllStudentGroups(studentGroups);
                     Display::studentGroupHistory(studentGroups);
                     break;
                 case 6:
                     Display::addToStudentGroup(groupNameToAdd, usernames);
-                    Manager::addStudentToGroup(groupNameToAdd, usernames);
+                    ProfessorManager::addStudentToGroup(groupNameToAdd, usernames);
                     break;
                 case 7:
-                    Manager::getAllExamToBeCorrect(exams);
+                    ProfessorManager::getAllExamToBeCorrect(exams);
                     Display::examToBeCorrect(exams);
                     break;
                 case 8:
                     Display::addStudentGroupToExam(examIdToAdd, groupName);
-                    Manager::addStudentGroupToExam(examIdToAdd, groupName);
+                    ProfessorManager::addStudentGroupToExam(examIdToAdd, groupName);
                     break;
                 default:
                     cout << "Invalid choice. Please choose again." << endl;
@@ -93,6 +94,10 @@ int main() {
                 case 0:
                     std::cout << "0. Exit" << std::endl;
                     exit(0);
+                case 1:
+                    StudentManager::getAllExamToBeTake(exams);
+                    Display::studentExamTaking(exams, username);
+                    break;
                 default:
                     cout << "Invalid choice. Please choose again." << endl;
                     break;
