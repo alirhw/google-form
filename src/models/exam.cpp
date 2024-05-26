@@ -170,8 +170,25 @@ std::vector<Exam> Exam::getAll(const std::string &filename) {
                 exam.questions.push_back(std::move(des));
             }
         }
+        std::vector<std::pair<std::string, int>> studentScores;
+        std::string scores(fields.at(7));
+        scores.erase(0, scores.find_first_not_of('['));
+        scores.erase(scores.find_last_not_of(']') + 1);
+        std::string score;
+        std::stringstream scoresStream(scores);
+        while (getline(scoresStream, score, '-')) {
+            score.erase(0, score.find_first_not_of('('));
+            score.erase(score.find_last_not_of(')') + 1);
+            std::vector<std::string> parts;
+            std::string part;
+            std::stringstream scoreStream(score);
+            while (getline(scoreStream, part, ':')) { parts.push_back(part); }
+            exam.studentScores.emplace_back(parts.at(0), stoi(parts.at(1)));
+        }
         exam.examTime += stoi(fields.at(3));
         exam.totalScore += stod(fields.at(4));
+        exam.corrected = fields.at(5) == "1";
+        exam.takeable = fields.at(8) == "1";
         exams.push_back(std::move(exam));
     }
     inFile.close();
