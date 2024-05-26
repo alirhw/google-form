@@ -131,209 +131,6 @@ std::vector<Exam> Exam::getAll(const std::string &filename) {
                 DescriptiveQuestion question =
                         DescriptiveQuestion::findByQuestionID(
                                 "data/descriptiveQuestion.csv", questionID);
-                questions.push_back(std::make_unique<DescriptiveQuestion>(
-                        question.type, question.questionID, question.prompt,
-                        question.time, question.score.second));
-            } else if (parts.at(0) == "M") {
-                MultipleChoiceQuestion question =
-                        MultipleChoiceQuestion::findByQuestionID(
-                                "data/multipleChoiceQuestion.csv", questionID);
-                questions.push_back(std::make_unique<MultipleChoiceQuestion>(
-                        question.type, question.questionID, question.prompt,
-                        question.time, question.score.second, question.options,
-                        question.correctAnswer));
-            }
-        }
-        Exam exam(stoi(fields.at(0)), fields.at(1), fields.at(2));
-        for (const auto &question: questions) {
-            if (auto dq =
-                        dynamic_cast<DescriptiveQuestion *>(question.get())) {
-                exam.questions.push_back(std::make_unique<DescriptiveQuestion>(
-                        dq->type, dq->questionID, dq->prompt, dq->time,
-                        dq->score.second));
-            } else if (auto mcq = dynamic_cast<MultipleChoiceQuestion *>(
-                               question.get())) {
-                questions.push_back(std::make_unique<MultipleChoiceQuestion>(
-                        mcq->type, mcq->questionID, mcq->prompt, mcq->time,
-                        mcq->score.second, mcq->options, mcq->correctAnswer));
-            }
-        }
-        exam.examTime += stoi(fields.at(3));
-        exam.totalScore += stod(fields.at(4));
-        exams.push_back(std::move(exam));
-    }
-    inFile.close();
-    return exams;
-}
-
-Exam Exam::findByExamId(const std::string &filename, const int &examIdToFind) {
-    std::ifstream inFile(filename, std::ios::app);
-    // Check if file opened successfully
-    if (!inFile.is_open()) { std::cerr << "Error opening file!" << std::endl; }
-
-    std::string line;
-    while (std::getline(inFile, line)) {
-        std::vector<std::string> fields;
-        std::string token;
-        std::stringstream ss(line);
-        while (getline(ss, token, ',')) { fields.push_back(token); }
-        std::vector<std::unique_ptr<Question>> questions;
-        std::string questionsID(fields.at(6));
-        questionsID.erase(0, questionsID.find_first_not_of('['));
-        questionsID.erase(questionsID.find_last_not_of(']') + 1);
-        std::string questionID;
-        std::stringstream questionsStream(questionsID);
-        while (getline(questionsStream, questionID, '-')) {
-            std::vector<std::string> parts;
-            std::string part;
-            std::stringstream questionStream(questionID);
-            while (getline(questionStream, part, ':')) {
-                parts.push_back(part);
-            }
-
-            if (parts.at(0) == "D") {
-                DescriptiveQuestion question =
-                        DescriptiveQuestion::findByQuestionID(
-                                "data/descriptiveQuestion.csv", questionID);
-                questions.push_back(std::make_unique<DescriptiveQuestion>(
-                        question.type, question.questionID, question.prompt,
-                        question.time, question.score.second));
-            } else if (parts.at(0) == "M") {
-                MultipleChoiceQuestion question =
-                        MultipleChoiceQuestion::findByQuestionID(
-                                "data/multipleChoiceQuestion.csv", questionID);
-                questions.push_back(std::make_unique<MultipleChoiceQuestion>(
-                        question.type, question.questionID, question.prompt,
-                        question.time, question.score.second, question.options,
-                        question.correctAnswer));
-            }
-        }
-        if (fields.at(0) == std::to_string(examIdToFind)) {
-            Exam exam(stoi(fields.at(0)), fields.at(1), fields.at(2));
-            for (const auto &question: questions) {
-                if (auto dq = dynamic_cast<DescriptiveQuestion *>(
-                            question.get())) {
-                    exam.questions.push_back(
-                            std::make_unique<DescriptiveQuestion>(
-                                    dq->type, dq->questionID, dq->prompt,
-                                    dq->time, dq->score.second));
-                } else if (auto mcq = dynamic_cast<MultipleChoiceQuestion *>(
-                                   question.get())) {
-                    questions.push_back(
-                            std::make_unique<MultipleChoiceQuestion>(
-                                    mcq->type, mcq->questionID, mcq->prompt,
-                                    mcq->time, mcq->score.second, mcq->options,
-                                    mcq->correctAnswer));
-                }
-            }
-            exam.examTime += stoi(fields.at(3));
-            exam.totalScore += stod(fields.at(4));
-            return exam;
-        }
-    }
-    inFile.close();
-}
-
-std::vector<Exam> Exam::findByCorrected(const std::string &filename) {
-    std::ifstream inFile(filename, std::ios::app);
-    // Check if file opened successfully
-    if (!inFile.is_open()) { std::cerr << "Error opening file!" << std::endl; }
-
-    std::vector<Exam> exams;
-    std::string line;
-    while (std::getline(inFile, line)) {
-        std::vector<std::string> fields;
-        std::string token;
-        std::stringstream ss(line);
-        while (getline(ss, token, ',')) { fields.push_back(token); }
-        std::vector<std::unique_ptr<Question>> questions;
-        std::string questionsID(fields.at(6));
-        questionsID.erase(0, questionsID.find_first_not_of('['));
-        questionsID.erase(questionsID.find_last_not_of(']') + 1);
-        std::string questionID;
-        std::stringstream questionsStream(questionsID);
-        while (getline(questionsStream, questionID, '-')) {
-            std::vector<std::string> parts;
-            std::string part;
-            std::stringstream questionStream(questionID);
-            while (getline(questionStream, part, ':')) {
-                parts.push_back(part);
-            }
-
-            if (parts.at(0) == "D") {
-                DescriptiveQuestion question =
-                        DescriptiveQuestion::findByQuestionID(
-                                "data/descriptiveQuestion.csv", questionID);
-                questions.push_back(std::make_unique<DescriptiveQuestion>(
-                        question.type, question.questionID, question.prompt,
-                        question.time, question.score.second));
-            } else if (parts.at(0) == "M") {
-                MultipleChoiceQuestion question =
-                        MultipleChoiceQuestion::findByQuestionID(
-                                "data/multipleChoiceQuestion.csv", questionID);
-                questions.push_back(std::make_unique<MultipleChoiceQuestion>(
-                        question.type, question.questionID, question.prompt,
-                        question.time, question.score.second, question.options,
-                        question.correctAnswer));
-            }
-        }
-        if (fields.at(5) == std::to_string(false)) {
-            Exam exam(stoi(fields.at(0)), fields.at(1), fields.at(2));
-            for (const auto &question: questions) {
-                if (auto dq = dynamic_cast<DescriptiveQuestion *>(
-                            question.get())) {
-                    exam.questions.push_back(
-                            std::make_unique<DescriptiveQuestion>(
-                                    dq->type, dq->questionID, dq->prompt,
-                                    dq->time, dq->score.second));
-                } else if (auto mcq = dynamic_cast<MultipleChoiceQuestion *>(
-                                   question.get())) {
-                    questions.push_back(
-                            std::make_unique<MultipleChoiceQuestion>(
-                                    mcq->type, mcq->questionID, mcq->prompt,
-                                    mcq->time, mcq->score.second, mcq->options,
-                                    mcq->correctAnswer));
-                }
-            }
-            exam.examTime += stoi(fields.at(3));
-            exam.totalScore += stod(fields.at(4));
-            exams.push_back(std::move(exam));
-        }
-    }
-    inFile.close();
-    return exams;
-}
-
-std::vector<Exam> Exam::findByTakeAble(const std::string &filename) {
-    std::ifstream inFile(filename, std::ios::app);
-    // Check if file opened successfully
-    if (!inFile.is_open()) { std::cerr << "Error opening file!" << std::endl; }
-
-    std::vector<Exam> exams;
-    std::string line;
-    while (std::getline(inFile, line)) {
-        std::vector<std::string> fields;
-        std::string token;
-        std::stringstream ss(line);
-        while (getline(ss, token, ',')) { fields.push_back(token); }
-        std::vector<std::unique_ptr<Question>> questions;
-        std::string questionsID(fields.at(6));
-        questionsID.erase(0, questionsID.find_first_not_of('['));
-        questionsID.erase(questionsID.find_last_not_of(']') + 1);
-        std::string questionID;
-        std::stringstream questionsStream(questionsID);
-        while (getline(questionsStream, questionID, '-')) {
-            std::vector<std::string> parts;
-            std::string part;
-            std::stringstream questionStream(questionID);
-            while (getline(questionStream, part, ':')) {
-                parts.push_back(part);
-            }
-
-            if (parts.at(0) == "D") {
-                DescriptiveQuestion question =
-                        DescriptiveQuestion::findByQuestionID(
-                                "data/descriptiveQuestion.csv", questionID);
                 auto des = std::make_unique<DescriptiveQuestion>(
                         question.type, question.questionID, question.prompt,
                         question.time, question.score.second);
@@ -353,33 +150,55 @@ std::vector<Exam> Exam::findByTakeAble(const std::string &filename) {
                 questions.push_back(std::move(mul));
             }
         }
-        if (fields.at(8) == std::to_string(true)) {
-            Exam exam(stoi(fields.at(0)), fields.at(1), fields.at(2));
-            for (const auto &question: questions) {
-                if (auto mcq = dynamic_cast<MultipleChoiceQuestion *>(
-                            question.get())) {
-                    auto mul = std::make_unique<MultipleChoiceQuestion>(
-                            mcq->type, mcq->questionID, mcq->prompt, mcq->time,
-                            mcq->score.second, mcq->options,
-                            mcq->correctAnswer);
-                    mul->description = mcq->description;
-                    mul->score.first = mcq->score.first;
-                    exam.questions.push_back(std::move(mul));
-                } else if (auto dq = dynamic_cast<DescriptiveQuestion *>(
-                                   question.get())) {
-                    auto des = std::make_unique<DescriptiveQuestion>(
-                            dq->type, dq->questionID, dq->prompt, dq->time,
-                            dq->score.second);
-                    des->description = dq->description;
-                    des->score.first = dq->score.first;
-                    exam.questions.push_back(std::move(des));
-                }
+        Exam exam(stoi(fields.at(0)), fields.at(1), fields.at(2));
+        for (const auto &question: questions) {
+            if (auto mcq = dynamic_cast<MultipleChoiceQuestion *>(
+                        question.get())) {
+                auto mul = std::make_unique<MultipleChoiceQuestion>(
+                        mcq->type, mcq->questionID, mcq->prompt, mcq->time,
+                        mcq->score.second, mcq->options, mcq->correctAnswer);
+                mul->description = mcq->description;
+                mul->score.first = mcq->score.first;
+                exam.questions.push_back(std::move(mul));
+            } else if (auto dq = dynamic_cast<DescriptiveQuestion *>(
+                               question.get())) {
+                auto des = std::make_unique<DescriptiveQuestion>(
+                        dq->type, dq->questionID, dq->prompt, dq->time,
+                        dq->score.second);
+                des->description = dq->description;
+                des->score.first = dq->score.first;
+                exam.questions.push_back(std::move(des));
             }
-            exam.examTime += stoi(fields.at(3));
-            exam.totalScore += stod(fields.at(4));
-            exams.push_back(std::move(exam));
         }
+        exam.examTime += stoi(fields.at(3));
+        exam.totalScore += stod(fields.at(4));
+        exams.push_back(std::move(exam));
     }
     inFile.close();
     return exams;
+}
+
+Exam Exam::findByExamId(const std::string &filename, const int &examIdToFind) {
+    std::vector<Exam> exams = Exam::getAll(filename);
+    for (auto &exam: exams) {
+        if (exam.examId == examIdToFind) { return exam; }
+    }
+}
+
+std::vector<Exam> Exam::findByCorrected(const std::string &filename) {
+    std::vector<Exam> correctableExams;
+    std::vector<Exam> exams = Exam::getAll(filename);
+    for (auto &exam: exams) {
+        if (!exam.corrected) correctableExams.push_back(exam);
+    }
+    return correctableExams;
+}
+
+std::vector<Exam> Exam::findByTakeAble(const std::string &filename) {
+    std::vector<Exam> takeAbleExams;
+    std::vector<Exam> exams = Exam::getAll(filename);
+    for (auto &exam: exams) {
+        if (exam.takeable) takeAbleExams.push_back(exam);
+    }
+    return takeAbleExams;
 }
