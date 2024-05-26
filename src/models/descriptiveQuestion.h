@@ -11,6 +11,8 @@ class DescriptiveQuestion : public Question {
 public:
     DescriptiveQuestion(enum type type, std::string questionID,
                         std::string prompt, int time, double score);
+    static DescriptiveQuestion findByQuestionID(const std::string &filename,
+                                     std::string questionID);
     void saveToFile(const std::string &filename) const;
 };
 

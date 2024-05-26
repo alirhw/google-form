@@ -18,6 +18,8 @@ public:
     std::vector<std::string> options;
     std::string correctAnswer;
 
+    static MultipleChoiceQuestion findByQuestionID(const std::string &filename,
+                                                   std::string questionID);
     bool autoCorrector(std::string answer);
     void saveToFile(const std::string &filename) const;
 };
