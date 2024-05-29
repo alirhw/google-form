@@ -431,15 +431,22 @@ public:
                                     }
                                     std::cout << std::endl;
                                     printHorizontalLine((columnWidth) * 4);
+                                    std::string answer;
+                                    std::cout << "Please select a answer for "
+                                                 "this "
+                                                 "question:"
+                                              << std::endl;
+                                    std::cin.ignore();
+                                    std::getline(std::cin, answer);
+                                    question->answer.emplace_back(username,
+                                                                  answer);
+                                    if (mcq->autoCorrector(answer)) {
+                                        question->score.first =
+                                                question->score.second;
+                                    } else {
+                                        question->score.first = 0;
+                                    }
                                 }
-                                std::string answer;
-                                std::cout << "Please select a answer for this "
-                                             "question:"
-                                          << std::endl;
-                                std::cin.ignore();
-                                std::getline(std::cin, answer);
-                                question->answer.emplace_back(username,
-                                                              answer);
                             }
                             if (question->type == type::MultipleChoice) {
                                 question->saveToFile(
