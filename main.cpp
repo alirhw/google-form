@@ -73,7 +73,7 @@ int main() {
                     break;
                 case 7:
                     ProfessorManager::getAllExamToBeCorrect(exams);
-                    Display::examToBeCorrect(exams);
+                    Display::examToBeCorrect(exams, username);
                     break;
                 case 8:
                     Display::addStudentGroupToExam(examIdToAdd, groupName);

@@ -219,7 +219,8 @@ public:
         getline(std::cin, studentGroupName);
     }
 
-    static void examToBeCorrect(std::vector<Exam> &examsToBeCorrect) {
+    static void examToBeCorrect(std::vector<Exam> &examsToBeCorrect,
+                                const std::string &username) {
         if (!examsToBeCorrect.empty()) {
             int examID;
             std::cout << "Please enter choose of the exams to start review "
@@ -281,6 +282,15 @@ public:
                         std::cin >> score;
                         question->score.first = score;
                         question->saveToFile("data/descriptiveQuestion.csv");
+                        for (auto &scores:
+                             examsToBeCorrect.at(examID).studentScores) {
+                            if (username == scores.first) {
+                                scores.second += question->score.first;
+                                break;
+                            }
+                        }
+                        examsToBeCorrect.at(examID).saveToFile(
+                                "data/exam.csv");
                         goto menu;
                     }
                 } else {
@@ -310,7 +320,7 @@ public:
         std::cout << "Choose an option:";
     }
 
-    static void studentExamTaking(const std::vector<Exam> &examsToBeTake,
+    static void studentExamTaking(std::vector<Exam> &examsToBeTake,
                                   const std::string &username) {
         if (!examsToBeTake.empty()) {
             int examId;
@@ -350,10 +360,10 @@ public:
             std::cout << "Please Choose Of The Exams To Take It:" << std::endl;
             std::cin >> examId;
             int remainingQuestion;
-            for (const auto &i: examsToBeTake) {
-                if (i.examId == examId) {
-                    remainingQuestion = i.questions.size();
-                    for (auto &question: i.questions) {
+            for (auto &exam: examsToBeTake) {
+                if (exam.examId == examId) {
+                    remainingQuestion = exam.questions.size();
+                    for (auto &question: exam.questions) {
                         printHorizontalLine((columnWidth + 1) * 2);
 
                         std::cout << "| " << std::setw(columnWidth / 2)
@@ -446,6 +456,14 @@ public:
                                     } else {
                                         question->score.first = 0;
                                     }
+                                    for (auto &scores: exam.studentScores) {
+                                        if (username == scores.first) {
+                                            scores.second +=
+                                                    question->score.first;
+                                            break;
+                                        }
+                                    }
+                                    exam.saveToFile("data/exam.csv");
                                 }
                             }
                             if (question->type == type::MultipleChoice) {
