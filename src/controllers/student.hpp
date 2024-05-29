@@ -8,7 +8,16 @@
 
 class StudentManager {
 public:
-    static void getAllExamToBeTake(std::vector<Exam> &examsToBeTake) {
-        examsToBeTake = Exam::findByTakeAble("data/exam.csv");
+    static void getAllExamToBeTake(std::vector<Exam> &examsToBeTake,
+                                   const std::string &username) {
+        auto exams = Exam::findByTakeAble("data/exam.csv");
+        for (auto &exam: exams) {
+            for (const auto &scores: exam.studentScores) {
+                if (username == scores.first && scores.second == 0) {
+                    examsToBeTake.push_back(std::move(exam));
+                    break;
+                }
+            }
+        }
     }
 };

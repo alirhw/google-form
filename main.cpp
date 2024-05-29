@@ -68,7 +68,8 @@ int main() {
                     break;
                 case 6:
                     Display::addToStudentGroup(groupNameToAdd, usernames);
-                    ProfessorManager::addStudentToGroup(groupNameToAdd, usernames);
+                    ProfessorManager::addStudentToGroup(groupNameToAdd,
+                                                        usernames);
                     break;
                 case 7:
                     ProfessorManager::getAllExamToBeCorrect(exams);
@@ -76,7 +77,8 @@ int main() {
                     break;
                 case 8:
                     Display::addStudentGroupToExam(examIdToAdd, groupName);
-                    ProfessorManager::addStudentGroupToExam(examIdToAdd, groupName);
+                    ProfessorManager::addStudentGroupToExam(examIdToAdd,
+                                                            groupName);
                     break;
                 default:
                     cout << "Invalid choice. Please choose again." << endl;
@@ -95,7 +97,7 @@ int main() {
                     std::cout << "0. Exit" << std::endl;
                     exit(0);
                 case 1:
-                    StudentManager::getAllExamToBeTake(exams);
+                    StudentManager::getAllExamToBeTake(exams, username);
                     Display::studentExamTaking(exams, username);
                     break;
                 default:
