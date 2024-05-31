@@ -219,3 +219,12 @@ std::vector<Exam> Exam::findByTakeAble(const std::string &filename) {
     }
     return takeAbleExams;
 }
+
+std::vector<Exam> Exam::findByNotTakeAble(const std::string &filename) {
+    std::vector<Exam> takeAbleExams;
+    std::vector<Exam> exams = Exam::getAll(filename);
+    for (auto &exam: exams) {
+        if (!exam.takeable) takeAbleExams.push_back(std::move(exam));
+    }
+    return takeAbleExams;
+}

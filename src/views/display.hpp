@@ -485,4 +485,54 @@ public:
             std::cout << "There is no exam to take" << std::endl;
         }
     }
+
+    static void studentExamHistory(const std::vector<Exam> &exams,
+                                   const std::string &username) {
+        if (!exams.empty()) {
+            const int columnWidth = 14;
+            for (auto &&exam: exams) {
+                printHorizontalLine((columnWidth) * 7);
+                std::cout << "| " << std::setw(columnWidth / 2) << "ID"
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << "Name"
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << "Date"
+                          << std::setw(columnWidth / 2) << " |"
+                          << std::setw(columnWidth / 2) << "Time"
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2) << "Total Score"
+                          << std::setw(columnWidth / 4) << " |"
+                          << std::setw(columnWidth / 2) << "Corrected"
+                          << std::setw(columnWidth / 4) << " |"
+                          << std::setw(columnWidth / 2) << "Took Score"
+                          << std::setw(columnWidth / 2) << " |" << std::endl;
+                printHorizontalLine((columnWidth) * 7);
+                std::cout << "| " << std::setw(columnWidth / 2)
+                          << std::to_string(exam.examId)
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << exam.examName
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << exam.examDate
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2) << exam.examTime
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2)
+                          << std::to_string(exam.totalScore)
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2)
+                          << std::to_string(exam.corrected)
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2);
+                for (auto &studentScore: exam.studentScores) {
+                    if (studentScore.first == username) {
+                        std::cout << studentScore.second;
+                    }
+                }
+                std::cout << std::setw(columnWidth / 2) << " |" << std::endl;
+                printHorizontalLine((columnWidth) * 7);
+            }
+        } else {
+            std::cout << "There is no exam to view" << std::endl;
+        }
+    }
 };

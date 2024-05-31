@@ -20,4 +20,16 @@ public:
             }
         }
     }
+    static void getAllExamHistory(std::vector<Exam> &examsToBeTake,
+                                  const std::string &username) {
+        auto exams = Exam::findByNotTakeAble("data/exam.csv");
+        for (auto &exam: exams) {
+            for (const auto &scores: exam.studentScores) {
+                if (username == scores.first) {
+                    examsToBeTake.push_back(std::move(exam));
+                    break;
+                }
+            }
+        }
+    }
 };

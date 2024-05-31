@@ -100,6 +100,10 @@ int main() {
                     StudentManager::getAllExamToBeTake(exams, username);
                     Display::studentExamTaking(exams, username);
                     break;
+                case 2:
+                    StudentManager::getAllExamHistory(exams, username);
+                    Display::studentExamHistory(exams, username);
+                    break;
                 default:
                     cout << "Invalid choice. Please choose again." << endl;
                     break;

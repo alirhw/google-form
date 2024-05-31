@@ -29,6 +29,7 @@ public:
                              const int &examIdToFind);
     static std::vector<Exam> findByCorrected(const std::string &filename);
     static std::vector<Exam> findByTakeAble(const std::string &filename);
+    static std::vector<Exam> findByNotTakeAble(const std::string &filename);
 };
 
 #endif//GOOGLE_FORM_EXAM_H
