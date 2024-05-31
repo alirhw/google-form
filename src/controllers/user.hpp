@@ -17,7 +17,7 @@ public:
         if (!credentialsFile.is_open()) {
             std::cerr << "Error: Unable to open credentials file."
                       << std::endl;
-            return nullptr;
+            return "";
         }
 
         // Read each line from the CSV file
@@ -39,6 +39,6 @@ public:
         }
 
         credentialsFile.close();
-        return nullptr;// Authentication failed
+        return "";// Authentication failed
     }
 };
