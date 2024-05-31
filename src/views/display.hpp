@@ -225,7 +225,7 @@ public:
                                 const std::string &username) {
         if (!examsToBeCorrect.empty()) {
             int examID;
-            std::cout << "Please enter choose of the exams to start review "
+            std::cout << "Please choose of the exams to start review "
                          "and correct process"
                       << std::endl;
             for (int i = 0; i < examsToBeCorrect.size(); ++i) {
@@ -233,6 +233,26 @@ public:
                           << std::endl;
             }
             std::cin >> examID;
+            int studentID;
+            std::cout << "Please choose of the student to start review "
+                         "and correct process"
+                      << std::endl;
+            for (int i = 0;
+                 i < examsToBeCorrect.at(examID).studentScores.size(); ++i) {
+                std::cout << i << "."
+                          << Student::findByUsername(
+                                     "data/credentials.csv",
+                                     examsToBeCorrect.at(examID)
+                                             .studentScores.at(i)
+                                             .first)
+                                     .fullname
+                          << "("
+                          << examsToBeCorrect.at(examID)
+                                     .studentScores.at(i)
+                                     .first
+                          << ")" << std::endl;
+            }
+            std::cin >> studentID;
             const int columnWidth = 20;
             for (auto &question: examsToBeCorrect.at(examID).questions) {
                 printHorizontalLine((columnWidth + 1) * 2);
@@ -241,12 +261,17 @@ public:
                           << std::setw(columnWidth / 2) << question->prompt
                           << std::setw(columnWidth / 2) << " | " << std::endl;
                 printHorizontalLine((columnWidth + 1) * 2);
-                std::cout
-                        << "| " << std::setw(columnWidth / 2) << "Answer"
-                        << std::setw(columnWidth / 2)
-                        << " | "
-                        //                          << std::setw(columnWidth / 2) << question->answer
-                        << std::setw(columnWidth / 2) << " | " << std::endl;
+                std::cout << "| " << std::setw(columnWidth / 2) << "Answer"
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2);
+                for (const auto &answer: question->answer) {
+                    if (answer.first == examsToBeCorrect.at(examID)
+                                                .studentScores.at(studentID)
+                                                .first) {
+                        std::cout << answer.second;
+                    }
+                }
+                std::cout << std::setw(columnWidth / 2) << " | " << std::endl;
                 printHorizontalLine((columnWidth + 1) * 2);
             menu:
                 int command;
