@@ -39,6 +39,8 @@ public:
                   << std::endl;
         std::cout << "**  8. Add Student Group To Exam                 **"
                   << std::endl;
+        std::cout << "**  9. Change Share Exam Status                  **"
+                  << std::endl;
         std::cout << "**  0. Exit                                      **"
                   << std::endl;
         std::cout << "***************************************************"
@@ -304,6 +306,57 @@ public:
         }
     }
 
+    static void changeSharingExam(std::vector<Exam> &exams) {
+        if (!exams.empty()) {
+            int examID;
+            std::cout << "Please choose of the exams to change sharing status"
+                      << std::endl;
+            const int columnWidth = 15;
+            for (auto &&exam: exams) {
+                printHorizontalLine((columnWidth) * 6);
+                std::cout << "| " << std::setw(columnWidth / 2) << "ID"
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << "Name"
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << "Date"
+                          << std::setw(columnWidth / 2) << " |"
+                          << std::setw(columnWidth / 2) << "Time"
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2) << "Score"
+                          << std::setw(columnWidth / 2) << " |"
+                          << std::setw(columnWidth / 2) << "TakeAble"
+                          << std::setw(columnWidth / 2) << " |" << std::endl;
+                printHorizontalLine((columnWidth) * 6);
+                std::cout << "| " << std::setw(columnWidth / 2)
+                          << std::to_string(exam.examId)
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << exam.examName
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << exam.examDate
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2) << exam.examTime
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2)
+                          << std::to_string(exam.totalScore)
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2)
+                          << std::to_string(exam.takeable)
+                          << std::setw(columnWidth / 2) << " |" << std::endl;
+                printHorizontalLine((columnWidth) * 6);
+            }
+            std::cin >> examID;
+            for (auto &&exam: exams) {
+                if (exam.examId == examID) {
+                    exam.takeable = !exam.takeable;
+                    exam.saveToFile("data/exam.csv");
+                }
+            }
+        } else {
+            std::cout << "There is no exam to change sharing status"
+                      << std::endl;
+        }
+    }
+
     static void studentMenu(const std::string &username) {
         std::cout << "***************************************************"
                   << std::endl;
@@ -400,10 +453,10 @@ public:
                         } else if (command == 2) {
                             if (question->type == type::Descriptive) {
                                 std::string answer;
-                                std::cout
-                                        << "Please leave your answer for this "
-                                           "question:"
-                                        << std::endl;
+                                std::cout << "Please leave your answer "
+                                             "for this "
+                                             "question:"
+                                          << std::endl;
                                 std::cin.ignore();
                                 std::getline(std::cin, answer);
                                 question->answer.emplace_back(username,
@@ -442,7 +495,8 @@ public:
                                     std::cout << std::endl;
                                     printHorizontalLine((columnWidth) * 4);
                                     std::string answer;
-                                    std::cout << "Please select a answer for "
+                                    std::cout << "Please select a answer "
+                                                 "for "
                                                  "this "
                                                  "question:"
                                               << std::endl;

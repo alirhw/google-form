@@ -80,6 +80,10 @@ int main() {
                     ProfessorManager::addStudentGroupToExam(examIdToAdd,
                                                             groupName);
                     break;
+                case 9:
+                    ProfessorManager::getAllExams(exams);
+                    Display::changeSharingExam(exams);
+                    break;
                 default:
                     cout << "Invalid choice. Please choose again." << endl;
                     break;
