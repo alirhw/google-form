@@ -19,6 +19,8 @@ int main() {
     vector<string> usernames{};
     vector<Exam> exams;
     vector<StudentGroup> studentGroups;
+    vector<Objection> objections;
+
 
     Display::login(username, password);
     if (Authenticator::authenticate(username, password) == "professor") {
@@ -84,6 +86,10 @@ int main() {
                     ProfessorManager::getAllExams(exams);
                     Display::changeSharingExam(exams);
                     break;
+                case 10:
+                    ProfessorManager::getAllObjections(objections);
+                    Display::reviewObjections(objections);
+                    break;
                 default:
                     cout << "Invalid choice. Please choose again." << endl;
                     break;
@@ -107,6 +113,10 @@ int main() {
                 case 2:
                     StudentManager::getAllExamHistory(exams, username);
                     Display::studentExamHistory(exams, username);
+                    break;
+                case 3:
+                    StudentManager::getAllObjections(objections, username);
+                    Display::viewObjections(objections);
                     break;
                 default:
                     cout << "Invalid choice. Please choose again." << endl;

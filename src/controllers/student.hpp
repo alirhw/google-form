@@ -32,4 +32,14 @@ public:
             }
         }
     }
+
+    static void getAllObjections(std::vector<Objection> &objections,
+                                 const std::string &username) {
+        auto obj = Objection::getAll("data/objections.csv");
+        for (auto &objection: obj) {
+            if (username == objection.studentId) {
+                objections.push_back(objection);
+            }
+        }
+    }
 };

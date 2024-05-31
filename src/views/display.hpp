@@ -1,3 +1,4 @@
+#include "../models/objection.h"
 #include <iomanip>
 #include <iostream>
 #include <map>
@@ -40,6 +41,8 @@ public:
         std::cout << "**  8. Add Student Group To Exam                 **"
                   << std::endl;
         std::cout << "**  9. Change Share Exam Status                  **"
+                  << std::endl;
+        std::cout << "**  10. View Objection And Answer                **"
                   << std::endl;
         std::cout << "**  0. Exit                                      **"
                   << std::endl;
@@ -382,6 +385,51 @@ public:
         }
     }
 
+    static void reviewObjections(std::vector<Objection> &objections) {
+        if (!objections.empty()) {
+            int objectionId;
+            std::cout << "Please choose of the objection to answer it"
+                      << std::endl;
+            const int columnWidth = 15;
+            int id = 0;
+            for (auto &&objection: objections) {
+                std::cout << "| " << std::setw(columnWidth / 2)
+                          << "objection: " << objection.text << std::endl;
+                printHorizontalLine((columnWidth) * 4);
+                std::cout << "| " << std::setw(columnWidth / 2) << "ID"
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << "Student ID"
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << "Exam ID"
+                          << std::setw(columnWidth / 2) << " |"
+                          << std::setw(columnWidth / 2) << "Created At"
+                          << std::setw(columnWidth / 2) << " |" << std::endl;
+                printHorizontalLine((columnWidth) * 4);
+                std::cout << "| " << std::setw(columnWidth / 2)
+                          << std::to_string(id) << std::setw(columnWidth / 2)
+                          << " | " << std::setw(columnWidth / 2)
+                          << objection.studentId << std::setw(columnWidth / 2)
+                          << " | " << std::setw(columnWidth / 2)
+                          << objection.examId << std::setw(columnWidth / 3)
+                          << " |" << std::setw(columnWidth / 2)
+                          << objection.getFormattedTimestamp()
+                          << std::setw(columnWidth / 2) << " |" << std::endl;
+                printHorizontalLine((columnWidth) * 4);
+                id++;
+            }
+            std::cin >> objectionId;
+            std::cout << "Please enter your answer to this objection:"
+                      << std::endl;
+            std::string answer;
+            std::cin.ignore();
+            std::getline(std::cin, answer);
+            objections.at(objectionId).answer = answer;
+            objections.at(objectionId).saveToFile("data/objections.csv");
+        } else {
+            std::cout << "There is no objection to review" << std::endl;
+        }
+    }
+
     static void studentMenu(const std::string &username) {
         std::cout << "***************************************************"
                   << std::endl;
@@ -390,6 +438,8 @@ public:
         std::cout << "**  1. Take A Test                               **"
                   << std::endl;
         std::cout << "**  2. View Exam History                         **"
+                  << std::endl;
+        std::cout << "**  3. View Objections                           **"
                   << std::endl;
         std::cout << "**  0. Exit                                      **"
                   << std::endl;
@@ -558,6 +608,20 @@ public:
                             std::cout << "Invalid Command!" << std::endl;
                         }
                     }
+                    std::cout << "If you have any objection on the exam enter "
+                                 "(1) otherwise enter (0)"
+                              << std::endl;
+                    int cmd;
+                    std::cin >> cmd;
+                    if (cmd == 1) {
+                        std::string text;
+                        std::cout << "Please enter your objection:";
+                        std::cin.ignore();
+                        std::getline(std::cin, text);
+                        Objection objection(text, username,
+                                            std::to_string(examId));
+                        objection.saveToFile("data/objections.csv");
+                    }
                 }
             }
         } else {
@@ -612,6 +676,32 @@ public:
             }
         } else {
             std::cout << "There is no exam to view" << std::endl;
+        }
+    }
+
+    static void viewObjections(std::vector<Objection> &objections) {
+        if (!objections.empty()) {
+            const int columnWidth = 15;
+            for (auto &&objection: objections) {
+                std::cout << "| " << std::setw(columnWidth / 2)
+                          << "objection: " << objection.text << std::endl;
+                printHorizontalLine((columnWidth) * 2);
+                std::cout << "| " << std::setw(columnWidth / 2) << "Exam ID"
+                          << std::setw(columnWidth / 2) << " |"
+                          << std::setw(columnWidth / 2) << "Created At"
+                          << std::setw(columnWidth / 2) << " |" << std::endl;
+                printHorizontalLine((columnWidth) * 2);
+                std::cout << "| " << std::setw(columnWidth / 2)
+                          << objection.examId << std::setw(columnWidth / 3)
+                          << " |" << std::setw(columnWidth / 2)
+                          << objection.getFormattedTimestamp()
+                          << std::setw(columnWidth / 2) << " |" << std::endl;
+                printHorizontalLine((columnWidth) * 2);
+                std::cout << "| " << std::setw(columnWidth / 2)
+                          << "answer: " << objection.answer << std::endl;
+            }
+        } else {
+            std::cout << "There is no objection to view" << std::endl;
         }
     }
 };

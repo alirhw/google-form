@@ -7,6 +7,7 @@
 #include "../models/descriptiveQuestion.h"
 #include "../models/exam.h"
 #include "../models/multipleChoiceQuestion.h"
+#include "../models/objection.h"
 #include "../models/student.h"
 #include "../models/studentGroup.h"
 
@@ -81,5 +82,9 @@ public:
     }
     static void getAllExamToBeCorrect(std::vector<Exam> &examsToBeCorrect) {
         examsToBeCorrect = Exam::findByCorrected("data/exam.csv");
+    }
+
+    static void getAllObjections(std::vector<Objection> &objections) {
+        objections = Objection::getAll("data/objections.csv");
     }
 };
