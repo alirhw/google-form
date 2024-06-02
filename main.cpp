@@ -42,6 +42,7 @@ int main() {
                 case 2:
                     ProfessorManager::getAllExams(exams);
                     Display::examHistory(exams);
+                    exams.clear();
                     break;
                 case 3:
                     Display::CreateQuestion(type, questionID,
@@ -77,6 +78,7 @@ int main() {
                 case 7:
                     ProfessorManager::getAllExamToBeCorrect(exams);
                     Display::examToBeCorrect(exams, username);
+                    exams.clear();
                     break;
                 case 8:
                     Display::addStudentGroupToExam(examIdToAdd, groupName);
@@ -86,6 +88,7 @@ int main() {
                 case 9:
                     ProfessorManager::getAllExams(exams);
                     Display::changeSharingExam(exams);
+                    exams.clear();
                     break;
                 case 10:
                     ProfessorManager::getAllObjections(objections);
@@ -97,6 +100,7 @@ int main() {
                     ProfessorManager::studentExamRanking(exams, selected_exams,
                                                          studentRankings);
                     Display::studentRanking(studentRankings);
+                    exams.clear();
                     break;
                 default:
                     cout << "Invalid choice. Please choose again." << endl;
@@ -117,10 +121,12 @@ int main() {
                 case 1:
                     StudentManager::getAllExamToBeTake(exams, username);
                     Display::studentExamTaking(exams, username);
+                    exams.clear();
                     break;
                 case 2:
                     StudentManager::getAllExamHistory(exams, username);
                     Display::studentExamHistory(exams, username);
+                    exams.clear();
                     break;
                 case 3:
                     StudentManager::getAllObjections(objections, username);
