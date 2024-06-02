@@ -13,6 +13,7 @@ public:
     Student(std::string fullname, std::string username, std::string password);
     static Student findByUsername(const std::string &filename,
                                   std::string username);
+    static std::vector<Student> getAll(const std::string &filename);
 };
 
 #endif//GOOGLE_FORM_STUDENT_H

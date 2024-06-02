@@ -10,6 +10,7 @@
 #include "../models/objection.h"
 #include "../models/student.h"
 #include "../models/studentGroup.h"
+#include "../models/studentRanking.h"
 
 class ProfessorManager {
 public:
@@ -86,5 +87,35 @@ public:
 
     static void getAllObjections(std::vector<Objection> &objections) {
         objections = Objection::getAll("data/objections.csv");
+    }
+
+    static void studentExamRanking(std::vector<Exam> &exams,
+                                   const std::string &selected_exams,
+                                   std::vector<StudentRanking> &studentRankings) {
+        std::stringstream ss(selected_exams);
+        std::string token;
+        std::vector<std::string> fields;
+        while (std::getline(ss, token, ' ')) { fields.push_back(token); }
+        std::vector<Student> students =
+                Student::getAll("data/credentials.csv");
+        std::vector<StudentRanking> sRankings;
+        for (const auto &student: students) {
+            StudentRanking studentRanking(student.username);
+            sRankings.push_back(studentRanking);
+        }
+
+        for (const auto &exam: exams) {
+            for (const auto &studentScore: exam.studentScores) {
+                for (auto studentRanking: sRankings) {
+                    if (studentRanking.name == studentScore.first) {
+                        studentRanking.scores.insert(
+                                {exam.examName, studentScore.second});
+                    }
+                }
+            }
+        }
+
+        StudentRanking::rank_students(sRankings, fields);
+        studentRankings = sRankings;
     }
 };

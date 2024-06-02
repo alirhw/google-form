@@ -11,7 +11,7 @@ using namespace std;
 int main() {
     string username, password;
     string examName, examDate, studentGroupName, prompt, questionID,
-            correctAnswer, groupNameToAdd, groupName;
+            correctAnswer, groupNameToAdd, groupName, selected_exams;
     int examId, time, examIdToAddQuestion, examIdToAdd;
     double score;
     enum type type;
@@ -20,6 +20,7 @@ int main() {
     vector<Exam> exams;
     vector<StudentGroup> studentGroups;
     vector<Objection> objections;
+    vector<StudentRanking> studentRankings;
 
 
     Display::login(username, password);
@@ -89,6 +90,13 @@ int main() {
                 case 10:
                     ProfessorManager::getAllObjections(objections);
                     Display::reviewObjections(objections);
+                    break;
+                case 11:
+                    ProfessorManager::getAllExams(exams);
+                    Display::examSelection(exams, selected_exams);
+                    ProfessorManager::studentExamRanking(exams, selected_exams,
+                                                         studentRankings);
+                    Display::studentRanking(studentRankings);
                     break;
                 default:
                     cout << "Invalid choice. Please choose again." << endl;

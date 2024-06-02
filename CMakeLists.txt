@@ -26,4 +26,6 @@ add_executable(google_form main.cpp
         src/controllers/student.hpp
         src/models/objection.h
         src/models/objection.cpp
+        src/models/studentRanking.h
+        src/models/studentRanking.cpp
 )

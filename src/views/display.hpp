@@ -44,6 +44,8 @@ public:
                   << std::endl;
         std::cout << "**  10. View Objection And Answer                **"
                   << std::endl;
+        std::cout << "**  11. Student Ranking                          **"
+                  << std::endl;
         std::cout << "**  0. Exit                                      **"
                   << std::endl;
         std::cout << "***************************************************"
@@ -427,6 +429,73 @@ public:
             objections.at(objectionId).saveToFile("data/objections.csv");
         } else {
             std::cout << "There is no objection to review" << std::endl;
+        }
+    }
+
+    static void examSelection(const std::vector<Exam> &exams,
+                              std::string &answer) {
+        if (!exams.empty()) {
+            const int columnWidth = 15;
+            for (auto &&exam: exams) {
+                printHorizontalLine((columnWidth) * 5);
+                std::cout << "| " << std::setw(columnWidth / 2) << "ID"
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << "Name"
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << "Date"
+                          << std::setw(columnWidth / 2) << " |"
+                          << std::setw(columnWidth / 2) << "Time"
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2) << "Score"
+                          << std::setw(columnWidth / 2) << " |" << std::endl;
+                printHorizontalLine((columnWidth) * 5);
+                std::cout << "| " << std::setw(columnWidth / 2)
+                          << std::to_string(exam.examId)
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << exam.examName
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << exam.examDate
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2) << exam.examTime
+                          << std::setw(columnWidth / 3) << " |"
+                          << std::setw(columnWidth / 2)
+                          << std::to_string(exam.totalScore)
+                          << std::setw(columnWidth / 2) << " |" << std::endl;
+                printHorizontalLine((columnWidth) * 5);
+            }
+            std::cout << "Please select exams you wanna rank:" << std::endl;
+            std::cin.ignore();
+            std::getline(std::cin, answer);
+        } else {
+            std::cout << "There is no exam to rank" << std::endl;
+        }
+    }
+
+    static void
+    studentRanking(const std::vector<StudentRanking> &studentRankings) {
+        if (!studentRankings.empty()) {
+            const int columnWidth = 15;
+            printHorizontalLine((columnWidth) * 3);
+            std::cout << "| " << std::setw(columnWidth / 2) << "Rank"
+                      << std::setw(columnWidth / 2) << " | "
+                      << std::setw(columnWidth / 2) << "Student ID"
+                      << std::setw(columnWidth / 2) << " | "
+                      << std::setw(columnWidth / 2) << "Average Score"
+                      << std::setw(columnWidth / 2) << " |" << std::endl;
+            printHorizontalLine((columnWidth) * 3);
+            for (auto &&studentRanking: studentRankings) {
+                std::cout << "| " << std::setw(columnWidth / 2)
+                          << std::to_string(studentRanking.rank)
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2) << studentRanking.name
+                          << std::setw(columnWidth / 2) << " | "
+                          << std::setw(columnWidth / 2)
+                          << studentRanking.average_score
+                          << std::setw(columnWidth / 2) << " |" << std::endl;
+                printHorizontalLine((columnWidth) * 3);
+            }
+        } else {
+            std::cout << "There is no exam to rank" << std::endl;
         }
     }
 
